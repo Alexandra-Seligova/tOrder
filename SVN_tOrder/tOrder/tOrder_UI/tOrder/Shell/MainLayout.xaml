@@ -1,0 +1,62 @@
+<UserControl
+    x:Class="tOrder.Shell.MainLayout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:tOrder.Shell"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="800"
+    d:DesignWidth="1200">
+
+    <Grid>
+        <!-- 🧭 Navigační menu (levý panel) -->
+        <NavigationView
+            x:Name="NavView"
+            IsTabStop="True"
+            PaneDisplayMode="LeftMinimal"
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
+            IsPaneOpen="False"
+            SelectionChanged="NavigationView_SelectionChanged">
+
+            <!-- 📋 Položky hlavního menu -->
+            <NavigationView.MenuItems>
+                <NavigationViewItem IsSelected="True"
+                                    Margin="0,12,0,0"
+                                    Icon="Setting"
+                                    Content="Übersicht per IPC"
+                                    Tag="OverviewByIPC" />
+                <NavigationViewItem Icon="Contact"
+                                    Content="Übersicht per Betreiber"
+                                    Tag="OverviewByBetreiber" />
+                <NavigationViewItem Icon="Switch"
+                                    Content="Schicht Anfang"
+                                    Tag="SchichtAnfang" />
+                <NavigationViewItem Icon="Cancel"
+                                    Content="Schicht Ende"
+                                    Tag="SchichtEnde" />
+                <NavigationViewItem Icon="Repair"
+                                    Content="Rüsten"
+                                    Tag="Rusten" />
+            </NavigationView.MenuItems>
+
+            <!-- 📦 Hlavní vizuální část (TopBar + Page) -->
+            <Grid Background="{StaticResource BackgroundColor}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- 🔝 Horní panel s titulkem, zvonečkem atd. -->
+                <local:TopBar Grid.Row="0" />
+
+                <!-- 🧱 Obsahová oblast pro stránky (Page) -->
+                <Frame x:Name="ContentFrame"
+                       Grid.Row="1"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch" />
+            </Grid>
+        </NavigationView>
+    </Grid>
+</UserControl>

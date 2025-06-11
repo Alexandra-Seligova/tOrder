@@ -1,0 +1,258 @@
+﻿<MockData>
+	
+<ColorPalette>
+  <ColorM Key="PrimaryColor"        Hex="#154a84"    R="21"   G="74"   B="132"  A="255" />
+  <ColorM Key="SecondaryColor"      Hex="#052f60"    R="5"    G="47"   B="96"   A="255" />
+  <ColorM Key="BackgroundColor"     Hex="#c0cddf"    R="192"  G="205"  B="223"  A="255" />
+  <ColorM Key="TextColor"           Hex="#333333"    R="51"   G="51"   B="51"   A="255" />
+  <ColorM Key="CardBackground"      Hex="#FFF6F6F6"  R="246"  G="246"  B="246"  A="255" />
+  
+  <!-- Capacity Unit Colors -->
+  <ColorM Key="UnitGreenColor"      Hex="#7FBE92"    R="127"  G="190"  B="146"  A="255" />
+  <ColorM Key="UnitBlueColor"       Hex="#4DABED"    R="77"   G="171"  B="237"  A="255" />
+  <ColorM Key="UnitPurpleColor"     Hex="#AA8C4BDE"  R="140"  G="75"   B="222"  A="170" />
+  <ColorM Key="UnitPinkColor"       Hex="#AAF6A4C8"  R="246"  G="164"  B="200"  A="170" />
+  
+  <!-- Status Colors -->
+  <ColorM Key="StatusRunning"       Hex="#00993D"    R="0"    G="153"  B="61"   A="255" />
+  <ColorM Key="StatusStopped"       Hex="#FF8C00"    R="255"  G="140"  B="0"    A="255" />
+  <ColorM Key="StatusError"         Hex="#FF3B30"    R="255"  G="59"   B="48"   A="255" />
+</ColorPalette>
+
+	
+	
+	
+	
+	
+  <!-- =============================================================
+       🧭 Navigační položky pro postranní panel a karty
+       ============================================================= -->
+  <NavigationItems>
+    <Item Key="Setting" Icon="&#xE713;" Title="Übersicht per IPC" Page="OverviewByIPC" />
+    <Item Key="Contact" Icon="&#xE77B;" Title="Übersicht per Betreiber" Page="OverviewByBetreiber" />
+    <Item Key="Switch" Icon="&#xE8AB;" Title="Schicht Anfang" Page="SchichtAnfang" />
+    <Item Key="Cancel" Icon="&#xE711;" Title="Schicht Ende" Page="SchichtEnde" />
+    <Item Key="Repair" Icon="&#xE90F;" Title="Rüsten" Page="Rusten" />
+    <Item Key="FontIcon" Icon="&#xEC87;" Title="Korrektur" Page="Korektur" />
+    <Item Key="FontIcon" Icon="&#xE946;" Title="Info System" Page="InfoSystem" />
+  </NavigationItems>
+
+  <CardMenuItems>
+    <Item Label="Einstellteile" />
+    <Item Label="Rüsten" />
+    <Item Label="Muster" />
+    <Item Label="ETF" />
+    <Item Label="WZ-BlattWechsel" />
+    <Item Label="WZ Wechsel" />
+    <Item Label="WZ Historie" />
+    <Item Label="Auftrags-verwaltung" />
+    <Item Label="Sample" />
+  </CardMenuItems>
+<CapacityUnits>
+  <!-- Jednotka 1 – zelená hlavička -->
+  <Unit Id="MA-178-037-0014" State="Running" UnitColor="#7FBE92">
+    <Position Code="MST-01A" Index="1"
+              OrderNumber="38252"
+              ArticleCode="F 00V H28 032/AW"
+              HaeringCharge="H0001/A0001"
+              MaterialBatch="563335"
+              ProductionType="Folgeauftrag"
+              LocalState="Running"
+              Counter="123456"
+              OEE="84.44"
+              CapacityUtilization="97.78"
+              Efficiency="90.91"
+              Quality="95.00"
+              LastUpdateDate="2025-06-01"
+              LastUpdateTime="10:26"
+              RestPiecesToWZK="125"
+              RestPiecesToQA="35"
+              RestTimeToQA="00:12:05"
+              StatusColor="#00993D"
+              IndexColor="#00993D">
+      <LoggedInPersons>
+        <Person Name="Vin" MiddleName="Mark" Surname="Diesel" Id="7777" AssociatedPersonId="9999" />
+        <Person Name="Paul" Surname="Walker" Id="9999" />
+      </LoggedInPersons>
+      <InputBins>
+        <Bin Index="1" IsActive="true" OutputValue="8" Content="6540" Unit="Stk." />
+        <Bin Index="2" IsActive="true" OutputValue="4" Content="3200" Unit="Stk." />
+      </InputBins>
+      <OutputBins>
+        <Bin Index="1" IsActive="true" Content="0" Unit="Stk." />
+      </OutputBins>
+      <Actions>
+        <Action Key="Produktionsstart" IsEnabled="true" />
+      </Actions>
+    </Position>
+    <Position Code="MST-01B" Index="2"
+              OrderNumber="38253"
+              ArticleCode="F 00V H28 100/BB"
+              HaeringCharge="H0001/A0002"
+              MaterialBatch="563336"
+              ProductionType="Neufertigung"
+              LocalState="Stopped"
+              Counter="12345"
+              OEE="72.12"
+              CapacityUtilization="90.00"
+              Efficiency="81.30"
+              Quality="88.50"
+              LastUpdateDate="2025-06-01"
+              LastUpdateTime="10:31"
+              RestPiecesToWZK="50"
+              RestPiecesToQA="20"
+              RestTimeToQA="00:08:22"
+              StatusColor="#FF8C00"
+              IndexColor="#FF8C00">
+      <LoggedInPersons>
+        <Person Name="Letty" Surname="Ortiz" Id="8888" />
+      </LoggedInPersons>
+      <InputBins>
+        <Bin Index="1" IsActive="true" OutputValue="5" Content="1000" Unit="Stk." />
+      </InputBins>
+      <OutputBins>
+        <Bin Index="1" IsActive="true" Content="10" Unit="Stk." />
+      </OutputBins>
+      <Actions>
+        <Action Key="Produktionsreport" IsEnabled="true" />
+      </Actions>
+    </Position>
+    <Position Code="MST-01C" Index="3"
+              LocalState="Off"
+              StatusColor="#C0392B"
+              IndexColor="#C0392B">
+      <LoggedInPersons>
+        <Person Name="Roman" Surname="Pearce" />
+      </LoggedInPersons>
+      <InputBins>
+        <Bin Index="1" IsActive="false" />
+      </InputBins>
+      <OutputBins>
+        <Bin Index="1" IsActive="false" />
+      </OutputBins>
+      <Actions>
+        <Action Key="Produktionsreport" IsEnabled="false" />
+      </Actions>
+    </Position>
+  </Unit>
+
+  <!-- Jednotka 2 – modrá hlavička -->
+  <Unit Id="MA-178-037-0015" State="Stopped" UnitColor="#4dabed">
+    <Position Code="MST-02A" Index="1"
+              OrderNumber="38256"
+              ArticleCode="F 00R J05 545/AA"
+              HaeringCharge="H0005/A0001"
+              MaterialBatch="563335"
+              ProductionType="Neufertigung"
+              LocalState="Running"
+              Counter="1234"
+              StatusColor="#00993D"
+              IndexColor="#00993D">
+      <LoggedInPersons>
+        <Person Name="Dwayne" Surname="Johnson" Id="7755" />
+      </LoggedInPersons>
+    </Position>
+  </Unit>
+
+  <!-- Jednotka 3 – fialová hlavička -->
+  <Unit Id="MA-178-037-0016" State="Setup" UnitColor="##AA8C4BDE">
+    <Position Code="MST-03A" Index="1"
+              OrderNumber="38257"
+              ArticleCode="F 00R J05 545/BB"
+              HaeringCharge="H0006/A0001"
+              MaterialBatch="563338"
+              ProductionType="Neufertigung"
+              LocalState="Setup"
+              Counter="0"
+              StatusColor="#C0392B"
+              IndexColor="#C0392B">
+      <LoggedInPersons>
+        <Person Name="Jason" Surname="Statham" Id="5555" />
+      </LoggedInPersons>
+    </Position>
+    <Position Code="MST-03B" Index="2"
+              OrderNumber="38258"
+              ArticleCode="F 00R J05 545/CC"
+              HaeringCharge="H0006/A0002"
+              MaterialBatch="563339"
+              ProductionType="Folgeauftrag"
+              LocalState="Setup"
+              StatusColor="#C0392B"
+              IndexColor="#C0392B">
+      <LoggedInPersons>
+        <Person Name="Han" Id="7770" />
+        <Person Name="Vin" Surname="Diesel" Id="7777" />
+        <Person Name="Paul" Surname="Walker" Id="9999" />
+      </LoggedInPersons>
+    </Position>
+  </Unit>
+</CapacityUnits>
+
+
+
+
+<Pages>
+  <!-- Overview Pages -->
+  <Page Key="OverviewByIPC" Type="tOrder.UI.OverviewByIPC" IsActive="true"
+        Title="Overview by IPC" ParentKey=""
+        Description="Displays cards representing CapacityUnits near the IPC station." />
+  <Page Key="OverviewByBetreiber" Type="tOrder.UI.OverviewByBetreiber" IsActive="false"
+        Title="Overview by User" ParentKey=""
+        Description="Shows CapacityUnits assigned or accessible by the current user." />
+
+  <!-- SchichtAnfang Process -->
+  <Page Key="SchichtAnfang" Type="tOrder.UI.SchichtAnfang" IsActive="true"
+        Title="Start Shift" ParentKey=""
+        Description="PIN login to begin a shift." />
+  <Page Key="Schichtauswahl" Type="tOrder.UI.Schichtauswahl" IsActive="false"
+        Title="Select Shift" ParentKey="SchichtAnfang"
+        Description="Choose the working shift and date." />
+  <Page Key="Arbeitsplatzauswahl" Type="tOrder.UI.Arbeitsplatzauswahl" IsActive="false"
+        Title="Workplace Selection" ParentKey="Schichtauswahl"
+        Description="Select the workplaces involved in your shift." />
+  <Page Key="Anmerkung" Type="tOrder.UI.Anmerkung" IsActive="false"
+        Title="Remarks" ParentKey="Arbeitsplatzauswahl"
+        Description="Provide comments and details regarding shift conditions." />
+
+  <!-- SchichtEnde Process -->
+  <Page Key="SchichtEnde" Type="tOrder.UI.SchichtEnde" IsActive="true"
+        Title="End Shift" ParentKey=""
+        Description="Initiate the process to end the current shift." />
+  <Page Key="ArbeitsplatzAuswahl" Type="tOrder.UI.ArbeitsplatzAuswahl" IsActive="false"
+        Title="Select Exit Locations" ParentKey="SchichtEnde"
+        Description="Choose which CapacityUnits to check out from." />
+  <Page Key="KontrolleDerProduktionsberichte" Type="tOrder.UI.KontrolleDerProduktionsberichte" IsActive="false"
+        Title="Shift Summary Confirmation" ParentKey="ArbeitsplatzAuswahl"
+        Description="Review and confirm the production report." />
+  <Page Key="Produktionsreport1" Type="tOrder.UI.Produktionsreport1" IsActive="false"
+        Title="Print Final Report" ParentKey="KontrolleDerProduktionsberichte"
+        Description="Print or finalize shift documentation." />
+
+  <!-- Rusten -->
+  <Page Key="Rusten" Type="tOrder.UI.Rusten" IsActive="false"
+        Title="Machine Setup" ParentKey=""
+        Description="Setup a machine for production." />
+
+  <!-- BehälterManagement -->
+  <Page Key="BehälterManagement" Type="tOrder.UI.BehaelterManagement" IsActive="true"
+        Title="Container Management" ParentKey=""
+        Description="Manage containers and workpiece tracking." />
+
+  <!-- Serviceanfrage -->
+  <Page Key="Serviceanfrage" Type="tOrder.UI.Serviceanfrage" IsActive="false"
+        Title="Service Request" ParentKey=""
+        Description="Submit machine-related service requests." />
+
+  <!-- InfoSystem -->
+  <Page Key="InfoSystem" Type="tOrder.UI.InfoSystem" IsActive="true"
+        Title="Info System" ParentKey=""
+        Description="Entry point for more sub-pages or documentation." />
+
+  <!-- Capacity Unit Page -->
+  <Page Key="CapacityUnitDashboard" Type="tOrder.UI.CapacityUnitDashboard" IsActive="false"
+        Title="Capacity Unit Dashboard" ParentKey="OverviewByIPC"
+        Description="Detailed dashboard of a specific CapacityUnit with tabbed subviews." />
+</Pages>
+
+
+</MockData>

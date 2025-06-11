@@ -1,0 +1,51 @@
+<UserControl
+    x:Class="tOrder.UI.CardFooterC"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:tOrder.UI"
+    x:Name="FooterRoot"
+    Width="228"
+    Height="46"
+    >
+    <UserControl.Resources>
+        <Thickness x:Key="CardFooterPadding">6,0,12,0</Thickness>
+        <SolidColorBrush x:Key="CardFooterBrush" Color="#003f7f" />
+        <Style x:Key="CardFooterTextStyle" TargetType="TextBlock" BasedOn="{StaticResource T_SmallTextStyle}" />
+    </UserControl.Resources>
+    <Grid Background="{StaticResource CardFooterBrush}" Padding="{StaticResource CardFooterPadding}" VerticalAlignment="Bottom" Height="46">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="40" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Levý text -->
+        <TextBlock Grid.Column="0"
+                   Text="{x:Bind FooterLeftText, Mode=OneWay}"
+                   Style="{StaticResource CardFooterTextStyle}"
+                   VerticalAlignment="Center"
+                   Foreground="White" />
+
+        <!-- Prostřední text -->
+        <TextBlock Grid.Column="1"
+                   Text="{x:Bind FooterCenterText, Mode=OneWay}"
+                   Style="{StaticResource CardFooterTextStyle}"
+                   VerticalAlignment="Center"
+                   Margin="10,0"
+                   Foreground="White" />
+
+        <!-- Pravá akce (ikona nebo tlačítko) -->
+        <Button Grid.Column="2"
+                Command="{x:Bind FooterButtonCommand, Mode=OneWay}"
+                Background="Transparent"
+                BorderThickness="0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right">
+            <Image Width="28" Height="28"
+                   Source="ms-appx:///Assets/Icons/more-horizontal.svg"
+                   Stretch="Uniform"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center" />
+        </Button>
+    </Grid>
+</UserControl>

@@ -1,0 +1,33 @@
+<UserControl
+    x:Class="tOrder.UI.CardContentSwitcherC"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:tOrder.UI"
+    x:DataType="local:CardContentSwitcherVM">
+
+    <Grid>
+        <local:CardProductionContentC x:Name="CardProductionContentC"
+                                     
+            CardContentTextStatusName="{x:Bind VM.Status}"
+            CardContentTextStatusType="{x:Bind VM.Type}"
+            CardContentTextName0="{x:Bind VM.TextOrderNumber}"
+            CardContentTextValue0="{x:Bind VM.MainInfo[0].Value}"
+            CardContentTextName1="{x:Bind VM.TextArticle}"
+            CardContentTextValue1="{x:Bind VM.MainInfo[1].Value}"
+            CardContentTextName2="{x:Bind VM.TextHaeringCharge}"
+            CardContentTextValue2="{x:Bind VM.MainInfo[2].Value}"
+            CardContentTextName3="{x:Bind VM.TextMaterialBatch}"
+            CardContentTextValue3="{x:Bind VM.MainInfo[3].Value}"
+            LocalState="{x:Bind VM.LocalState}"
+            StatusBrush="{x:Bind VM.StatusBrush}"
+            />
+
+
+
+
+        <local:CardMenuContentC x:Name="CardMenuContentC"
+                                MenuItems="{x:Bind VM.MenuItems}"
+       />
+        <local:CardOeeContentC x:Name="CardOeeContentC"/>
+    </Grid>
+</UserControl>

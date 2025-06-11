@@ -1,0 +1,193 @@
+<!--
+⚠️ POZNÁMKA:
+Pro správné přepínání obsahu kartičky (např. mezi CardProductionContentC a CardMenuContentC)
+je nutné použít klasický `{Binding}` místo moderního `{x:Bind}` na `Visibility`.
+Důvodem je, že `x:Bind` používá kompilovaný binding bez podpory INotifyPropertyChanged pro booleany v konvertoru,
+což způsobí, že se UI neaktualizuje při změně VMu.
+
+Příklad:
+    Správně: Visibility="{Binding IsContentVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+    Chybně : Visibility="{x:Bind VM.IsContentVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+-->
+
+
+<UserControl
+    x:Class="tOrder.UI.CapacityPositionCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:tOrder.UI"  
+    xmlns:converters="using:tOrder.Common"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:VMs="using:tOrder.UI"
+    x:DataType="VMs:CapacityPositionCardVM"
+
+            Margin="8"
+    Width="236"
+    Height="340"
+    >
+
+
+    <UserControl.Resources>
+
+        <!--=============================================================-->
+        <!-- 🧩[View Metadata] – informace o komponentě                  -->
+        <!--=============================================================-->
+        <!-- 📌 Účel komponenty a její výchozí rozměry -->
+        <x:String x:Key="View_Description">
+            CapacityPositionCard: Kompaktní karta zobrazující stav stroje, pozici, operátory a produkční informace.
+        </x:String>
+        <x:Double x:Key="View_Width">236</x:Double>
+        <x:Double x:Key="View_Height">340</x:Double>
+
+        <!--=============================================================-->
+        <!-- ⚙️[Layout Constants] – rozvržení, pozice, mezery           -->
+        <!--=============================================================-->
+        <Thickness x:Key="Layout_MarginCardContent">4</Thickness>
+        <Thickness x:Key="Layout_PaddingCardText">8,0,0,0</Thickness>
+        <Thickness x:Key="Layout_RightValueMargin">0,0,20,0</Thickness>
+        <Thickness x:Key="Layout_HeadingPadding">4,4,16,4</Thickness>
+        <Thickness x:Key="Layout_StueckzaehlerMargin">10,0,8,3</Thickness>
+        <Thickness x:Key="Layout_PersonFooterMargin">10,0,8,3</Thickness>
+
+        <!--=============================================================-->
+        <!-- ✒️[Styles] – typografie, zarovnání, textové bloky         -->
+        <!--=============================================================-->
+        <!-- Výchozí styl všech TextBlocků v rámci této komponenty -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource CardTextColor}" />
+        </Style>
+
+        <!-- Specifické typografické styly -->
+        <Style x:Key="TextLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource T_SmallTextStyle}" />
+        <Style x:Key="TextValueStyle" TargetType="TextBlock" BasedOn="{StaticResource T_MediumStrongTextStyle}" />
+        <Style x:Key="TextStatusStyle" TargetType="TextBlock" BasedOn="{StaticResource T_NormalStrongTextStyle}" />
+        <Style x:Key="TextCounterStyle" TargetType="TextBlock" BasedOn="{StaticResource T_SmallTextStyle}">
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="Margin" Value="{StaticResource Layout_RightValueMargin}" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style x:Key="LeftAlignedTextBlock" TargetType="TextBlock" BasedOn="{StaticResource T_BaseTextBlockStyle}">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="TextAlignment" Value="Left" />
+            <Setter Property="Margin" Value="{StaticResource Layout_PaddingCardText}" />
+        </Style>
+
+        <!--=============================================================-->
+        <!-- 🌍[Localization Strings] – připraveno pro resw            -->
+        <!--=============================================================-->
+        <x:String x:Key="Label_OrderNumber">Prod.Auftrag:</x:String>
+        <x:String x:Key="Label_Article">Artikel:</x:String>
+        <x:String x:Key="Label_Charge">Häringcharge:</x:String>
+        <x:String x:Key="Label_MaterialBatch">Materialcharge:</x:String>
+        <x:String x:Key="Label_Counter">StückZähler:</x:String>
+
+        <x:String x:Key="Label_Unknown">Unbekannt</x:String>
+        <x:String x:Key="Label_Status_Running">Läuft</x:String>
+        <x:String x:Key="Label_Status_Free">Frei</x:String>
+        <x:String x:Key="Label_Status_Stopped">Gestoppt</x:String>
+        <x:String x:Key="Label_Status_Setup">Einstellung</x:String>
+
+        <!--=============================================================-->
+        <!-- 🎨[Colors / Brushes] – barevné schéma komponenty           -->
+        <!--=============================================================-->
+        <Color x:Key="CardBackgroundColor">#FFFFFF</Color>
+        <Color x:Key="CardHeadingBackgroundColor">#7FBE92</Color>
+        <Color x:Key="CardHeadingNumberBackgroundColor">#00993D</Color>
+        <Color x:Key="CardTextColor">#333333</Color>
+
+        <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
+        <SolidColorBrush x:Key="CardTextBrush" Color="{StaticResource CardTextColor}" />
+
+        <!--=============================================================-->
+        <!-- 🔁[Converters] – převodníky pro binding / styl             -->
+        <!--=============================================================-->
+
+        <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converters:BooleanToVisibilityInverseConverter x:Key="BoolToCollapsedConverter" />
+
+        <converters:StatusToBrushConverter x:Key="StatusToBrushConverter" />
+        <converters:NumberFormattingConverter x:Key="NumberFormatConverter" />
+
+
+    </UserControl.Resources>
+
+
+
+    <Grid Background="{StaticResource CardBackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Head -->
+        <local:CardHeadC
+    Grid.Row="0"
+    Width="228"
+    Height="68"
+    CardHeadTextMain="{x:Bind VM.UnitCode, Mode=OneWay}"
+    CardHeadTextSecondary="{x:Bind VM.UnitId, Mode=OneWay}"
+    CardHeadNumber="{x:Bind VM.Index, Mode=OneWay}"
+    CardHeadButton="{x:Bind VM.ToggleSectionsCommand}"
+    CardHeadMainBrush="{x:Bind VM.UnitHeadBrush, Mode=OneWay}"
+    CardHeadNumberBrush="{x:Bind VM.IndexBrush, Mode=OneWay}" />
+
+
+        <!-- Dynamický obsah -->
+        <local:CardContentSwitcherC
+    DataContext="{x:Bind VM.ContentSwitcherVM}" 
+            Grid.Row="1"
+            
+            Width="228"
+            
+            
+            />
+
+
+        <!-- Footer -->
+        <Grid Grid.Row="2" Background="{StaticResource PrimaryColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="22" />
+                <RowDefinition Height="22" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Padding="{StaticResource Layout_PersonFooterMargin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="{x:Bind VM.VisiblePersonSafe.FullName, Mode=OneWay, FallbackValue='—'}"
+                           Style="{StaticResource T_SmallTextStyle}" Foreground="White" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="1" Text="{x:Bind VM.VisiblePersonSafe.Id, Mode=OneWay, FallbackValue='—'}"
+                           Style="{StaticResource T_SmallTextStyle}" Foreground="White" VerticalAlignment="Center" TextAlignment="Right" />
+                <Button Grid.Column="2" Content="⋯" Foreground="White" Visibility="{x:Bind VM.HasMoreUsers, Converter={StaticResource BoolToVisibilityConverter}}"
+                        Style="{StaticResource TransparentIconButtonStyle}"
+                        VerticalAlignment="Bottom" 
+                        HorizontalAlignment="Right" 
+                        Command="{x:Bind VM.ToggleOperatorPopupCommand}" Margin="0,6,0,0" />
+            </Grid>
+            <Grid Grid.Row="1" Padding="{StaticResource Layout_StueckzaehlerMargin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{StaticResource Label_Counter}" Style="{StaticResource T_SmallTextStyle}"
+                           Foreground="White" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="1" Text="{x:Bind VM.Counter, Converter={StaticResource NumberFormatConverter}, FallbackValue='—'}"
+                           Style="{StaticResource T_SmallTextStyle}" Foreground="White" VerticalAlignment="Center" TextAlignment="Right" />
+            </Grid>
+            <local:PopupDisplayControl x:Name="OperatorPopup" DataContext="{x:Bind VM.OperatorPopupVM, Mode=OneWay}" />
+        </Grid>
+
+        <!-- Transparent Interaction Layer 
+        <Rectangle Grid.RowSpan="3"
+           Fill="Transparent"
+           Tapped="{x:Bind VM.OnCardTapped}" />
+-->
+
+        <!-- Popup -->
+
+    </Grid>
+</UserControl>

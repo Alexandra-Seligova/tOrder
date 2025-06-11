@@ -1,0 +1,33 @@
+<UserControl
+    x:Class="tOrder.Shell.NavigationSidePanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:tOrder.Shell"
+    xmlns:controls="using:tOrder.Shell"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Width="250">
+
+    <StackPanel x:Name="MyPanel"
+            Visibility="Visible"
+                Background="#1d5ca2"
+                Padding="4"
+                Spacing="4"
+                HorizontalAlignment="Stretch">
+
+        <!-- Navigační položky -->
+        <controls:NavigationSidePanelButton IconGlyph="&#xE80F;" Text="Übersicht per IPC" PageKey="OverviewByIPC" />
+        <controls:NavigationSidePanelButton IconGlyph="&#xE77B;" Text="Übersicht per Betreiber" PageKey="OverviewByBetreiber" />
+        <controls:NavigationSidePanelButton IconGlyph="&#xE7E8;" Text="Schicht Anfang" PageKey="SchichtAnfang" />
+        <controls:NavigationSidePanelButton IconGlyph="&#xE7E8;" Text="Schicht Ende" PageKey="SchichtEnde" />
+        <controls:NavigationSidePanelButton IconGlyph="&#xE90F;" Text="Rüsten" PageKey="Rusten" />
+        <controls:NavigationSidePanelButton IconGlyph="&#xEC4A;" Text="BehälterManagement" PageKey="BehälterManagement" />
+        <controls:NavigationSidePanelButton IconGlyph="&#xE897;" Text="Serviceanfrage" PageKey="Serviceanfrage" />
+        <controls:NavigationSidePanelButton IconGlyph="&#xE946;" Text="InfoSystem" PageKey="InfoSystem" />
+
+
+
+
+    </StackPanel>
+</UserControl>

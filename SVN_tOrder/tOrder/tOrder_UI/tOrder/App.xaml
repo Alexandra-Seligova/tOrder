@@ -1,0 +1,210 @@
+<!--===================================================================
+    $Workfile:: App.xaml
+    $Author:: Alexandra Seligová
+    $Revision:: 1
+    $Date:: 2025-05-18
+    Description: Resource and startup definition for WinUI 3 application
+===================================================================-->
+
+<Application
+    x:Class="tOrder.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:tOrder"
+    xmlns:converters="using:tOrder.Common"
+    xmlns:myShell="using:tOrder.Shell"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <!-- Merged WinUI dictionaries - must come first -->
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Layout constants – paddings, spacing, sizes -->
+            <Thickness x:Key="OperatorValueRightMargin">0,0,20,0</Thickness>
+
+            <!-- Aligned text block style -->
+            <Style x:Key="LeftAlignedTextBlock" TargetType="TextBlock" BasedOn="{StaticResource T_BaseTextBlockStyle}">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="TextAlignment" Value="Left" />
+                <Setter Property="Margin" Value="8,0,0,0" />
+            </Style>
+
+            <!-- Value converters -->
+            <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converters:BooleanToVisibilityInverseConverter x:Key="BoolToCollapsedConverter" />
+            <converters:NumberFormattingConverter x:Key="NumberFormatConverter" />
+            <converters:TimestampToTimeConverter x:Key="TimestampToTimeConverter" />
+            <converters:AlertTypeToBrushConverter x:Key="AlertTypeToBrushConverter" />
+            <converters:SelectedItemToBrushConverter x:Key="SelectedItemToBrushConverter" />
+            <converters:IntEqualsToVisibilityConverter x:Key="IntEqualsToVisibilityConverter" />
+
+            <!-- Color palette -->
+            <Color x:Key="PrimaryColor">#154a84</Color>
+            <Color x:Key="SecondaryColor">#052f60</Color>
+            <Color x:Key="BackgroundColor">#c0cddf</Color>
+            <Color x:Key="TextColor">#333333</Color>
+
+            <SolidColorBrush x:Key="CardBackgroundColor" Color="#FFF6F6F6" />
+
+
+            <!-- Brushes -->
+            <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
+            <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}" />
+            <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}" />
+            <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextColor}" />
+            <SolidColorBrush x:Key="DebugBrush" Color="{StaticResource DebugColor}" />
+
+
+
+            <!-- ==== Capacity Unit Colors ==== -->
+
+            <Color x:Key="UnitGreenColor">#7FBE92</Color>
+            <Color x:Key="UnitBlueColor">#4DABED</Color>
+            <Color x:Key="UnitPurpleColor">#AA8C4BDE</Color>
+            <Color x:Key="UnitPinkColor">#AAF6A4C8</Color>
+
+
+            <SolidColorBrush x:Key="UnitGreenBrush" Color="{StaticResource UnitGreenColor}" />
+            <SolidColorBrush x:Key="UnitBlueBrush" Color="{StaticResource UnitBlueColor}" />
+            <SolidColorBrush x:Key="UnitPurpleBrush" Color="{StaticResource UnitPurpleColor}" />
+            <SolidColorBrush x:Key="UnitPinkBrush" Color="{StaticResource UnitPinkColor}" />
+
+
+            <!-- ==== Capacity Unit Status Colors ==== -->
+            <Color x:Key="UnitStatusRunningColor">#00993D</Color>
+            <Color x:Key="UnitStatusStoppedColor">#FF8C00</Color>
+            <Color x:Key="UnitStatusErrorColor">#FF3B30</Color>
+            <SolidColorBrush x:Key="UnitStatusRunningBrush" Color="{StaticResource UnitStatusRunningColor}" />
+            <SolidColorBrush x:Key="UnitStatusStoppedBrush" Color="{StaticResource UnitStatusStoppedColor}" />
+            <SolidColorBrush x:Key="UnitStatusErrorBrush" Color="{StaticResource UnitStatusErrorColor}" />
+
+
+            <!-- Notification colors -->
+            <SolidColorBrush x:Key="NotificationNoneBrush" Color="White" />
+            <SolidColorBrush x:Key="NotificationInfoBrush" Color="#FFA500" />
+            <SolidColorBrush x:Key="NotificationWarningBrush" Color="Red" />
+
+
+            <!-- Primary button style -->
+            <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Padding" Value="4,2" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
+                                <ContentPresenter x:Name="ContentPresenter"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  Foreground="{TemplateBinding Foreground}" />
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Target="RootGrid.Background" Value="White" />
+                                                <Setter Target="ContentPresenter.Foreground" Value="Black" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <VisualState.Setters>
+                                                <Setter Target="RootGrid.Background" Value="#EEEEEE" />
+                                                <Setter Target="ContentPresenter.Foreground" Value="Black" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <VisualState.Setters>
+                                                <Setter Target="RootGrid.Background" Value="Transparent" />
+                                                <Setter Target="ContentPresenter.Foreground" Value="#888888" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Transparent icon button (e.g. for glyphs) -->
+            <Style x:Key="TransparentIconButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Text styles (T_ prefix = text) -->
+            <Style x:Key="T_BaseTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+                <Setter Property="FontWeight" Value="Normal" />
+            </Style>
+
+            <Style x:Key="T_SmallTextStyle" TargetType="TextBlock" BasedOn="{StaticResource T_BaseTextBlockStyle}">
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="LineHeight" Value="10" />
+            </Style>
+
+            <Style x:Key="T_NormalStrongTextStyle" TargetType="TextBlock" BasedOn="{StaticResource T_BaseTextBlockStyle}">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="LineHeight" Value="16" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+            </Style>
+
+            <Style x:Key="T_NormalBoldTextStyle" TargetType="TextBlock" BasedOn="{StaticResource T_BaseTextBlockStyle}">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="LineHeight" Value="16" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+
+            <Style x:Key="T_MediumTextStyle" TargetType="TextBlock" BasedOn="{StaticResource T_BaseTextBlockStyle}">
+                <Setter Property="FontSize" Value="22" />
+                <Setter Property="LineHeight" Value="18" />
+            </Style>
+
+            <Style x:Key="T_MediumStrongTextStyle" TargetType="TextBlock" BasedOn="{StaticResource T_MediumTextStyle}">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+
+            <Style x:Key="T_TitleTextStyle" TargetType="TextBlock" BasedOn="{StaticResource T_BaseTextBlockStyle}">
+                <Setter Property="FontSize" Value="28" />
+                <Setter Property="LineHeight" Value="36" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+
+            <Style x:Key="T_TitleLargeTextStyle" TargetType="TextBlock" BasedOn="{StaticResource T_BaseTextBlockStyle}">
+                <Setter Property="FontSize" Value="40" />
+                <Setter Property="LineHeight" Value="42" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+
+            <Style x:Key="T_UltraLargeTextStyle" TargetType="TextBlock" BasedOn="{StaticResource T_BaseTextBlockStyle}">
+                <Setter Property="FontSize" Value="92" />
+                <Setter Property="LineHeight" Value="68" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

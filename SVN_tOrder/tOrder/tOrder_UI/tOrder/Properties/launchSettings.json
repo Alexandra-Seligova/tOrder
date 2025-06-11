@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "tOrder (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "tOrder (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

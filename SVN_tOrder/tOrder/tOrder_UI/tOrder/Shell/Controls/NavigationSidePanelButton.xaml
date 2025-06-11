@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="tOrder.Shell.NavigationSidePanelButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:tOrder.Shell"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    HorizontalAlignment="Stretch">
+
+    <Button Height="40"
+        Background="#1aa9e5"
+        BorderThickness="0"
+        HorizontalAlignment="Stretch"
+        HorizontalContentAlignment="Stretch"
+        Margin="0,2"
+        Click="Button_Click"
+        Tag="{x:Bind PageKey, Mode=OneWay}">
+
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+            <FontIcon Grid.Column="0"
+                      Glyph="{x:Bind IconGlyph, Mode=OneWay}"
+                      Foreground="White"
+                      FontSize="20"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Left"/>
+            <TextBlock Grid.Column="1"
+                       Text="{x:Bind Text, Mode=OneWay}"
+                       Foreground="White"
+                       FontWeight="Bold"
+                       FontSize="16"
+                       VerticalAlignment="Center" />
+
+        </Grid>
+    </Button>
+</UserControl>
