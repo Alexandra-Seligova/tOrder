@@ -1,11 +1,12 @@
 
 using Microsoft.UI.Xaml.Controls;
 
+
 namespace tOrder.UI
 {
-    public sealed partial class DashboardFooterC : UserControl
+    public sealed partial class DashboardContentHeaderC : UserControl
     {
-        public DashboardFooterC()
+        public DashboardContentHeaderC()
         {
             InitializeComponent();
         }

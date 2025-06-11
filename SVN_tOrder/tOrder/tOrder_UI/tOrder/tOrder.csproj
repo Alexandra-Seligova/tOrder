@@ -48,6 +48,7 @@
 		<PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.2.250402" />
 		<PackageReference Include="CommunityToolkit.WinUI.Extensions" Version="8.2.250402" />
 		<PackageReference Include="CommunityToolkit.WinUI.Triggers" Version="8.2.250402" />
+		<PackageReference Include="CommunityToolkit.WinUI.UI.Controls.DataGrid" Version="7.1.2" />
 		<PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.1.2" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.5" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.5" />
@@ -114,12 +115,12 @@
 		<None Remove="Shell\DummyPage.xaml" />
 		<None Remove="Shell\NavigationSidePanel.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard.xaml" />
-		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentHeader.xaml" />
+		<None Remove="UI\Pages\CapacityUnitDashboard\ChargenContent\ChargenContentC.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentPortC.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentView.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardFooter\DashboardFooterC.xaml" />
-		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardHeadC.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\TabSelectorView.xaml" />
+		<None Remove="UI\Pages\CapacityUnitDashboard\WerkzeugeContent\WerkzeugeContentC.xaml" />
 		<None Remove="UI\Pages\OverviewByIPC\Card Controls\CardFooterC.xaml" />
 		<None Remove="UI\Pages\OverviewByIPC\Card Controls\CardMenuContentC.xaml" />
 		<None Remove="UI\Pages\OverviewByIPC\Card Controls\CardOeeContentC.xaml" />
@@ -131,9 +132,23 @@
 		<Folder Include="Common\Services\Interfaces\" />
 		<Folder Include="UI\Controls\" />
 		<Folder Include="UI\Factories\" />
-		<Folder Include="UI\Pages\CapacityUnitDashboard\DashboardHead\" />
+		<Folder Include="UI\Pages\CapacityUnitDashboard\ArbeitsplanContent\" />
+		<Folder Include="UI\Pages\CapacityUnitDashboard\DokumentenContent\" />
+		<Folder Include="UI\Pages\CapacityUnitDashboard\InfoContent\" />
+		<Folder Include="UI\Pages\CapacityUnitDashboard\OeeContent\" />
+		<Folder Include="UI\Pages\CapacityUnitDashboard\QualitatContent\" />
 		<Folder Include="UI\Pages\OverviewByIPC\CardHead\" />
 		<Folder Include="UI\Pages\OverviewByIPC\CardFooter\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="UI\Pages\CapacityUnitDashboard\WerkzeugeContent\WerkzeugeContentC.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="UI\Pages\CapacityUnitDashboard\ChargenContent\ChargenContentC.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 	<ItemGroup>
 	  <Page Update="UI\Pages\CapacityUnitDashboard\DashboardFooter\DashboardFooterC.xaml">
@@ -146,7 +161,7 @@
 	  </Page>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentHeader.xaml">
+	  <Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentHeaderC.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </Page>
 	</ItemGroup>

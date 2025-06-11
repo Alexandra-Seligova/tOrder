@@ -13,16 +13,16 @@
     <None Update="Package.appxmanifest">
       <SubType>Designer</SubType>
     </None>
-    <Page Update="UI\Pages\CapacityUnitDashboard\DashboardFooter\DashboardFooterC.xaml">
+    <Page Update="UI\Pages\CapacityUnitDashboard\WerkzeugeContent\WerkzeugeContentC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Pages\CapacityUnitDashboard\ChargenContent\ChargenContentC.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentPortC.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentHeader.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentView.xaml">
+    <Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentHeaderC.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UI\Pages\CapacityUnitDashboard\TabSelectorView.xaml">

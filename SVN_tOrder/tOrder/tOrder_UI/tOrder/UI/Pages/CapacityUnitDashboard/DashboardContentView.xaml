@@ -60,7 +60,7 @@
         </Grid.RowDefinitions>
 
         <!-- Hlavička nahoře -->
-        <local:DashboardContentHeader Grid.Row="0"/>
+        <local:DashboardContentHeaderC Grid.Row="0"/>
 
         <!-- Tři sloupce pro hlavní obsah -->
         <Grid Grid.Row="1" Margin="0,24,0,0">
@@ -159,7 +159,7 @@
                 </Grid>
             </Border>
         </Grid>
-        <local:DashboardFooterC Grid.Row="3"/>
+        <local:DashboardContentFooterC Grid.Row="3"/>
 
 
 
