@@ -1,0 +1,161 @@
+<UserControl
+    x:Class="tOrder.UI.TabSelectorView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:tOrder.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="TabActiveBrush" Color="#154A84"/>
+        <SolidColorBrush x:Key="TabInactiveBrush" Color="#888"/>
+        <SolidColorBrush x:Key="TabBackgroundBrush" Color="#DCE6F4"/>
+    </UserControl.Resources>
+
+    <Grid x:Name="TabRoot" Background="{StaticResource TabBackgroundBrush}" Padding="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Dashboard tab (active by default) -->
+        <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Button Content="Dashboard"
+                    Tag="0"
+                    Click="Tab_Click"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="{StaticResource TabActiveBrush}"
+                    FontWeight="Bold"
+                    FontSize="16"
+                    HorizontalAlignment="Stretch"
+                    Padding="0"
+                    Margin="0"/>
+            <Border Height="3"
+                    Background="{StaticResource TabActiveBrush}"
+                    CornerRadius="2"
+                    Margin="8,0,8,0"/>
+        </StackPanel>
+
+        <!-- Other tabs -->
+        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Button Content="Chargen/Behälter"
+                    Tag="1"
+                    Click="Tab_Click"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="{StaticResource TabInactiveBrush}"
+                    FontWeight="Normal"
+                    FontSize="16"
+                    HorizontalAlignment="Stretch"
+                    Padding="0"
+                    Margin="0"/>
+            <Border Height="3"
+                    Background="Transparent"
+                    Margin="8,0,8,0"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Button Content="Werkzeuge"
+                    Tag="2"
+                    Click="Tab_Click"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="{StaticResource TabInactiveBrush}"
+                    FontWeight="Normal"
+                    FontSize="16"
+                    HorizontalAlignment="Stretch"
+                    Padding="0"
+                    Margin="0"/>
+            <Border Height="3"
+                    Background="Transparent"
+                    Margin="8,0,8,0"/>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Button Content="Qualität"
+                    Tag="3"
+                    Click="Tab_Click"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="{StaticResource TabInactiveBrush}"
+                    FontWeight="Normal"
+                    FontSize="16"
+                    HorizontalAlignment="Stretch"
+                    Padding="0"
+                    Margin="0"/>
+            <Border Height="3"
+                    Background="Transparent"
+                    Margin="8,0,8,0"/>
+        </StackPanel>
+        <StackPanel Grid.Column="4" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Button Content="Arbeitsplan"
+                    Tag="4"
+                    Click="Tab_Click"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="{StaticResource TabInactiveBrush}"
+                    FontWeight="Normal"
+                    FontSize="16"
+                    HorizontalAlignment="Stretch"
+                    Padding="0"
+                    Margin="0"/>
+            <Border Height="3"
+                    Background="Transparent"
+                    Margin="8,0,8,0"/>
+        </StackPanel>
+        <StackPanel Grid.Column="5" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Button Content="Dokumenten"
+                    Tag="5"
+                    Click="Tab_Click"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="{StaticResource TabInactiveBrush}"
+                    FontWeight="Normal"
+                    FontSize="16"
+                    HorizontalAlignment="Stretch"
+                    Padding="0"
+                    Margin="0"/>
+            <Border Height="3"
+                    Background="Transparent"
+                    Margin="8,0,8,0"/>
+        </StackPanel>
+        <StackPanel Grid.Column="6" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Button Content="Info"
+                    Tag="6"
+                    Click="Tab_Click"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="{StaticResource TabInactiveBrush}"
+                    FontWeight="Normal"
+                    FontSize="16"
+                    HorizontalAlignment="Stretch"
+                    Padding="0"
+                    Margin="0"/>
+            <Border Height="3"
+                    Background="Transparent"
+                    Margin="8,0,8,0"/>
+        </StackPanel>
+        <StackPanel Grid.Column="7" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Button Content="OEE"
+                    Tag="7"
+                    Click="Tab_Click"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="{StaticResource TabInactiveBrush}"
+                    FontWeight="Normal"
+                    FontSize="16"
+                    HorizontalAlignment="Stretch"
+                    Padding="0"
+                    Margin="0"/>
+            <Border Height="3"
+                    Background="Transparent"
+                    Margin="8,0,8,0"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

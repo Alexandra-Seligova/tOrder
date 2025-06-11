@@ -108,10 +108,18 @@
 		<EditorConfigFiles Remove="C:\_Práce\tOrder_git\tOrder\tOrder_UI\tOrder\.editorconfig" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Remove="Assets\DashboardMachine.png" />
 		<None Remove="Common\Services\Data\MockData.xml" />
 		<None Remove="Shell\Controls\NavigationSidePanelButton.xaml" />
 		<None Remove="Shell\DummyPage.xaml" />
 		<None Remove="Shell\NavigationSidePanel.xaml" />
+		<None Remove="UI\Pages\CapacityUnitDashboard.xaml" />
+		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentHeader.xaml" />
+		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentPortC.xaml" />
+		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentView.xaml" />
+		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardFooter\DashboardFooterC.xaml" />
+		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardHeadC.xaml" />
+		<None Remove="UI\Pages\CapacityUnitDashboard\TabSelectorView.xaml" />
 		<None Remove="UI\Pages\OverviewByIPC\Card Controls\CardFooterC.xaml" />
 		<None Remove="UI\Pages\OverviewByIPC\Card Controls\CardMenuContentC.xaml" />
 		<None Remove="UI\Pages\OverviewByIPC\Card Controls\CardOeeContentC.xaml" />
@@ -123,8 +131,44 @@
 		<Folder Include="Common\Services\Interfaces\" />
 		<Folder Include="UI\Controls\" />
 		<Folder Include="UI\Factories\" />
+		<Folder Include="UI\Pages\CapacityUnitDashboard\DashboardHead\" />
 		<Folder Include="UI\Pages\OverviewByIPC\CardHead\" />
 		<Folder Include="UI\Pages\OverviewByIPC\CardFooter\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="UI\Pages\CapacityUnitDashboard\DashboardFooter\DashboardFooterC.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentPortC.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentHeader.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="UI\Pages\CapacityUnitDashboard\TabSelectorView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="UI\Pages\CapacityUnitDashboard\DashboardHeadC.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="UI\Pages\CapacityUnitDashboard.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 	<ItemGroup>
 	  <Page Update="UI\Pages\OverviewByIPC\CardContent\CardContentSwitcherC.xaml">

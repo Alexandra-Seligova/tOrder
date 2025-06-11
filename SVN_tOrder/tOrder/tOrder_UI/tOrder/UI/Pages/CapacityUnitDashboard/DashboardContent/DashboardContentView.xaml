@@ -1,0 +1,168 @@
+<UserControl
+    x:Class="tOrder.UI.DashboardContentView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:tOrder.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    >
+
+    <UserControl.Resources>
+        <Style x:Key="InfoBoxBorderStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="#D1D1D1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="8,4"/>
+        </Style>
+        <Style x:Key="InfoLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="InfoValueBoxStyle" TargetType="Border">
+            <Setter Property="Background" Value="#BBBBBB"/>
+            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="Padding" Value="0,1"/>
+            <Setter Property="Margin" Value="8,0"/>
+            <Setter Property="MinWidth" Value="46"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="InfoValueStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="InfoPostfixStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="8,0,0,0"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Hlavička -->
+            <RowDefinition Height="*"/>
+            <!-- Tři sloupce pro hlavní obsah -->
+            <RowDefinition Height="Auto"/>
+            <!-- Info řádek pod obsahem -->
+            <RowDefinition Height="Auto"/>
+            <!-- patička s tlačítky -->
+        </Grid.RowDefinitions>
+
+        <!-- Hlavička nahoře -->
+        <local:DashboardContentHeader Grid.Row="0"/>
+
+        <!-- Tři sloupce pro hlavní obsah -->
+        <Grid Grid.Row="1" Margin="0,24,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Levý port -->
+            <local:DashboardContentPortC Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <!-- Obrázek se šipkami s lehce šedým pozadím -->
+            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#ECECEC " CornerRadius="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="36"/>
+                    <!-- šipka vlevo -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- obrázek stroje -->
+                    <ColumnDefinition Width="36"/>
+                    <!-- šipka vpravo -->
+                </Grid.ColumnDefinitions>
+                <!-- Šipka vlevo -->
+                <TextBlock Grid.Column="0" Text="⮞" FontSize="36" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+
+                </TextBlock>
+                <!-- Obrázek stroje -->
+                <Image Grid.Column="1"
+           Source="ms-appx:///Assets/DashboardMachine.png"
+           Width="500" Height="300"
+           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <!-- Šipka vpravo -->
+                <TextBlock Grid.Column="2" Text="⮞" FontSize="36" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+
+
+            <!-- Pravý port -->
+            <local:DashboardContentPortC Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+
+        <!-- Info řádek pod hlavním obsahem -->
+        <Grid Grid.Row="2" Margin="0,16,0,0"  Width="950">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- První box -->
+            <Border Grid.Column="0" Style="{StaticResource InfoBoxBorderStyle}" Margin="4,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource InfoLabelStyle}" 
+                        Text="Reststücke für die&#x0a;nächsten WZK wechsel:"/>
+                    <Border Grid.Column="1" Style="{StaticResource InfoValueBoxStyle}">
+                        <TextBlock Text="125" Style="{StaticResource InfoValueStyle}"/>
+                    </Border>
+                    <TextBlock Grid.Column="2" Style="{StaticResource InfoPostfixStyle}" Text="Stk."/>
+                </Grid>
+            </Border>
+
+            <!-- Druhý box -->
+            <Border Grid.Column="1" Style="{StaticResource InfoBoxBorderStyle}" Margin="4,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource InfoLabelStyle}" 
+                        Text="Reststücke für die&#x0a;nächsten QA Messung:"/>
+                    <Border Grid.Column="1" Style="{StaticResource InfoValueBoxStyle}">
+                        <TextBlock Text="35" Style="{StaticResource InfoValueStyle}"/>
+                    </Border>
+                    <TextBlock Grid.Column="2" Style="{StaticResource InfoPostfixStyle}" Text="Stk."/>
+                </Grid>
+            </Border>
+
+            <!-- Třetí box -->
+            <Border Grid.Column="2" Style="{StaticResource InfoBoxBorderStyle}" Margin="4,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource InfoLabelStyle}" 
+                        Text="Restzeit für die&#x0a;nächsten QA Messung:"/>
+                    <Border Grid.Column="1" Style="{StaticResource InfoValueBoxStyle}">
+                        <TextBlock Text="00:12:05" Style="{StaticResource InfoValueStyle}"/>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+        <local:DashboardFooterC Grid.Row="3"/>
+
+
+
+
+    </Grid>
+</UserControl>

@@ -27,6 +27,11 @@
                                     Icon="Setting"
                                     Content="Übersicht per IPC"
                                     Tag="OverviewByIPC" />
+                <NavigationViewItem 
+                        Content="CapacityUnitDashboard"
+                        Tag="CapacityUnitDashboard" />
+
+
                 <NavigationViewItem Icon="Contact"
                                     Content="Übersicht per Betreiber"
                                     Tag="OverviewByBetreiber" />

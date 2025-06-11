@@ -49,7 +49,7 @@ public sealed partial class MainLayout : UserControl
     private static readonly Dictionary<string, Type> PageMap = new()
         {
             { "OverviewByIPC", typeof(OverviewByIPC) },
-           // { "OverviewByBetreiber", typeof(OverviewByBetreiber) },
+            { "CapacityUnitDashboard", typeof(CapacityUnitDashboard) },
            // { "SchichtAnfang", typeof(SchichtAnfang) },
            // { "SchichtEnde", typeof(SchichtEnde) },
            // { "Rusten", typeof(Rusten) },
