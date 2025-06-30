@@ -18,7 +18,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid HorizontalAlignment="Center" Margin="0,16,0,0" Width="950" Padding="0,0,0,20">
+        <Grid HorizontalAlignment="Center" Margin="0,16,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />

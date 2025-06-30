@@ -30,8 +30,6 @@
                 <NavigationViewItem 
                         Content="CapacityUnitDashboard"
                         Tag="CapacityUnitDashboard" />
-
-
                 <NavigationViewItem Icon="Contact"
                                     Content="Übersicht per Betreiber"
                                     Tag="OverviewByBetreiber" />
@@ -50,13 +48,18 @@
             <Grid Background="{StaticResource BackgroundColor}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <!-- umožní TopBar růst -->
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!-- 🔝 Horní panel s titulkem, zvonečkem atd. -->
-                <local:TopBar Grid.Row="0" />
+                <!-- 🔝 Horní panel -->
+                <local:TopBar Grid.Row="0"
+                              VerticalAlignment="Top"
+                              HorizontalAlignment="Stretch"
+                              MinHeight="70" />
+                <!-- lze upravit -->
 
-                <!-- 🧱 Obsahová oblast pro stránky (Page) -->
+                <!-- 📄 Obsah -->
                 <Frame x:Name="ContentFrame"
                        Grid.Row="1"
                        HorizontalAlignment="Stretch"

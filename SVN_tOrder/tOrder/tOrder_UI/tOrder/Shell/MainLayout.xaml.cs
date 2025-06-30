@@ -50,6 +50,7 @@ public sealed partial class MainLayout : UserControl
         {
             { "OverviewByIPC", typeof(OverviewByIPC) },
             { "CapacityUnitDashboard", typeof(CapacityUnitDashboard) },
+        
            // { "SchichtAnfang", typeof(SchichtAnfang) },
            // { "SchichtEnde", typeof(SchichtEnde) },
            // { "Rusten", typeof(Rusten) },

@@ -1,3 +1,12 @@
+<!--===================================================================
+    CapacityUnitDashboard Page (tOrder.UI)
+    
+    Main dashboard page for CapacityUnit – contains header, tab selector,
+    and content presenter for tabbed content display. Uses DashboardHeadC
+    as the header and TabSelectorView for tab navigation. Padding,
+    structure, and resource keys are managed for consistent styling.
+====================================================================-->
+
 <Page
     x:Class="tOrder.UI.CapacityUnitDashboard"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -8,23 +17,51 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <!--===============================================================
+        Resource section: Colors, brushes, global UI resources
+    ================================================================-->
     <Page.Resources>
+        <!-- Used for cards, icons, and accents -->
         <SolidColorBrush x:Key="UnitGreenBrush" Color="#7FBE92"/>
         <SolidColorBrush x:Key="HeaderBlueBrush" Color="#708CB4"/>
     </Page.Resources>
 
-    <Grid Background="#F5F7FA">
+    <!--===============================================================
+        Main layout grid (two rows: header + body)
+    ================================================================-->
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <!-- Header -->
-            <RowDefinition Height="Auto"/>
-            <!-- Tab Selector -->
             <RowDefinition Height="*"/>
             <!-- Main content -->
         </Grid.RowDefinitions>
 
+        <!--
+            Dashboard header (no padding)
+            Contains production unit/position summary and headline info
+        -->
         <local:DashboardHeadC Grid.Row="0" />
-        <local:TabSelectorView x:Name="TabSelectorView" Grid.Row="1"/>
-        <ContentPresenter x:Name="DashboardContentPresenter" Grid.Row="2"/>
+
+        <!--
+            Main content section (with 18px padding)
+            Contains TabSelectorView for tab navigation and
+            ContentPresenter for tab detail content.
+        -->
+        <Border Grid.Row="1" Padding="18">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Tab Selector -->
+                    <RowDefinition Height="*"/>
+                    <!-- Tab Content -->
+                </Grid.RowDefinitions>
+
+                <!-- Tab navigation under the header -->
+                <local:TabSelectorView x:Name="TabSelectorView" Grid.Row="0"/>
+                <!-- ContentPresenter for switching tab content -->
+                <ContentPresenter x:Name="DashboardContentPresenter" Grid.Row="1"/>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

@@ -4,13 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:tOrder.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d"
     HorizontalAlignment="Stretch"
    >
 
     <UserControl.Resources>
         <SolidColorBrush x:Key="UnitGreenBrush" Color="#7FBE92"/>
+        <SolidColorBrush x:Key="DebugPurpleBrush" Color="#C370E0"/>
+
         <SolidColorBrush x:Key="HeaderBlueBrush" Color="#708CB4"/>
 
         <!-- HeaderText Style -->
@@ -48,7 +50,7 @@
         <Style x:Key="ProdInfoGreenStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="#25993A"/>
+            <Setter Property="Foreground" Value="#7FBE92"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style x:Key="ProdInfoSubLabelStyle" TargetType="TextBlock">
@@ -66,77 +68,161 @@
 
     </UserControl.Resources>
 
+    <Grid x:Name="ResponsiveGrid" Background="{StaticResource HeaderBlueBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-    <Grid HorizontalAlignment="Stretch" Height="80">
-        <!-- Header Section -->
-        <Grid Margin="0,0,0,8" Background="{StaticResource UnitGreenBrush}" HorizontalAlignment="Stretch" Height="80">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <!-- Tile1 -->
+            <ColumnDefinition Width="*"/>
+            <!-- Tile2 -->
+            <ColumnDefinition Width="*"/>
+            <!-- Tile3 -->
+            <ColumnDefinition Width="*"/>
+            <!-- Tile4 -->
+        </Grid.ColumnDefinitions>
 
-            <!-- Capacity Unit (Column 0) -->
-            <Grid Grid.Column="0" Margin="0,0,16,0" Padding="4">
+        <!-- Dlaždice 1 - pevně vlevo, zarovnána doprava -->
+        <Border x:Name="Tile1"
+            Background="{StaticResource UnitGreenBrush}"
+            Padding="8" MinWidth="260"
+            Grid.Row="0" Grid.Column="0"
+            HorizontalAlignment="Right">
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <!-- Left Info -->
-                <StackPanel Orientation="Vertical" Grid.Column="0" Margin="0,0,12,0">
+                <StackPanel Grid.Column="0" Orientation="Vertical">
                     <TextBlock Text="Kap.Einheit:" Style="{StaticResource SubTextStyle}"/>
                     <TextBlock Text="MST-01A" Style="{StaticResource HeaderTextBoldStyle}"/>
                     <TextBlock Text="MA-178-037-0014" Style="{StaticResource SubTextStyle}"/>
                 </StackPanel>
-                <!-- Right Seite -->
-                <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Top">
-                    <TextBlock Text="Seite" Style="{StaticResource HeaderTextStyle}"/>
-                    <TextBlock Text="1" Style="{StaticResource HeaderTextBoldStyle}"/>
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <TextBlock Text="Seite:" Style="{StaticResource HeaderTextBoldStyle}" HorizontalAlignment="Center"/>
+                    <TextBlock Text="1" Style="{StaticResource HeaderTextBoldStyle}" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Grid>
+        </Border>
 
-            <!-- Production info (Column 1) -->
-            <Grid Grid.Column="1" Background="{StaticResource HeaderBlueBrush}" Padding="18,8">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" MinHeight="32"/>
-                    <RowDefinition Height="*" MinHeight="28"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+        <!-- Dlaždice 2 -->
+        <Border x:Name="Tile2" Grid.Row="0" Grid.Column="1"
+            Background="{StaticResource HeaderBlueBrush}" Padding="8" MinWidth="260">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Prod.Auftrag: 38252" Style="{StaticResource ProdInfoValueStyle}"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Läuft" Style="{StaticResource ProdInfoGreenStyle}" Margin="0,0,12,0"/>
+                    <TextBlock Text="Folgeauftrag" Style="{StaticResource ProdInfoSubLabelStyle}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
 
-                <!-- Row 0 -->
-                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Padding="0,2">
-                    <TextBlock Text="Prod.Auftrag:" Style="{StaticResource ProdInfoLabelStyle}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="38252" Style="{StaticResource ProdInfoValueStyle}" VerticalAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Padding="0,2">
-                    <TextBlock Text="Artikel:" Style="{StaticResource ProdInfoLabelStyle}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="F 00V H28 032/AW" Style="{StaticResource ProdInfoValueStyle}" VerticalAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Padding="0,2">
-                    <TextBlock Text="Stückzähler:" Style="{StaticResource ProdInfoLabelStyle}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="10.654" Style="{StaticResource ProdInfoValueStyle}" VerticalAlignment="Center"/>
-                </StackPanel>
+        <!-- Dlaždice 3 -->
+        <Border x:Name="Tile3" Grid.Row="0" Grid.Column="2"
+            Background="{StaticResource HeaderBlueBrush}" Padding="8" MinWidth="260">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Artikel: F 00V H28 032/AW" Style="{StaticResource ProdInfoValueStyle}"/>
+                <TextBlock Text="Material Charge: 563335" Style="{StaticResource ProdInfoSubValueStyle}"/>
+            </StackPanel>
+        </Border>
 
-                <!-- Row 1 -->
-                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Padding="0,2">
-                    <TextBlock Text="Läuft" Style="{StaticResource ProdInfoGreenStyle}" Margin="0,0,12,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="Folgeauftrag" Style="{StaticResource ProdInfoSubLabelStyle}" Margin="12,0,0,0" VerticalAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Padding="0,2">
-                    <TextBlock Text="Material Charge:" Style="{StaticResource ProdInfoSubLabelStyle}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="563335" Style="{StaticResource ProdInfoSubValueStyle}" VerticalAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Padding="0,2">
-                    <TextBlock Text="Häringcharge:" Style="{StaticResource ProdInfoSubLabelStyle}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="H0001/A0001" Style="{StaticResource ProdInfoSubValueStyle}" VerticalAlignment="Center"/>
-                </StackPanel>
-                <!-- Column 3 - empty space for margin/alignment -->
-            </Grid>
+        <!-- Dlaždice 4 -->
+        <Border x:Name="Tile4" Grid.Row="0" Grid.Column="3"
+            Background="{StaticResource DebugPurpleBrush}" Padding="8" MinWidth="260">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Stückzähler: 10.654" Style="{StaticResource ProdInfoValueStyle}"/>
+                <TextBlock Text="Häringcharge: H0001/A0001" Style="{StaticResource ProdInfoSubValueStyle}"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Visual States 
+        
+        ✅ Cíl přehledně:
+Šířka	Rozvržení
+≥ 1000	Tile1 Tile2 Tile3 Tile4 — vše vedle sebe
+≥ 820	Tile1 Tile2 Tile3 nahoře, Tile4 pod Tile1 vlevo
+≥ 620	Tile1 Tile2 nahoře, Tile3 Tile4 pod nimi zarovnané vlevo a vedle
+< 620	Všechny pod sebou
+        -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="AdaptiveStates">
+
+                <!-- Wide: 1 řádek 4 sloupce -->
+                <VisualState x:Name="Wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1000"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Tile1.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tile1.(Grid.Column)" Value="0"/>
+                        <Setter Target="Tile2.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tile2.(Grid.Column)" Value="1"/>
+                        <Setter Target="Tile3.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tile3.(Grid.Column)" Value="2"/>
+                        <Setter Target="Tile4.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tile4.(Grid.Column)" Value="3"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <!-- WideMedium: 3 nahoře, Tile4 dole jako první vlevo -->
+                <VisualState x:Name="WideMedium">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="820"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Tile2.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tile2.(Grid.Column)" Value="1"/>
+                        <Setter Target="Tile3.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tile3.(Grid.Column)" Value="2"/>
+                        <Setter Target="Tile4.(Grid.Row)" Value="1"/>
+                        <Setter Target="Tile4.(Grid.Column)" Value="0"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <!-- Medium: 2 řádky, 2 sloupce -->
+                <VisualState x:Name="Medium">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="520"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Tile1.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tile1.(Grid.Column)" Value="0"/>
+                        <Setter Target="Tile2.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tile2.(Grid.Column)" Value="1"/>
+                        <Setter Target="Tile3.(Grid.Row)" Value="1"/>
+                        <Setter Target="Tile3.(Grid.Column)" Value="0"/>
+                        <Setter Target="Tile4.(Grid.Row)" Value="1"/>
+                        <Setter Target="Tile4.(Grid.Column)" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <!-- Narrow: 4 řádky, 1 sloupec -->
+                <VisualState x:Name="Narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Tile1.(Grid.Row)" Value="0"/>
+                        <Setter Target="Tile1.(Grid.Column)" Value="0"/>
+                        <Setter Target="Tile2.(Grid.Row)" Value="1"/>
+                        <Setter Target="Tile2.(Grid.Column)" Value="0"/>
+                        <Setter Target="Tile3.(Grid.Row)" Value="2"/>
+                        <Setter Target="Tile3.(Grid.Column)" Value="0"/>
+                        <Setter Target="Tile4.(Grid.Row)" Value="3"/>
+                        <Setter Target="Tile4.(Grid.Column)" Value="0"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
 
-        </Grid>
+
+
+
     </Grid>
+
 </UserControl>
