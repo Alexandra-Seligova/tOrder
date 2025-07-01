@@ -52,7 +52,10 @@ public static class tOrderConfig
     //-----------------------------------------------------------
     #region Window Size
     //-----------------------------------------------------------
-
+    //16:9 1280 x 720  
+    //4:3  1024 x 768
+    //public const int WindowWidth = 1280;
+    //public const int WindowHeight = 720;
     public const int WindowWidth = 1024;
     public const int WindowHeight = 768;
     public const bool CenterOnScreen = true;

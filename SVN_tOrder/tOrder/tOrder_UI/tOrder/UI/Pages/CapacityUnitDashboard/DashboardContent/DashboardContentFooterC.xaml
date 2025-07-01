@@ -9,109 +9,201 @@
 
     <UserControl.Resources>
         <!-- Proměnné pro pohodlné ladění -->
-        <x:Double x:Key="FooterButtonMinWidth">140</x:Double>
-        <x:Double x:Key="FooterButtonHeight">38</x:Double>
+        <x:Double x:Key="FooterInfoBoxHeight">60</x:Double>
+        <x:Double x:Key="FooterButtonMinWidth">120</x:Double>
+        <x:Double x:Key="FooterButtonHeight">40</x:Double>
         <x:Double x:Key="FooterButtonFontSize">16</x:Double>
         <CornerRadius x:Key="FooterButtonCornerRadius">4</CornerRadius>
         <Thickness x:Key="FooterButtonMarginThickness">6,0,6,0</Thickness>
         <x:Double x:Key="FooterButtonViewboxHeight">22</x:Double>
+
+        <Style x:Key="InfoBoxBorderStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="#D1D1D1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="8,4"/>
+        </Style>
+        <Style x:Key="InfoValueBoxStyle" TargetType="Border">
+            <Setter Property="Background" Value="#BBBBBB"/>
+            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="Padding" Value="0,1"/>
+            <Setter Property="Margin" Value="8,0"/>
+            <Setter Property="MinWidth" Value="46"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="InfoLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="InfoValueStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="InfoPostfixStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="8,0,0,0"/>
+        </Style>
+
+
     </UserControl.Resources>
 
-    <Grid>
-        <Grid HorizontalAlignment="Center" Margin="0,16,0,0">
+    <Grid x:Name="LayoutRoot" Padding="16"  Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Info Boxes -->
+            <RowDefinition Height="10"/>
+            <!-- Info Boxes -->
+            <RowDefinition Height="Auto"/>
+            <!-- Footer Buttons -->
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Info Box 1 -->
+        <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource InfoBoxBorderStyle}"  Height="{StaticResource FooterInfoBoxHeight}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Style="{StaticResource InfoLabelStyle}"
+                   Text="Reststücke für die&#x0a;nächsten WZK wechsel:"/>
+                <Border Grid.Column="2" Style="{StaticResource InfoValueBoxStyle}" CornerRadius="0" 
+                VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="-20,0,0,0">
+                    <TextBlock Text="125" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Right"/>
+                </Border>
+                <TextBlock Grid.Column="3" Style="{StaticResource InfoPostfixStyle}" Text="Stk."/>
+            </Grid>
+        </Border>
+
+        <!-- Info Box 2 -->
+        <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource InfoBoxBorderStyle}"  Height="{StaticResource FooterInfoBoxHeight}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Style="{StaticResource InfoLabelStyle}"
+                   Text="Reststücke für die&#x0a;nächsten QA Messung:"/>
+                <Border Grid.Column="2" Style="{StaticResource InfoValueBoxStyle}" CornerRadius="0" 
+                VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="-20,0,0,0">
+                    <TextBlock Text="35" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Right"/>
+                </Border>
+                <TextBlock Grid.Column="3" Style="{StaticResource InfoPostfixStyle}" Text="Stk."/>
+            </Grid>
+        </Border>
+
+        <!-- Info Box 3 -->
+        <Border Grid.Row="0" Grid.Column="4" Style="{StaticResource InfoBoxBorderStyle}"  Height="{StaticResource FooterInfoBoxHeight}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Style="{StaticResource InfoLabelStyle}"
+                 Text="Restzeit für die&#x0a;nächsten QA Messung:"/>
+                <Border Grid.Column="2" Style="{StaticResource InfoValueBoxStyle}" CornerRadius="0" 
+              VerticalAlignment="Center" HorizontalAlignment="Stretch" >
+                    <TextBlock Text="00:12:05" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Center"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Footer Buttons - Column 0 -->
+        <Grid Grid.Row="2" Grid.Column="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Šedá tlačítka -->
-            <Button Grid.Column="0" Background="#888"
-                Foreground="White" FontWeight="SemiBold"
-                FontSize="{StaticResource FooterButtonFontSize}"
-                MinWidth="{StaticResource FooterButtonMinWidth}"
-                Height="{StaticResource FooterButtonHeight}"
-                Padding="0,6" BorderThickness="0"
-                Margin="6,0,6,0"
-                CornerRadius="{StaticResource FooterButtonCornerRadius}"
-                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Viewbox Height="{StaticResource FooterButtonViewboxHeight}" Stretch="Uniform">
-                    <TextBlock Text="Rüsten Ende" TextAlignment="Center"/>
-                </Viewbox>
+            <Button Grid.Column="0" Background="#888" Foreground="White" FontWeight="SemiBold"
+            FontSize="{StaticResource FooterButtonFontSize}" MinWidth="{StaticResource FooterButtonMinWidth}"
+            Height="{StaticResource FooterButtonHeight}" Padding="0,6" BorderThickness="0"
+            CornerRadius="{StaticResource FooterButtonCornerRadius}" HorizontalAlignment="Stretch">
+                <TextBlock Text="Rüsten Ende" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Button>
-            <Button Grid.Column="1" Background="#888"
-                Foreground="White" FontWeight="SemiBold"
-                FontSize="{StaticResource FooterButtonFontSize}"
-                MinWidth="{StaticResource FooterButtonMinWidth}"
-                Height="{StaticResource FooterButtonHeight}"
-                Padding="0,6" BorderThickness="0"
-                Margin="6,0,6,0"
-                CornerRadius="{StaticResource FooterButtonCornerRadius}"
-                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Viewbox Height="{StaticResource FooterButtonViewboxHeight}" Stretch="Uniform">
-                    <TextBlock Text="Muster Freigabe" TextAlignment="Center"/>
-                </Viewbox>
-            </Button>
-            <!-- Modrá tlačítka -->
-            <Button Grid.Column="2" Background="#19599A"
-                Foreground="White" FontWeight="Bold"
-                FontSize="{StaticResource FooterButtonFontSize}"
-                MinWidth="{StaticResource FooterButtonMinWidth}"
-                Height="{StaticResource FooterButtonHeight}"
-                Padding="0,6" BorderThickness="0"
-                Margin="6,0,6,0"
-                CornerRadius="{StaticResource FooterButtonCornerRadius}"
-                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Viewbox Height="{StaticResource FooterButtonViewboxHeight}" Stretch="Uniform">
-                    <TextBlock Text="Produktionsstart" TextAlignment="Center"/>
-                </Viewbox>
-            </Button>
-            <Button Grid.Column="3" Background="#19599A"
-                Foreground="White" FontWeight="Bold"
-                FontSize="{StaticResource FooterButtonFontSize}"
-                MinWidth="{StaticResource FooterButtonMinWidth}"
-                Height="{StaticResource FooterButtonHeight}"
-                Padding="0,6" BorderThickness="0"
-                Margin="6,0,6,0"
-                CornerRadius="{StaticResource FooterButtonCornerRadius}"
-                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Viewbox Height="{StaticResource FooterButtonViewboxHeight}" Stretch="Uniform">
-                    <TextBlock Text="Auftragsverwaltung" TextAlignment="Center"/>
-                </Viewbox>
-            </Button>
-            <Button Grid.Column="4" Background="#19599A"
-                Foreground="White" FontWeight="Bold"
-                FontSize="{StaticResource FooterButtonFontSize}"
-                MinWidth="{StaticResource FooterButtonMinWidth}"
-                Height="{StaticResource FooterButtonHeight}"
-                Padding="0,6" BorderThickness="0"
-                Margin="6,0,6,0"
-                CornerRadius="{StaticResource FooterButtonCornerRadius}"
-                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Viewbox Height="{StaticResource FooterButtonViewboxHeight}" Stretch="Uniform">
-                    <TextBlock TextAlignment="Center">
-                        Neue Produktions-
-                        <LineBreak/>
-                        unterbrechung
-                    </TextBlock>
-                </Viewbox>
-            </Button>
-            <Button Grid.Column="5" Background="#19599A"
-                Foreground="White" FontWeight="Bold"
-                FontSize="{StaticResource FooterButtonFontSize}"
-                MinWidth="{StaticResource FooterButtonMinWidth}"
-                Height="{StaticResource FooterButtonHeight}"
-                Padding="0,6" BorderThickness="0"
-                Margin="6,0,6,0"
-                CornerRadius="{StaticResource FooterButtonCornerRadius}"
-                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Viewbox Height="{StaticResource FooterButtonViewboxHeight}" Stretch="Uniform">
-                    <TextBlock Text="Produktionsreport" TextAlignment="Center"/>
-                </Viewbox>
+
+            <Button Grid.Column="2" Background="#888" Foreground="White" FontWeight="SemiBold"
+            FontSize="{StaticResource FooterButtonFontSize}" MinWidth="{StaticResource FooterButtonMinWidth}"
+            Height="{StaticResource FooterButtonHeight}" Padding="0,6" BorderThickness="0"
+            CornerRadius="{StaticResource FooterButtonCornerRadius}" HorizontalAlignment="Stretch">
+                <TextBlock Text="Muster Freigabe" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Button>
         </Grid>
+
+        <!-- Footer Buttons - Column 2 -->
+        <Grid Grid.Row="2" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Background="#19599A" Foreground="White" FontWeight="SemiBold"
+            FontSize="{StaticResource FooterButtonFontSize}" MinWidth="{StaticResource FooterButtonMinWidth}"
+            Height="{StaticResource FooterButtonHeight}" Padding="0,6" BorderThickness="0"
+            CornerRadius="{StaticResource FooterButtonCornerRadius}" HorizontalAlignment="Stretch">
+                <TextBlock Text="Produktionsstart" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Button>
+
+            <Button Grid.Column="2" Background="#19599A" Foreground="White" FontWeight="SemiBold"
+            FontSize="{StaticResource FooterButtonFontSize}" MinWidth="{StaticResource FooterButtonMinWidth}"
+            Height="{StaticResource FooterButtonHeight}" Padding="0,6" BorderThickness="0"
+            CornerRadius="{StaticResource FooterButtonCornerRadius}" HorizontalAlignment="Stretch">
+                <TextBlock Text="Auftragsverwaltung" TextAlignment="Center" HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"/>
+            </Button>
+        </Grid>
+
+        <!-- Footer Buttons - Column 4 -->
+        <Grid Grid.Row="2" Grid.Column="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Background="#19599A" Foreground="White" FontWeight="SemiBold"
+            FontSize="{StaticResource FooterButtonFontSize}" MinWidth="{StaticResource FooterButtonMinWidth}"
+            Height="{StaticResource FooterButtonHeight}" Padding="0,-6" BorderThickness="0"
+            CornerRadius="{StaticResource FooterButtonCornerRadius}" HorizontalAlignment="Stretch">
+                <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+            Neue Produktions-
+            <LineBreak/>
+            unterbrechung
+                </TextBlock>
+            </Button>
+
+            <Button Grid.Column="2" Background="#19599A" Foreground="White" FontWeight="SemiBold"
+            FontSize="{StaticResource FooterButtonFontSize}" MinWidth="{StaticResource FooterButtonMinWidth}"
+            Height="{StaticResource FooterButtonHeight}" Padding="0,6" BorderThickness="0"
+            CornerRadius="{StaticResource FooterButtonCornerRadius}" HorizontalAlignment="Stretch">
+                <TextBlock Text="Produktionsreport" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Button>
+        </Grid>
+
     </Grid>
+
 </UserControl>

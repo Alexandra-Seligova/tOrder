@@ -9,7 +9,8 @@
     xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d"
     xmlns:shell="using:tOrder.Shell"
-    x:DataType="shell:TopBarVM">
+    x:DataType="shell:TopBarVM"
+    Height ="70">
 
     <UserControl.Resources>
         <Color x:Key="TextColor">#FFFFFF</Color>
