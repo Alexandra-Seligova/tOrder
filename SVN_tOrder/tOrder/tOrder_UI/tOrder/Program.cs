@@ -66,7 +66,7 @@ public static class tOrderConfig
     #region Console settings
     //-----------------------------------------------------------
 
-    public const int ConsoleWidth = 120;
+    public const int ConsoleWidth = 100;
     public const int ConsoleHeight = 30;
 
     public static (int X, int Y, int Width, int Height) GetConsolePosition(int appWindowX, int appWindowY)
