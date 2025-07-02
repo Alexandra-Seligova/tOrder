@@ -120,7 +120,6 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Ikona vpravo -->
                 <TextBlock Text=""
                Grid.Column="0"
                FontFamily="Segoe MDL2 Assets"
@@ -129,7 +128,7 @@
                Margin="6,0,0,0"
                VerticalAlignment="Center"
                HorizontalAlignment="Right"/>
-                <!-- HeaderText uprostřed -->
+
                 <TextBlock Text="{x:Bind HeaderText, Mode=OneWay}"
                Grid.ColumnSpan="2"
                FontWeight="Bold"

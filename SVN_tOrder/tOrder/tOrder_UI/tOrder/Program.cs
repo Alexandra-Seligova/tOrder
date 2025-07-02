@@ -52,12 +52,24 @@ public static class tOrderConfig
     //-----------------------------------------------------------
     #region Window Size
     //-----------------------------------------------------------
-    //16:9 1280 x 720  
-    //4:3  1024 x 768
+    /*    4:3
+1280 =  80 * 4 * 4
+960 =  80 * 4 * 3
+ 
+   16:9
+1280 = 20 * 4 * 16
+720 = 20 * 4 * 9
+    */
+
+    //16:9 [1280 x 720]  
+    //4:3  [1280 x 960]
+    // okno minWidth 1280
+    //      minheight =720
+
     //public const int WindowWidth = 1280;
     //public const int WindowHeight = 720;
-    public const int WindowWidth = 1024;
-    public const int WindowHeight = 768;
+    public const int WindowWidth = 1280;
+    public const int WindowHeight = 960;
     public const bool CenterOnScreen = true;
 
     #endregion //Window Size
@@ -87,6 +99,8 @@ public static class Program
     //-----------------------------------------------------------
     #region Fields
     //-----------------------------------------------------------
+    public static AppWindow MainAppWindow { get; set; } // už zřejmě máš
+    public static string CurrentPageName { get; set; } = "Neznámá stránka";
 
     public static IHost AppHost { get; private set; } = null!;
     private static IServiceProvider m_services = null!;
@@ -139,6 +153,8 @@ public static class Program
 
                 m_services.GetRequiredService<App>();
             });
+
+
         }
         catch (Exception ex)
         {

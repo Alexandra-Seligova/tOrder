@@ -26,6 +26,8 @@ using Microsoft.UI.Xaml.Controls;
 using WinRT.Interop;
 
 using tOrder.Shell;
+using Windows.Graphics;
+using Microsoft.UI.Dispatching;
 
 #endregion //Using directives
 
@@ -70,6 +72,7 @@ public partial class App : Application
     #region Application Launch
     //-----------------------------------------------------------
 
+    // App.xaml.cs - upravená metoda OnLaunched
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
         try
@@ -86,22 +89,36 @@ public partial class App : Application
                 frameRoot.Navigate(typeof(MainLayout));
                 m_mainWindow.Content = frameRoot;
             }
+
             m_mainWindow.Activate();
 
-            IntPtr hWnd = WindowNative.GetWindowHandle(m_mainWindow);
-            WindowId windowId = Win32Interop.GetWindowIdFromWindow(hWnd);
-            AppWindow appWin = AppWindow.GetFromWindowId(windowId);
+            var dispatcher = DispatcherQueue.GetForCurrentThread();
 
-            var screen = DisplayArea.GetFromWindowId(windowId, DisplayAreaFallback.Primary).WorkArea;
-            int nLeft = screen.X + (screen.Width - tOrderConfig.WindowWidth) / 2;
-            int nTop = screen.Y + (screen.Height - tOrderConfig.WindowHeight) / 2;
+            dispatcher.TryEnqueue(() =>
+            {
+                IntPtr hWnd = WindowNative.GetWindowHandle(m_mainWindow);
+                WindowId windowId = Win32Interop.GetWindowIdFromWindow(hWnd);
+                AppWindow appWin = AppWindow.GetFromWindowId(windowId);
 
-            appWin.MoveAndResize(new Windows.Graphics.RectInt32(
-                nLeft,
-                nTop,
-                tOrderConfig.WindowWidth,
-                tOrderConfig.WindowHeight
-            ));
+                var screen = DisplayArea.GetFromWindowId(windowId, DisplayAreaFallback.Primary).WorkArea;
+                int nLeft = screen.X + (screen.Width - tOrderConfig.WindowWidth) / 2;
+                int nTop = screen.Y + (screen.Height - tOrderConfig.WindowHeight) / 2;
+
+                appWin.MoveAndResize(new Windows.Graphics.RectInt32(
+                    nLeft,
+                    nTop,
+                    tOrderConfig.WindowWidth,
+                    tOrderConfig.WindowHeight
+                ));
+#if DEBUG
+                var debugWindow = new ResolutionWindow();
+                debugWindow.Activate();
+
+                var mainRect = new RectInt32(nLeft, nTop, tOrderConfig.WindowWidth, tOrderConfig.WindowHeight);
+                debugWindow.SetPositionAndSize(mainRect);
+#endif
+
+            });
 
             this.UnhandledException += (sender, e) =>
             {
@@ -117,7 +134,48 @@ public partial class App : Application
         }
     }
 
+
+
     #endregion //Application Launch
+    public void ResizeMainWindow(int width, int height)
+    {
+        try
+        {
+            if (MainAppWindow is null)
+            {
+                Console.WriteLine("[ResizeMainWindow] MainAppWindow is null");
+                return;
+            }
+
+            IntPtr hWnd = WindowNative.GetWindowHandle(MainAppWindow);
+            WindowId windowId = Win32Interop.GetWindowIdFromWindow(hWnd);
+            AppWindow appWindow = AppWindow.GetFromWindowId(windowId);
+
+            // Zachovej aktuální pozici
+            var currentPos = appWindow.Position;
+
+            // Varianta se zachováním X, Y:
+            var rect = new RectInt32(currentPos.X, currentPos.Y, width, height);
+            appWindow.MoveAndResize(rect);
+
+            Console.WriteLine($"[ResizeMainWindow] Změněno na {width}x{height} při pozici {currentPos.X},{currentPos.Y}");
+
+            // Zakomentovaná logika pro centrování:
+            /*
+            var screen = DisplayArea.GetFromWindowId(windowId, DisplayAreaFallback.Primary).WorkArea;
+            int nLeft = screen.X + (screen.Width - width) / 2;
+            int nTop = screen.Y + (screen.Height - height) / 2;
+            appWindow.MoveAndResize(new RectInt32(nLeft, nTop, width, height));
+            */
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[ResizeMainWindow] Chyba: {ex.Message}");
+        }
+    }
+
+
+
 
     //-----------------------------------------------------------
     #region Helpers

@@ -39,51 +39,50 @@ public sealed partial class DashboardContentPortC : UserControl
         // Připojení handleru velikosti
         this.SizeChanged += UserControl_SizeChanged;
 
-        // 🧪 Testovací naplnění 2 kontejnerů
+        // 🧪 Testovací naplnění 5 kontejnerů
+
         PortContainers.Add(new PortContainerM
         {
             IsInput = true,
-            PieceCount = 6540,
-            ContainerId = 10100,
-            //   Description = "Edelstahl Teile"
+            PieceCount = 0,
+            ContainerId = 0,
+            // Description = "Prázdný vstup"
         });
 
         PortContainers.Add(new PortContainerM
         {
             IsInput = false,
-            PieceCount = 3120,
-            ContainerId = 2,
-            //   Description = "Nachbearbeitung"
+            PieceCount = 1,
+            ContainerId = 1,
+            // Description = "Minimální výstup"
         });
-        PortContainers.Add(new PortContainerM
-        {
-            IsInput = false,
-            PieceCount = 123456789,
-            ContainerId = 1234,
-            //   Description = "Nachbearbeitung"
-        });
+
         PortContainers.Add(new PortContainerM
         {
             IsInput = true,
-            PieceCount = 6540,
-            ContainerId = 10100,
-            //   Description = "Edelstahl Teile"
+            PieceCount = 456789,
+            ContainerId = 30001,
+            // Description = "Střední vstup"
         });
 
         PortContainers.Add(new PortContainerM
         {
             IsInput = false,
-            PieceCount = 3120,
-            ContainerId = 2,
-            //   Description = "Nachbearbeitung"
+            PieceCount = 9876543,
+            ContainerId = 999999,
+            // Description = "Větší výstup"
         });
+
         PortContainers.Add(new PortContainerM
         {
-            IsInput = false,
+            IsInput = true,
             PieceCount = 123456789,
-            ContainerId = 1234,
-            //   Description = "Nachbearbeitung"
+            ContainerId = 123456789,
+            // Description = "Maximální vstup"
         });
+
+
+
 
         // Výchozí výběr
         SelectedTabIndex = 0;

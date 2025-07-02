@@ -13,6 +13,12 @@
     <None Update="Package.appxmanifest">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="ResolutionControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ResolutionWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UI\Pages\CapacityUnitDashboard\WerkzeugeContent\WerkzeugeContentC.xaml">
       <SubType>Designer</SubType>
     </Page>

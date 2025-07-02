@@ -1,0 +1,83 @@
+<UserControl
+    x:Class="tOrder.ResolutionControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:tOrder"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <!-- Výchozí styl -->
+        <Style x:Key="ResolutionButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="128"/>
+            <Setter Property="Height" Value="49"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+
+        <!-- Nepodporovaná rozlišení -->
+        <Style x:Key="DeprecatedResolutionButtonStyle" TargetType="Button" BasedOn="{StaticResource ResolutionButtonStyle}">
+            <Setter Property="Background" Value="#FFC4B4B4"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
+        <!-- Důležitá rozlišení -->
+        <Style x:Key="PreferredResolutionButtonStyle" TargetType="Button" BasedOn="{StaticResource ResolutionButtonStyle}">
+            <Setter Property="Background" Value="#D6F5D6"/>
+            <!-- lehce zelená -->
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </UserControl.Resources>
+
+
+    <Grid x:Name="RootGrid" Padding="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Horní panel s informacemi -->
+        <Border Grid.Row="0" Background="#708CB4" Padding="8">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20">
+                <TextBlock Text="Rozlišení:" Foreground="White" FontWeight="Bold" />
+                <TextBlock Text="{Binding CurrentResolution}" Foreground="White"/>
+            </StackPanel>
+        </Border>
+
+        <!-- 16:9 -->
+        <!-- 16:9 -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6,0,0" Spacing="8">
+            <TextBlock Text="16:9" VerticalAlignment="Center" FontWeight="Bold" Width="50"/>
+            <Button Content="1280x720" Tag="1280x720" Style="{StaticResource PreferredResolutionButtonStyle}" Click="ResizeTo"/>
+            <Button Content="1366x768" Tag="1366x768" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+            <Button Content="1600x900" Tag="1600x900" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+            <Button Content="1920x1080" Tag="1920x1080" Style="{StaticResource PreferredResolutionButtonStyle}" Click="ResizeTo"/>
+            <Button Content="2560x1440" Tag="2560x1440" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+            <Button Content="3840x2160" Tag="3840x2160" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+        </StackPanel>
+
+        <!-- 4:3 -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6,0,0" Spacing="8">
+            <TextBlock Text="4:3" VerticalAlignment="Center" FontWeight="Bold" Width="50"/>
+            <Button Content="800x600" Tag="800x600" Style="{StaticResource DeprecatedResolutionButtonStyle}" Click="ResizeTo"/>
+            <Button Content="1024x768" Tag="1024x768" Style="{StaticResource DeprecatedResolutionButtonStyle}" Click="ResizeTo"/>
+            <Button Content="1280x960" Tag="1280x960" Style="{StaticResource PreferredResolutionButtonStyle}" Click="ResizeTo"/>
+            <Button Content="1600x1200" Tag="1600x1200" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+        </StackPanel>
+
+
+        <!-- 16:10 -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6,0,0" Spacing="8">
+            <TextBlock Text="16:10" VerticalAlignment="Center" FontWeight="Bold" Width="50"/>
+            <Button Content="1280x800" Tag="1280x800" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+            <Button Content="1920x1200" Tag="1920x1200" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+            <Button Content="2560x1600" Tag="2560x1600" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
+
+    
