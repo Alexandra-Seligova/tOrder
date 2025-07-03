@@ -17,6 +17,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 using System;
 using System.Collections.Generic;
 using tOrder.Common;
@@ -32,18 +33,16 @@ public sealed partial class MainLayout : UserControl
         ViewModel = App.GetService<MainLayoutVM>();
         this.DataContext = ViewModel;
 
-        // Zaregistruj reakci na zprávu z TopBarVM
+
         WeakReferenceMessenger.Default.Register<UiMessage>(this, (r, m) =>
         {
             if (m.Value == "ToggleMenu")
-            {
                 NavView.IsPaneOpen = !NavView.IsPaneOpen;
-            }
         });
 
         Console.WriteLine("[MainLayout View] Construct");
-
     }
+
 
     // Mapa názvů (Tag) na odpovídající stránky
     private static readonly Dictionary<string, Type> PageMap = new()

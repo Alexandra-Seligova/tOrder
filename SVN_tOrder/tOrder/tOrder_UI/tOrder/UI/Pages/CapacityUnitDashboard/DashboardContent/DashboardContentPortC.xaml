@@ -8,7 +8,8 @@
     xmlns:conv="using:tOrder.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    >
 
     <UserControl.Resources>
         <Style x:Key="PortBoxStyle" TargetType="Border">
@@ -53,15 +54,20 @@
     </UserControl.Resources>
 
 
-    <Grid  Background="#F5F5F5" >
+    <Grid Background="#F5F5F5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <!-- Tabs row -->
+            <RowDefinition Height="Auto"/>
+            <!-- Tabs -->
             <RowDefinition Height="*"/>
-            <!-- Content area -->
+            <!-- Content -->
+            <RowDefinition Height="*"/>
+            <!-- free -->
+            <RowDefinition Height="Auto"/>
+            <!-- Button -->
         </Grid.RowDefinitions>
 
-        <!-- Tab buttons -->
+        <!-- 🔷 Tabs -->
+
         <!-- Tab buttons -->
         <Grid Grid.Row="0" Height="40">
             <ItemsRepeater x:Name="TabRepeater"
@@ -100,27 +106,37 @@
 
 
 
-        <!-- Content layout -->
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <!-- Header -->
-                <RowDefinition Height="10"/>
-                <!-- Spacing -->
-                <RowDefinition Height="*"/>
-                <!-- Info block -->
-                <RowDefinition Height="Auto"/>
-                <!-- Action button -->
-            </Grid.RowDefinitions>
+        <!-- 🧾 Obsah -->
 
-            <!-- Nadpis portu -->
-            <Grid Grid.Row="0" Margin="0,6,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+        <Viewbox  Name="PortInfoViewbox" Stretch="Uniform" Grid.Row="1" Height="Auto">
+            <Grid   x:Name="PortInfoContainer" Width="260">
+                <Grid.RenderTransform>
+                    <ScaleTransform x:Name="PortInfoScale" />
+                </Grid.RenderTransform>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Header -->
+                        <RowDefinition Height="10"/>
+                        <!-- Spacing -->
+                        <RowDefinition Height="*"/>
+                        <!-- Info block -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Action button -->
+                    </Grid.RowDefinitions>
 
-                <TextBlock Text=""
+
+
+
+
+                    <!-- Nadpis portu -->
+                    <Grid Grid.Row="0" Margin="0,6,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text=""
                Grid.Column="0"
                FontFamily="Segoe MDL2 Assets"
                FontSize="20"
@@ -129,103 +145,107 @@
                VerticalAlignment="Center"
                HorizontalAlignment="Right"/>
 
-                <TextBlock Text="{x:Bind HeaderText, Mode=OneWay}"
+                        <TextBlock Text="{x:Bind HeaderText, Mode=OneWay}"
                Grid.ColumnSpan="2"
                FontWeight="Bold"
                FontSize="18"
                HorizontalAlignment="Center"/>
 
-            </Grid>
+                    </Grid>
 
 
-            <!-- Info block -->
-            <Grid Grid.Row="2" Margin="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="28"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="28"/>
-                </Grid.ColumnDefinitions>
+                    <!-- Info block -->
+                    <Grid Grid.Row="2" Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="28"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="28"/>
+                        </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0"/>
-                        <!-- free space -->
-                        <RowDefinition Height="20"/>
-                        <RowDefinition Height="20"/>
-                        <RowDefinition Height="10"/>
-                        <!-- free space -->
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0"/>
+                                <!-- free space -->
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="10"/>
+                                <!-- free space -->
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                    <!-- Ausgang nebo Eingang + číslo -->
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Bind OutputText, Mode=OneWay}" FontSize="16"/>
-                    <Border Grid.Row="1" Grid.RowSpan="2"
+                            <!-- Ausgang nebo Eingang + číslo -->
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Bind OutputText, Mode=OneWay}" FontSize="16"/>
+                            <Border Grid.Row="1" Grid.RowSpan="2"
         Grid.Column="2"
         Style="{StaticResource PortBoxStyle}"
         Margin="-30,0,0,0"
         VerticalAlignment="Center"
         HorizontalAlignment="Left"
       >
-                        <TextBlock Text="{x:Bind ContainerModel.ContainerId, Mode=OneWay}"
+                                <TextBlock Text="{x:Bind ContainerModel.ContainerId, Mode=OneWay}"
                Style="{StaticResource PortValueStyle}"
                FontStyle="Italic"/>
-                    </Border>
+                            </Border>
 
 
-                    <!-- Nepovinný druhý řádek (OutputTypeText) -->
-                    <TextBlock Grid.Row="2" Grid.Column="0" TextWrapping="Wrap" FontSize="16"
+                            <!-- Nepovinný druhý řádek (OutputTypeText) -->
+                            <TextBlock Grid.Row="2" Grid.Column="0" TextWrapping="Wrap" FontSize="16"
                        Text="{x:Bind OutputTypeText, Mode=OneWay}"
                        Visibility="{x:Bind OutputTypeText, Converter={StaticResource NullToVisibilityConverter}}"/>
 
-                    <!-- Hlavní počet kusů (stretch box, right-aligned value) -->
-                    <Grid Grid.Row="4" Grid.Column="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                            <!-- Hlavní počet kusů (stretch box, right-aligned value) -->
+                            <Grid Grid.Row="4" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
 
-                        <Border Grid.Column="0" Style="{StaticResource PortBoxStyle}" MinWidth="120">
-                            <TextBlock Text="{x:Bind ContainerModel.PieceCount, Mode=OneWay}"
+                                <Border Grid.Column="0" Style="{StaticResource PortBoxStyle}" MinWidth="120">
+                                    <TextBlock Text="{x:Bind ContainerModel.PieceCount, Mode=OneWay}"
 
                    Style="{StaticResource PortValueStyle}"
                    HorizontalAlignment="Right"/>
-                        </Border>
+                                </Border>
 
-                        <TextBlock Grid.Column="1"
+                                <TextBlock Grid.Column="1"
                Text="Stk."
                FontSize="18"
                Margin="8,0,0,0"
                VerticalAlignment="Center"/>
+                            </Grid>
+
+
+                        </Grid>
                     </Grid>
 
 
                 </Grid>
             </Grid>
+        </Viewbox>
+        <!-- 🟦 Tlačítko -->
 
-            <!-- Action button (spodní střed) -->
-            <Grid Grid.Row="3">
-                <Button
-            Background="#2196F3"
-            Foreground="White"
-            FontWeight="SemiBold"
-            Margin="0,8,0,8"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Bottom"
-            Padding="10,6"
-            BorderThickness="0"
-            CornerRadius="4"
-            MinWidth="140"
-            IsEnabled="{x:Bind IsActionEnabled, Mode=OneWay}"
-            Click="{x:Bind OnCloseContainer}">
-                    <TextBlock Text="{x:Bind ButtonText, Mode=OneWay}" TextAlignment="Center" TextWrapping="Wrap"/>
-                </Button>
-            </Grid>
+
+        <Grid   Grid.Row="2" x:Name="PortActionContainer">
+
+            <Button Background="#2196F3"
+                    Foreground="White"
+                    FontWeight="SemiBold"
+                    Margin="0,8,0,8"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Padding="10,6"
+                    BorderThickness="0"
+                    CornerRadius="4"
+                    MinWidth="140"
+                    IsEnabled="{x:Bind IsActionEnabled, Mode=OneWay}"
+                    Click="{x:Bind OnCloseContainer}">
+                <TextBlock Text="{x:Bind ButtonText, Mode=OneWay}" TextAlignment="Center" TextWrapping="Wrap"/>
+            </Button>
         </Grid>
-
     </Grid>
 </UserControl>

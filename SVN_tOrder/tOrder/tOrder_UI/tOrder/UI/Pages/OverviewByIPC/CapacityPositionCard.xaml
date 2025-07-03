@@ -123,7 +123,6 @@ Příklad:
         <!-- Head -->
         <local:CardHeadC
     Grid.Row="0"
-    Width="228"
     Height="68"
     CardHeadTextMain="{x:Bind VM.UnitCode, Mode=OneWay}"
     CardHeadTextSecondary="{x:Bind VM.UnitId, Mode=OneWay}"
@@ -138,7 +137,6 @@ Příklad:
     DataContext="{x:Bind VM.ContentSwitcherVM}" 
             Grid.Row="1"
             
-            Width="228"
             
             
             />

@@ -7,7 +7,6 @@
     x:Name="Root"
     x:DataType="viewmodels:CardProductionContentC"
     xmlns:viewmodels="using:tOrder.UI"
-    Width="228"
     Background="Transparent">
 
 

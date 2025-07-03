@@ -24,14 +24,22 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <local:DashboardContentHeaderC Grid.Row="0" Height="96"/>
+        <Viewbox Grid.Row="0" x:Name="DashboardContentHeaderViewbox" Stretch="Uniform" Height="Auto">
+            <Grid x:Name="DashboardContentHeaderContainer" Width="1280">
+                <Grid.RenderTransform>
+                    <ScaleTransform x:Name="DashboardContentHeaderScale" />
+                </Grid.RenderTransform>
+
+                <local:DashboardContentHeaderC  Height="96"/>
+            </Grid>
+        </Viewbox>
 
         <!-- Main 3 columns -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <!-- Levý port -->
@@ -62,6 +70,9 @@
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
 
+
+
+
             <!-- Pravý port -->
             <local:DashboardContentPortC 
         Grid.Column="2"
@@ -71,14 +82,22 @@
         ButtonText="Behälter abschließen &#x0a;nach der Bearbeitung"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"/>
+
         </Grid>
 
 
+        <!-- Header -->
+        <Viewbox Grid.Row="2" x:Name="DashboardContentFooterViewbox" Stretch="Uniform" Height="Auto">
+            <Grid   x:Name="DashboardContentFooterContainer" Width="1280">
+                <Grid.RenderTransform>
+                    <ScaleTransform x:Name="DashboardContentFooterScale" />
+                </Grid.RenderTransform>
 
 
+                <local:DashboardContentFooterC  Margin="0,0,0,0" Padding="0,0,0,0"/>
+            </Grid>
+        </Viewbox>
 
-        <!-- Footer buttons v nové řadě, plná šířka -->
-        <local:DashboardContentFooterC Grid.Row="2"  Margin="0,0,0,0" Padding="0,0,0,0"/>
 
 
     </Grid>

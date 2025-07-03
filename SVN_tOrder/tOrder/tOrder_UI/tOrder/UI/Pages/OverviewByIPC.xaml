@@ -27,33 +27,41 @@ Layout:
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundColor}">
 
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="52" />
-            <!-- Left padding -->
-            <ColumnDefinition Width="*" />
-            <!-- Main content -->
-            <ColumnDefinition Width="52" />
-            <!-- Right padding -->
-        </Grid.ColumnDefinitions>
+        <Viewbox x:Name="MainScaleBox" Stretch="Uniform">
+            <Grid Width="1280" Height="720" 
+                  RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <ScaleTransform 
+                        ScaleX="{StaticResource GlobalScaleFactor}"
+                        ScaleY="{StaticResource GlobalScaleFactor}" />
+                </Grid.RenderTransform>
 
-        <!-- MachineCard container with WrapGrid layout -->
-        <ItemsControl Grid.Column="1"
-              ItemsSource="{x:Bind ViewModel.CapacityCards, Mode=OneWay}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapGrid Orientation="Horizontal"
-                      HorizontalAlignment="Left"
-                      Margin="0,20,0,0" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="52" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="52" />
+                </Grid.ColumnDefinitions>
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate x:DataType="controls:CapacityPositionCardVM">
-                    <controls:CapacityPositionCard />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                <ItemsControl Grid.Column="1"
+                              ItemsSource="{x:Bind ViewModel.CapacityCards, Mode=OneWay}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapGrid Orientation="Horizontal"
+                                      HorizontalAlignment="Left"
+                                      Margin="0,20,0,0" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="controls:CapacityPositionCardVM">
+                            <controls:CapacityPositionCard />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </Grid>
+        </Viewbox>
     </Grid>
 </Page>

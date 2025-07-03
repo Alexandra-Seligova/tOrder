@@ -14,6 +14,7 @@
 namespace tOrder.Shell
 {
     using System;
+    using Microsoft.UI.Xaml;
     using Microsoft.UI.Xaml.Controls;
 
     using tOrder.Shell;
@@ -38,7 +39,13 @@ namespace tOrder.Shell
             // Získání ViewModelu přes App.GetService<T>() (DI)
             VM = App.GetService<TopBarVM>();
             this.DataContext = VM;
+
+
+
             Console.WriteLine("[TopBar View] Construct");
+
+
         }
+
     }
 }

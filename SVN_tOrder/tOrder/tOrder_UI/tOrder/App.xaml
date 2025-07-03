@@ -35,6 +35,17 @@
                 <Setter Property="Margin" Value="8,0,0,0" />
             </Style>
 
+            <x:Double x:Key="GlobalScaleFactor">1.0</x:Double>
+
+            <!-- === Font scaling resources === -->
+            <x:Double x:Key="BaseFontSize">14</x:Double>
+            <!-- výchozí velikost, jen orientačně -->
+            <x:Double x:Key="FontScale">1.0</x:Double>
+            <!-- 1.0 = 100 %, změň třeba na 1.25 -->
+
+            <converters:FontScaleConverter x:Key="FontScaleConverter" />
+
+
             <!-- Value converters -->
             <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <converters:BooleanToVisibilityInverseConverter x:Key="BoolToCollapsedConverter" />

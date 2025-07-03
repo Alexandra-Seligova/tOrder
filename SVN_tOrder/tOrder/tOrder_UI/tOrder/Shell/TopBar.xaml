@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <UserControl
     x:Class="tOrder.Shell.TopBar"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -6,134 +7,74 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:tOrder.Shell"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
-    xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d"
     xmlns:shell="using:tOrder.Shell"
     x:DataType="shell:TopBarVM"
-    Height ="70">
+>
+
+
+
 
     <UserControl.Resources>
         <Color x:Key="TextColor">#FFFFFF</Color>
-        <x:Double x:Key="SharedTopBarHeight">70</x:Double>
     </UserControl.Resources>
 
-
-    <Grid x:Name="TopBarGrid" Background="#003f7f" VerticalAlignment="Top" Padding="8">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-
-        <!-- Menu + Back -->
-        <Grid x:Name="TileMenu" Grid.Row="0" Grid.Column="0" MinHeight="{StaticResource SharedTopBarHeight}" MinWidth="120">
+    <Border Background="#003f7f" >
+        <Grid VerticalAlignment="Stretch" Padding="4,0" ColumnSpacing="24">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Background="Transparent" BorderThickness="0" Command="{x:Bind VM.ToggleMenuCommand}">
-                <FontIcon Glyph="&#xE700;" FontSize="28" Foreground="White"/>
+
+            <!-- Menu toggle button -->
+            <Button Grid.Column="0"
+        Background="Transparent"
+        BorderThickness="0"
+        Command="{x:Bind VM.ToggleMenuCommand}">
+                <FontIcon Glyph="&#xE700;" FontSize="28" Foreground="White" />
             </Button>
-            <controls:FontIcon Grid.Column="1" Glyph="&#xE72B;" FontSize="32" FontWeight="Bold" Foreground="White"/>
-        </Grid>
 
-        <!-- Title -->
-        <StackPanel x:Name="TileTitle" Grid.Row="0" Grid.Column="1" Orientation="Vertical"
-                    MinHeight="{StaticResource SharedTopBarHeight}" MinWidth="200" VerticalAlignment="Center">
-            <TextBlock Text="{x:Bind VM.Heading, Mode=OneWay}" FontSize="24" FontWeight="Bold" Foreground="White"/>
-            <TextBlock Text="{x:Bind VM.BreadCrumpText, Mode=OneWay}" FontSize="14" Foreground="White"/>
-        </StackPanel>
 
-        <!-- User info + clock -->
-        <Grid x:Name="TileUser" Grid.Row="0" Grid.Column="2" Background="#052f60" Padding="12,0"
-              MinHeight="{StaticResource SharedTopBarHeight}" MinWidth="300">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <controls:PersonPicture Width="48" MinHeight="48" Grid.Column="0"/>
-            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
-                <TextBlock Text="{x:Bind VM.UserName, Mode=OneWay}" FontSize="14" Foreground="White"/>
-                <TextBlock Text="{x:Bind VM.UserSurname, Mode=OneWay}" FontSize="14" Foreground="White"/>
-                <TextBlock Text="{x:Bind VM.SessionDuration, Mode=OneWay}" FontSize="14" Foreground="White"/>
+            <!-- Back button -->
+            <controls:FontIcon Grid.Column="2" Glyph="&#xE72B;" FontSize="32" FontWeight="Bold" Foreground="White" />
+
+            <!-- Title and breadcrumb -->
+            <StackPanel Grid.Column="3" Orientation="Vertical" VerticalAlignment="Center" Spacing="2">
+                <TextBlock Text="{x:Bind VM.Heading, Mode=OneWay}" FontSize="24" FontWeight="Bold" Foreground="White" />
+                <TextBlock Text="{x:Bind VM.BreadCrumpText, Mode=OneWay}" FontSize="14" Foreground="White" />
             </StackPanel>
-            <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Center">
-                <TextBlock Text="{x:Bind VM.CurrentTime, Mode=OneWay}" FontSize="14" Foreground="White" HorizontalAlignment="Center"/>
-                <TextBlock Text="{x:Bind VM.CurrentDate, Mode=OneWay}" FontSize="14" Foreground="White" HorizontalAlignment="Center"/>
-            </StackPanel>
+
+            <!-- User info + clock -->
+            <Grid Grid.Column="5" VerticalAlignment="Center" Background="#052f60" ColumnSpacing="16" Padding="12,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <controls:PersonPicture Width="48" Height="48" Grid.Column="0" />
+
+                <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock Text="{x:Bind VM.UserName, Mode=OneWay}" FontSize="14" Foreground="White" />
+                    <TextBlock Text="{x:Bind VM.UserSurname, Mode=OneWay}" FontSize="14" Foreground="White" />
+                    <TextBlock Text="{x:Bind VM.SessionDuration, Mode=OneWay}" FontSize="14" Foreground="White" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock Text="{x:Bind VM.CurrentTime, Mode=OneWay}" FontSize="14" HorizontalAlignment="Center" Foreground="White" />
+                    <TextBlock Text="{x:Bind VM.CurrentDate, Mode=OneWay}" FontSize="14" HorizontalAlignment="Center" Foreground="White" />
+                </StackPanel>
+            </Grid>
+
+            <!-- Notifications icon -->
+            <Button Grid.Column="6" Background="Transparent" BorderThickness="0">
+                <controls:FontIcon Glyph="&#xEA8F;" FontSize="32" Foreground="White" />
+            </Button>
         </Grid>
-
-        <!-- Notifications -->
-        <Button x:Name="TileNotification" Grid.Row="0" Grid.Column="3" Background="Transparent" BorderThickness="0"
-                MinHeight="{StaticResource SharedTopBarHeight}" MinWidth="48">
-            <controls:FontIcon Glyph="&#xEA8F;" FontSize="32" Foreground="White"/>
-        </Button>
-
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="AdaptiveStates">
-
-                <!-- Wide: 1 řádek -->
-                <VisualState x:Name="Wide">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1000"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="TileMenu.(Grid.Row)" Value="0"/>
-                        <Setter Target="TileMenu.(Grid.Column)" Value="0"/>
-                        <Setter Target="TileTitle.(Grid.Row)" Value="0"/>
-                        <Setter Target="TileTitle.(Grid.Column)" Value="1"/>
-                        <Setter Target="TileUser.(Grid.Row)" Value="0"/>
-                        <Setter Target="TileUser.(Grid.Column)" Value="2"/>
-                        <Setter Target="TileNotification.(Grid.Row)" Value="0"/>
-                        <Setter Target="TileNotification.(Grid.Column)" Value="3"/>
-                    </VisualState.Setters>
-                </VisualState>
-
-                <!-- Medium: Menu + Title nahoře, zbytek dole -->
-                <VisualState x:Name="Medium">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="700"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="TileMenu.(Grid.Row)" Value="0"/>
-                        <Setter Target="TileMenu.(Grid.Column)" Value="0"/>
-                        <Setter Target="TileTitle.(Grid.Row)" Value="0"/>
-                        <Setter Target="TileTitle.(Grid.Column)" Value="1"/>
-                        <Setter Target="TileUser.(Grid.Row)" Value="1"/>
-                        <Setter Target="TileUser.(Grid.Column)" Value="0"/>
-                        <Setter Target="TileNotification.(Grid.Row)" Value="1"/>
-                        <Setter Target="TileNotification.(Grid.Column)" Value="1"/>
-                    </VisualState.Setters>
-                </VisualState>
-
-                <!-- Narrow: vše pod sebou -->
-                <VisualState x:Name="Narrow">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="TileMenu.(Grid.Row)" Value="0"/>
-                        <Setter Target="TileMenu.(Grid.Column)" Value="0"/>
-                        <Setter Target="TileTitle.(Grid.Row)" Value="1"/>
-                        <Setter Target="TileTitle.(Grid.Column)" Value="0"/>
-                        <Setter Target="TileUser.(Grid.Row)" Value="2"/>
-                        <Setter Target="TileUser.(Grid.Column)" Value="0"/>
-                        <Setter Target="TileNotification.(Grid.Row)" Value="3"/>
-                        <Setter Target="TileNotification.(Grid.Column)" Value="0"/>
-                    </VisualState.Setters>
-                </VisualState>
-
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-    </Grid>
-
+    </Border>
 </UserControl>

@@ -1,7 +1,7 @@
-<!--===================================================================
+﻿<!--===================================================================
     CapacityUnitDashboard Page (tOrder.UI)
     
-    Main dashboard page for CapacityUnit � contains header, tab selector,
+    Main dashboard page for CapacityUnit – contains header, tab selector,
     and content presenter for tabbed content display. Uses DashboardHeadC
     as the header and TabSelectorView for tab navigation. Padding,
     structure, and resource keys are managed for consistent styling.
@@ -41,7 +41,17 @@
             Dashboard header (no padding)
             Contains production unit/position summary and headline info
         -->
-        <local:DashboardHeadC Grid.Row="0" />
+
+        <!-- 🔝 Horní panel -->
+        <Viewbox x:Name="DashboardHeadViewbox" Stretch="Uniform" Height="Auto">
+            <Grid x:Name="DashboardHeadContainer" Width="1280" Height="70">
+                <Grid.RenderTransform>
+                    <ScaleTransform x:Name="DashboardHeadScale" />
+                </Grid.RenderTransform>
+                <local:DashboardHeadC Grid.Row="0" />
+            </Grid>
+        </Viewbox>
+
 
         <!--
             Main content section (with 18px padding)
@@ -58,7 +68,15 @@
                 </Grid.RowDefinitions>
 
                 <!-- Tab navigation under the header -->
-                <local:TabSelectorView x:Name="TabSelectorView" Grid.Row="0"/>
+                <Viewbox x:Name="TabSelectorViewbox" Stretch="Uniform" Height="Auto">
+                    <Grid x:Name="TabSelectorContainer" Width="1280">
+                        <Grid.RenderTransform>
+                            <ScaleTransform x:Name="TabSelectorViewScale" />
+                        </Grid.RenderTransform>
+                        <local:TabSelectorView x:Name="TabSelectorView" Grid.Row="0"/>
+                    </Grid>
+                </Viewbox>
+
                 <!-- ContentPresenter for switching tab content -->
                 <ContentPresenter x:Name="DashboardContentPresenter" Grid.Row="1"/>
             </Grid>

@@ -88,7 +88,7 @@
                    Text="Reststücke für die&#x0a;nächsten WZK wechsel:"/>
                 <Border Grid.Column="2" Style="{StaticResource InfoValueBoxStyle}" CornerRadius="0" 
                 VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="-20,0,0,0">
-                    <TextBlock Text="125" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Right"/>
+                    <TextBlock Text="123456789" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Right"/>
                 </Border>
                 <TextBlock Grid.Column="3" Style="{StaticResource InfoPostfixStyle}" Text="Stk."/>
             </Grid>
@@ -100,14 +100,14 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="140"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Style="{StaticResource InfoLabelStyle}"
                    Text="Reststücke für die&#x0a;nächsten QA Messung:"/>
                 <Border Grid.Column="2" Style="{StaticResource InfoValueBoxStyle}" CornerRadius="0" 
-                VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="-20,0,0,0">
-                    <TextBlock Text="35" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Right"/>
+                VerticalAlignment="Center" HorizontalAlignment="Stretch" >
+                    <TextBlock Text="123456789" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Right" />
                 </Border>
                 <TextBlock Grid.Column="3" Style="{StaticResource InfoPostfixStyle}" Text="Stk."/>
             </Grid>
