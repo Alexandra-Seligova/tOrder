@@ -35,6 +35,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Content Remove="Assets\Icons\PortInput.svg" />
+		<Content Remove="Assets\Icons\PortOutput.svg" />
 		<Content Remove="Assets\more-vertical.svg" />
 	</ItemGroup>
 

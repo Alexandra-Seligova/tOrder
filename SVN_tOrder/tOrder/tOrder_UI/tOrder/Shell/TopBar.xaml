@@ -9,18 +9,15 @@
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     xmlns:shell="using:tOrder.Shell"
-    x:DataType="shell:TopBarVM"
->
-
-
+    x:DataType="shell:TopBarVM">
 
 
     <UserControl.Resources>
         <Color x:Key="TextColor">#FFFFFF</Color>
     </UserControl.Resources>
 
-    <Border Background="#003f7f" >
-        <Grid VerticalAlignment="Stretch" Padding="4,0" ColumnSpacing="24">
+    <Border Background="#003f7f" VerticalAlignment="Top">
+        <Grid VerticalAlignment="Center" Padding="4,0" ColumnSpacing="24">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />

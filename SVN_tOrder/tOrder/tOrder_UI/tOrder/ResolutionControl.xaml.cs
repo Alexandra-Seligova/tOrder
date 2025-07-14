@@ -91,14 +91,29 @@ namespace tOrder
         }
 
         private void ResizeMainWindow(int width, int height)
-        {
+        {// stále maximálnì rozlišení obrazovky
             var mainWindow = Program.MainAppWindow;
             if (mainWindow != null)
             {
-                mainWindow.Resize(new SizeInt32(width, height));
-                mainWindow.Move(new PointInt32(100, 100));
+                // Získání dostupné pracovní plochy
+                var displayArea = DisplayArea.GetFromWindowId(mainWindow.Id, DisplayAreaFallback.Primary);
+                var workArea = displayArea.WorkArea;
+
+                // Omezit velikost okna na maximální možnou v rámci pracovní plochy
+                width = Math.Min(width, workArea.Width);
+                height = Math.Min(height, workArea.Height);
+
+                int posX = (workArea.Width - width) / 2;
+                int posY = (workArea.Height - height) / 2;
+
+                mainWindow.MoveAndResize(new RectInt32(posX, posY, width, height));
             }
+            // CurrentResolution = $"{width} x {height}";
+            //  _lastAppliedResolution = CurrentResolution;
+            //  HighlightActiveButton();
+
         }
+
 
         public void UpdateBindings()
         {

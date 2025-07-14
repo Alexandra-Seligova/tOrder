@@ -57,12 +57,14 @@
             <Button Content="1920x1080" Tag="1920x1080" Style="{StaticResource PreferredResolutionButtonStyle}" Click="ResizeTo"/>
             <Button Content="2560x1440" Tag="2560x1440" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
             <Button Content="3840x2160" Tag="3840x2160" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+            <Button Content="7680x4320" Tag="7680x4320" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+
         </StackPanel>
 
         <!-- 4:3 -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6,0,0" Spacing="8">
             <TextBlock Text="4:3" VerticalAlignment="Center" FontWeight="Bold" Width="50"/>
-            <Button Content="800x600" Tag="800x600" Style="{StaticResource DeprecatedResolutionButtonStyle}" Click="ResizeTo"/>
+            <Button Content="960x720" Tag="960x720" Style="{StaticResource DeprecatedResolutionButtonStyle}" Click="ResizeTo"/>
             <Button Content="1024x768" Tag="1024x768" Style="{StaticResource DeprecatedResolutionButtonStyle}" Click="ResizeTo"/>
             <Button Content="1280x960" Tag="1280x960" Style="{StaticResource PreferredResolutionButtonStyle}" Click="ResizeTo"/>
             <Button Content="1600x1200" Tag="1600x1200" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>

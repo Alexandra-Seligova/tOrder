@@ -26,6 +26,14 @@ using tOrder.Common;
 
 public sealed partial class DashboardContentPortC : UserControl
 {
+    public enum PortSide { Left, Right }
+
+    public PortSide Side { get; set; } = PortSide.Left;
+
+    public bool IsRightPort => Side == PortSide.Right;
+    public bool IsLeftPort => Side == PortSide.Left;
+
+
     public ObservableCollection<PortContainerM> PortContainers { get; } = new();
     public double TabWidth
     {
@@ -88,6 +96,7 @@ public sealed partial class DashboardContentPortC : UserControl
         SelectedTabIndex = 0;
         ContainerModel = PortContainers[SelectedTabIndex];
     }
+
 
     #region Tab selection
 
