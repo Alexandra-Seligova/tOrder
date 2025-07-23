@@ -115,9 +115,6 @@
 		<None Remove="Common\Services\Data\MockData.xml" />
 		<None Remove="ResolutionControl.xaml" />
 		<None Remove="ResolutionWindow.xaml" />
-		<None Remove="Shell\Controls\NavigationSidePanelButton.xaml" />
-		<None Remove="Shell\DummyPage.xaml" />
-		<None Remove="Shell\NavigationSidePanel.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\ChargenContent\ChargenContentC.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentPortC.xaml" />
@@ -134,8 +131,7 @@
 	<ItemGroup>
 		<Folder Include="Common\Services\Implementations\" />
 		<Folder Include="Common\Services\Interfaces\" />
-		<Folder Include="UI\Controls\" />
-		<Folder Include="UI\Factories\" />
+		<Folder Include="Common_UI\Factories\" />
 		<Folder Include="UI\Pages\CapacityUnitDashboard\ArbeitsplanContent\" />
 		<Folder Include="UI\Pages\CapacityUnitDashboard\DokumentenContent\" />
 		<Folder Include="UI\Pages\CapacityUnitDashboard\InfoContent\" />

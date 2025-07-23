@@ -202,21 +202,24 @@ public static class Program
         services.AddSingleton<TopBarVM>();
         services.AddSingleton<MainLayoutVM>();
         services.AddTransient<CardContentSwitcherVM>();
-
         services.AddTransient<CapacityPositionCardVM>();
 
         services.AddTransient<PopupDisplayControlVM>(); // 🆕
+
+        // Registrace ladicího nástroje:
+        services.AddSingleton<WindowDebugViewModel>();
+        services.AddTransient<ResolutionWindow>();
 
         services.AddSingleton<MainWindow>();
         services.AddSingleton<App>();
 
         if (tOrderConfig.EnableConsole && !PackageHelper.IsPackaged)
         {
-            ConsoleManager.Init(width: 120, bufferHeight: 1000, windowHeight: 30);
+            ConsoleManager.Init(width: 80, bufferHeight: 1000, windowHeight: 30);
             ConsoleManager.SetFont("Consolas", 18); // Volitelné
         }
-
     }
+
 
 
     #endregion //Services Registration

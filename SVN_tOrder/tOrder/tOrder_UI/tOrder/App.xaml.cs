@@ -1,60 +1,41 @@
 ﻿//===================================================================
 // $Workfile:: App.xaml.cs                                          $
 // $Author:: Alexandra_Seligova                                      $
-// $Revision:: 4                                                    $
-// $Date:: 2025-06-11 15:44:33 +0200 (st, 11 čvn 2025)             $
+// $Revision:: 5                                                    $
+// $Date:: 2025-07-17                                              $
 //===================================================================
 // Description: SPC - tOrder
-//     Basic Application wrapper without DI or navigation layout
+//     Application entry with AppWindow and DI integration
 //===================================================================
 
 namespace tOrder;
 
-//-----------------------------------------------------------
-#region Using directives
-//-----------------------------------------------------------
-
 using System;
 using System.Diagnostics;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-
 using WinRT.Interop;
-
-using tOrder.Shell;
 using Windows.Graphics;
 using Microsoft.UI.Dispatching;
-
-#endregion //Using directives
-
-//===================================================================
-// class App
-//===================================================================
+using Microsoft.UI;
+using tOrder.Shell;
 
 public partial class App : Application
 {
-    //-----------------------------------------------------------
-    #region Fields & Properties
-    //-----------------------------------------------------------
-
+    public static WindowDebugViewModel DebugVM { get; private set; } = null!;
     public static IServiceProvider Services { get; private set; } = null!;
-    public static Window MainAppWindow { get; private set; } = null!; // Statická reference na hlavní okno
+
+    public static Window MainWindowInstance { get; private set; } = null!;
+    public static AppWindow MainAppWindow { get; private set; } = null!;
 
     private Window m_mainWindow = null!;
-
-    #endregion //Fields & Properties
-
-    //-----------------------------------------------------------
-    #region Constructor
-    //-----------------------------------------------------------
 
     public App()
     {
         Services = Program.AppHost.Services;
+        DebugVM = Services.GetRequiredService<WindowDebugViewModel>();
 
         this.InitializeComponent();
         this.RequestedTheme = ApplicationTheme.Light;
@@ -66,13 +47,6 @@ public partial class App : Application
         Console.WriteLine($"[Win] Screen Resolution: {screen.Width}x{screen.Height} at center");
     }
 
-    #endregion //Constructor
-
-    //-----------------------------------------------------------
-    #region Application Launch
-    //-----------------------------------------------------------
-
-    // App.xaml.cs - upravená metoda OnLaunched
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
         try
@@ -80,7 +54,7 @@ public partial class App : Application
             if (m_mainWindow == null)
             {
                 m_mainWindow = Services.GetRequiredService<MainWindow>();
-                MainAppWindow = m_mainWindow;
+                MainWindowInstance = m_mainWindow;
             }
 
             if (m_mainWindow.Content == null)
@@ -98,18 +72,19 @@ public partial class App : Application
             {
                 IntPtr hWnd = WindowNative.GetWindowHandle(m_mainWindow);
                 WindowId windowId = Win32Interop.GetWindowIdFromWindow(hWnd);
-                AppWindow appWin = AppWindow.GetFromWindowId(windowId);
+                MainAppWindow = AppWindow.GetFromWindowId(windowId);
 
                 var screen = DisplayArea.GetFromWindowId(windowId, DisplayAreaFallback.Primary).WorkArea;
                 int nLeft = screen.X + (screen.Width - tOrderConfig.WindowWidth) / 2;
                 int nTop = screen.Y + (screen.Height - tOrderConfig.WindowHeight) / 2;
 
-                appWin.MoveAndResize(new Windows.Graphics.RectInt32(
+                MainAppWindow.MoveAndResize(new RectInt32(
                     nLeft,
                     nTop,
                     tOrderConfig.WindowWidth,
                     tOrderConfig.WindowHeight
                 ));
+
 #if DEBUG
                 var debugWindow = new ResolutionWindow();
                 debugWindow.Activate();
@@ -117,7 +92,6 @@ public partial class App : Application
                 var mainRect = new RectInt32(nLeft, nTop, tOrderConfig.WindowWidth, tOrderConfig.WindowHeight);
                 debugWindow.SetPositionAndSize(mainRect);
 #endif
-
             });
 
             this.UnhandledException += (sender, e) =>
@@ -134,9 +108,6 @@ public partial class App : Application
         }
     }
 
-
-
-    #endregion //Application Launch
     public void ResizeMainWindow(int width, int height)
     {
         try
@@ -147,39 +118,18 @@ public partial class App : Application
                 return;
             }
 
-            IntPtr hWnd = WindowNative.GetWindowHandle(MainAppWindow);
-            WindowId windowId = Win32Interop.GetWindowIdFromWindow(hWnd);
-            AppWindow appWindow = AppWindow.GetFromWindowId(windowId);
+            var currentPos = MainAppWindow.Position;
 
-            // Zachovej aktuální pozici
-            var currentPos = appWindow.Position;
-
-            // Varianta se zachováním X, Y:
             var rect = new RectInt32(currentPos.X, currentPos.Y, width, height);
-            appWindow.MoveAndResize(rect);
+            MainAppWindow.MoveAndResize(rect);
 
             Console.WriteLine($"[ResizeMainWindow] Změněno na {width}x{height} při pozici {currentPos.X},{currentPos.Y}");
-
-            // Zakomentovaná logika pro centrování:
-            /*
-            var screen = DisplayArea.GetFromWindowId(windowId, DisplayAreaFallback.Primary).WorkArea;
-            int nLeft = screen.X + (screen.Width - width) / 2;
-            int nTop = screen.Y + (screen.Height - height) / 2;
-            appWindow.MoveAndResize(new RectInt32(nLeft, nTop, width, height));
-            */
         }
         catch (Exception ex)
         {
             Console.WriteLine($"[ResizeMainWindow] Chyba: {ex.Message}");
         }
     }
-
-
-
-
-    //-----------------------------------------------------------
-    #region Helpers
-    //-----------------------------------------------------------
 
     public static T GetService<T>() where T : class
     {
@@ -190,13 +140,7 @@ public partial class App : Application
     {
         Console.WriteLine($"[Unhandled Exception] {oEx.Message}\n{oEx.StackTrace}");
     }
-
-    #endregion //Helpers
 }
-
-//===================================================================
-// class AppEnvironment
-//===================================================================
 
 public static class AppEnvironment
 {
@@ -204,17 +148,8 @@ public static class AppEnvironment
     {
         get
         {
-            try
-            {
-                var _ = Windows.ApplicationModel.Package.Current;
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            try { var _ = Windows.ApplicationModel.Package.Current; return true; }
+            catch { return false; }
         }
     }
 }
-
-//===================================================================

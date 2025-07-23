@@ -20,6 +20,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI;
 using Microsoft.UI.Text;
+using Windows.UI.Text;
 
 #endregion //Using directives
 
@@ -71,11 +72,11 @@ public sealed partial class TabSelectorView : UserControl
 
     private void Tab_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is Button btn && btn.Tag is string tag && int.TryParse(tag, out int index))
-        {
-            SelectedIndex = index;
-        }
+        int selectedIndex = int.Parse(((Button)sender).Tag.ToString());
+        SelectedIndex = selectedIndex;  // Spustí celou aktualizaci správnì
     }
+
+
 
     private static void OnSelectedIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -113,7 +114,7 @@ public sealed partial class TabSelectorView : UserControl
                 else
                 {
                     button.Foreground = (SolidColorBrush)Resources["TabInactiveBrush"];
-                    button.FontWeight = FontWeights.Normal;
+                    button.FontWeight = FontWeights.Bold;
                     border.Background = new SolidColorBrush(Microsoft.UI.Colors.Transparent);
                 }
             }

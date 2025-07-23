@@ -16,12 +16,10 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Header -->
-            <RowDefinition Height="*"/>
-            <!-- Main 3 columns -->
+            <RowDefinition x:Name="MainContentRowDefinition" Height="*"/>
             <RowDefinition Height="Auto"/>
-            <!-- Info row  Footer buttons -->
         </Grid.RowDefinitions>
+
 
         <!-- Header -->
         <Viewbox Grid.Row="0" x:Name="DashboardContentHeaderViewbox" Stretch="Uniform" Height="Auto">
@@ -30,7 +28,7 @@
                     <ScaleTransform x:Name="DashboardContentHeaderScale" />
                 </Grid.RenderTransform>
 
-                <local:DashboardContentHeaderC  Height="96"/>
+                <local:DashboardContentHeaderC />
             </Grid>
         </Viewbox>
         <Grid Grid.Row="1" >
@@ -55,7 +53,7 @@
                     </Grid.RowDefinitions>
 
                     <!-- 📦 Hlavní obsah – 3 sloupce -->
-                    <Grid x:Name="MainContentGrid" Grid.Row="1" Height="264">
+                    <Grid x:Name="MainContentGrid" Grid.Row="1" >
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>

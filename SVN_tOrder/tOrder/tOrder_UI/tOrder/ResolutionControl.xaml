@@ -7,79 +7,440 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <!-- Lokální zdroje a styly -->
     <UserControl.Resources>
-        <!-- Výchozí styl -->
-        <Style x:Key="ResolutionButtonStyle" TargetType="Button">
-            <Setter Property="Width" Value="128"/>
-            <Setter Property="Height" Value="49"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Margin" Value="0"/>
+        <!-- Barevné schéma -->
+        <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FAFAFA" />
+        <SolidColorBrush x:Key="CardBorderBrush" Color="#DDDDDD" />
+        <SolidColorBrush x:Key="AccentBrush" Color="#3B82F6" />
+
+        <!-- Základní styl karet -->
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource CardBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Shadow">
+                <Setter.Value>
+                    <ThemeShadow />
+                </Setter.Value>
+            </Setter>
         </Style>
 
-        <!-- Nepodporovaná rozlišení -->
+        <!-- Styly tlačítek -->
+        <Style x:Key="SquareActionButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="44"/>
+            <Setter Property="Height" Value="44"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+
+        <!-- Výchozí styl -->
+        <Style x:Key="ResolutionButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="88"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+
         <Style x:Key="DeprecatedResolutionButtonStyle" TargetType="Button" BasedOn="{StaticResource ResolutionButtonStyle}">
             <Setter Property="Background" Value="#FFC4B4B4"/>
             <Setter Property="Foreground" Value="Black"/>
         </Style>
 
-        <!-- Důležitá rozlišení -->
         <Style x:Key="PreferredResolutionButtonStyle" TargetType="Button" BasedOn="{StaticResource ResolutionButtonStyle}">
             <Setter Property="Background" Value="#D6F5D6"/>
-            <!-- lehce zelená -->
             <Setter Property="Foreground" Value="Black"/>
         </Style>
+
     </UserControl.Resources>
 
 
-    <Grid x:Name="RootGrid" Padding="4">
+
+    <!-- ...................... -->
+    <!-- HLAVNÍ GRID KOMPONENTY -->
+    <!-- ...................... -->
+
+    <Grid x:Name="RootGrid" Padding="8">
+
+
+        <!-- Hlavní rozdělení stránky na tři sloupce -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <!-- Titulek a akce -->
+            <RowDefinition Height="*"/>
+            <!-- Obsahová část -->
         </Grid.RowDefinitions>
 
-        <!-- Horní panel s informacemi -->
-        <Border Grid.Row="0" Background="#708CB4" Padding="8">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20">
-                <TextBlock Text="Rozlišení:" Foreground="White" FontWeight="Bold" />
-                <TextBlock Text="{Binding CurrentResolution}" Foreground="White"/>
+
+        <!-- Řádky hlavního rozvržení -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <!-- Levý sloupec -->
+            <ColumnDefinition Width="*"/>
+            <!-- Střední sloupec -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- Pravý sloupec -->
+        </Grid.ColumnDefinitions>
+
+        <!-- 🧩 Titulek nahoře celou šířku -->
+        <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Titulek -->
+            <TextBlock Text="🧠 Layout editor" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+
+            <!-- Ikony vpravo -->
+            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center">
+                <Button Content="🔍" Style="{StaticResource SquareActionButtonStyle}" Click="EnlargeWindow_Click"/>
+                <Button Content="⟳" Style="{StaticResource SquareActionButtonStyle}" Click="ResetWindow_Click"/>
+            </StackPanel>
+        </Grid>
+
+
+        <!-- ............................................. -->
+        <!-- Levý panel nastavení s vertikálním posuvníkem -->
+        <!-- ............................................. -->
+        <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+
+                <!-- 🧩 Sekce škálování aplikace -->
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="🧩 Škálování layoutu" FontWeight="Bold" FontSize="14" Margin="0,0,0,8"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <!-- Popisky -->
+                                <ColumnDefinition Width="1.2*" />
+                                <!-- Hodnoty -->
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Napojení na DataContext přes běžný Binding -->
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Scale:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Scale, Mode=TwoWay}" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Scale X:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ScaleX, Mode=TwoWay}" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Scale Y:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ScaleY, Mode=TwoWay}" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Scale Text:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ScaleText, Mode=TwoWay}" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Design Width:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding DesignWidth, Mode=TwoWay}" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Design Height:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding DesignHeight, Mode=TwoWay}" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Window Width:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding WindowWidth, Mode=OneWay}" IsReadOnly="True" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="Window Height:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding WindowHeight, Mode=OneWay}" IsReadOnly="True" Margin="0,2"/>
+
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+
+                <!-- 🖥️ Sekce výběru rozlišení -->
+                <Border Style="{StaticResource CardStyle}" Margin="8,8,8,4">
+                    <StackPanel>
+                        <TextBlock Text="🖥️ Výběr rozlišení" FontWeight="Bold" FontSize="14" Margin="0,0,0,8"/>
+
+                        <!-- Grid s jednotlivými poměry stran -->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <!-- Nadpisy -->
+                                <RowDefinition Height="*"/>
+                                <!-- Tlačítka -->
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Nadpisy poměrů -->
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="16:9" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="4:3" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="16:10" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+
+                            <!-- 16:9 rozlišení -->
+                            <StackPanel Grid.Row="1" Grid.Column="0" Margin="4">
+                                <Button Content="1280x720" Tag="1280x720" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                <Button Content="1600x900" Tag="1600x900" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                <Button Content="2560x1440" Tag="2560x1440" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                <Button Content="1366x768" Tag="1366x768" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                <Button Content="1920x1080" Tag="1920x1080" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                <Button Content="3840x2160" Tag="3840x2160" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                            </StackPanel>
+
+                            <!-- 4:3 rozlišení -->
+                            <StackPanel Grid.Row="1" Grid.Column="1" Margin="4">
+                                <Button Content="960x720" Tag="960x720" Style="{StaticResource DeprecatedResolutionButtonStyle}" Click="ResizeTo"/>
+                                <Button Content="1024x768" Tag="1024x768" Style="{StaticResource DeprecatedResolutionButtonStyle}" Click="ResizeTo"/>
+                                <Button Content="1280x960" Tag="1280x960" Style="{StaticResource PreferredResolutionButtonStyle}" Click="ResizeTo"/>
+                                <Button Content="1600x1200" Tag="1600x1200" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                            </StackPanel>
+
+                            <!-- 16:10 rozlišení -->
+                            <StackPanel Grid.Row="1" Grid.Column="2" Margin="4">
+                                <Button Content="1280x800" Tag="1280x800" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                <Button Content="1920x1200" Tag="1920x1200" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                <Button Content="2560x1600" Tag="2560x1600" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- ⚙️ Sekce zámků poměru stran -->
+                <Border Style="{StaticResource CardStyle}" Margin="8,4,8,8">
+                    <StackPanel>
+                        <TextBlock Text="⚙️ Poměr stran (zámky)" FontWeight="Bold" FontSize="14" Margin="0,0,0,8"/>
+
+                        <CheckBox x:Name="Lock16_9CheckBox"
+                  Content="🔒  16:9"
+                  ToolTipService.ToolTip="Zamknout 16:9"
+                  Checked="AspectRatioCheckBox_Checked"
+                  Unchecked="AspectRatioCheckBox_Unchecked"
+                  Margin="0,2"/>
+
+                        <CheckBox x:Name="Lock4_3CheckBox"
+                  Content="🔒  4:3"
+                  ToolTipService.ToolTip="Zamknout 4:3"
+                  Checked="AspectRatioCheckBox_Checked"
+                  Unchecked="AspectRatioCheckBox_Unchecked"
+                  Margin="0,2"/>
+
+                        <CheckBox x:Name="Lock16_10CheckBox"
+                  Content="🔒  16:10"
+                  ToolTipService.ToolTip="Zamknout 16:10"
+                  Checked="AspectRatioCheckBox_Checked"
+                  Unchecked="AspectRatioCheckBox_Unchecked"
+                  Margin="0,2"/>
+                    </StackPanel>
+                </Border>
+
+
+            </StackPanel>
+        </ScrollViewer>
+
+
+        <!-- ............................................. -->
+        <!-- 🖥️ Výpis aktuálního rozlišení -->
+        <!-- ............................................. -->
+        <Border Style="{StaticResource CardStyle}" Grid.Row="1" Grid.Column="1"  VerticalAlignment="Top">
+            <StackPanel>
+                <TextBlock Text="🖥️ Rozlišení hlavního okna" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                <TextBlock Text="{Binding CurrentResolution}" 
+                   Foreground="DarkBlue" 
+                   FontSize="20" 
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center"/>
             </StackPanel>
         </Border>
 
-        <!-- 16:9 -->
-        <!-- 16:9 -->
-        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6,0,0" Spacing="8">
-            <TextBlock Text="16:9" VerticalAlignment="Center" FontWeight="Bold" Width="50"/>
-            <Button Content="1280x720" Tag="1280x720" Style="{StaticResource PreferredResolutionButtonStyle}" Click="ResizeTo"/>
-            <Button Content="1366x768" Tag="1366x768" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-            <Button Content="1600x900" Tag="1600x900" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-            <Button Content="1920x1080" Tag="1920x1080" Style="{StaticResource PreferredResolutionButtonStyle}" Click="ResizeTo"/>
-            <Button Content="2560x1440" Tag="2560x1440" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-            <Button Content="3840x2160" Tag="3840x2160" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-            <Button Content="7680x4320" Tag="7680x4320" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+        <!-- 📐 Náhled a editace parametrů prvku -->
+        <Border Style="{StaticResource CardStyle}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Info -->
+                    <RowDefinition Height="*"/>
+                    <!-- Náhled a editace -->
+                </Grid.RowDefinitions>
 
-        </StackPanel>
+                <!-- Info řádek -->
+                <StackPanel Grid.Row="0" Margin="0,0,0,12">
+                    <TextBlock Text="📐 Náhled a metadata" FontSize="14" FontWeight="Bold"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,4,0,0">
+                        <TextBlock Text="Typ:" FontWeight="SemiBold"/>
+                        <TextBlock Text="{Binding BoundElementType, Mode=OneWay}"/>
 
-        <!-- 4:3 -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6,0,0" Spacing="8">
-            <TextBlock Text="4:3" VerticalAlignment="Center" FontWeight="Bold" Width="50"/>
-            <Button Content="960x720" Tag="960x720" Style="{StaticResource DeprecatedResolutionButtonStyle}" Click="ResizeTo"/>
-            <Button Content="1024x768" Tag="1024x768" Style="{StaticResource DeprecatedResolutionButtonStyle}" Click="ResizeTo"/>
-            <Button Content="1280x960" Tag="1280x960" Style="{StaticResource PreferredResolutionButtonStyle}" Click="ResizeTo"/>
-            <Button Content="1600x1200" Tag="1600x1200" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-        </StackPanel>
+                        <TextBlock Text="| Název:" FontWeight="SemiBold" Margin="8,0,0,0"/>
+                        <TextBlock Text="{Binding BoundElementName, Mode=OneWay}"/>
+
+                        <TextBlock Text="| Skupina:" FontWeight="SemiBold" Margin="8,0,0,0"/>
+                        <TextBlock Text="{Binding GroupName, Mode=OneWay}"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Vizualizace + vstupní pole -->
+                <Grid Grid.Row="1">
+
+                    <!-- Náhled -->
+                    <Border  Background="#EEE" CornerRadius="6" MinHeight="150" Margin="0,0,12,0">
+                        <Grid>
+                            <Rectangle Fill="#888"
+           Width="{Binding DesignWidth, Mode=OneWay}"
+           Height="{Binding DesignHeight, Mode=OneWay}"
+           RenderTransformOrigin="0.5,0.5">
+                                <Rectangle.RenderTransform>
+                                    <ScaleTransform ScaleX="{Binding ScaleX, Mode=OneWay}"
+                        ScaleY="{Binding ScaleY, Mode=OneWay}"/>
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                        </Grid>
+                    </Border>
 
 
-        <!-- 16:10 -->
-        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6,0,0" Spacing="8">
-            <TextBlock Text="16:10" VerticalAlignment="Center" FontWeight="Bold" Width="50"/>
-            <Button Content="1280x800" Tag="1280x800" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-            <Button Content="1920x1200" Tag="1920x1200" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-            <Button Content="2560x1600" Tag="2560x1600" Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-        </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+
+
+        <!-- ............................................. -->
+        <!-- 🧾 Pravý sloupec: informace o UI prvku -->
+        <!-- ............................................. -->
+        <ScrollViewer Grid.Row="1" Grid.Column="2" VerticalScrollBarVisibility="Auto" Width="300">
+            <StackPanel>
+
+                <!-- 🔗 Sekce informací o bindingu -->
+                <Border Style="{StaticResource CardStyle}" Margin="8">
+                    <StackPanel>
+                        <TextBlock Text="🔗 Vlastnosti aktivního prvku" FontWeight="Bold" FontSize="14" Margin="0,0,0,8"/>
+
+                        <StackPanel Spacing="6">
+                            <!-- Název -->
+                            <TextBlock Text="Název:" VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding BoundElementName, Mode=TwoWay}" Margin="0,0,0,4"/>
+
+                            <!-- Skupina -->
+                            <TextBlock Text="Skupina:" VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding GroupName, Mode=TwoWay}" Margin="0,0,0,4"/>
+
+                            <!-- Šířka -->
+                            <TextBlock Text="Šířka:" VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding Width, Mode=TwoWay}" Margin="0,0,0,4"/>
+
+                            <!-- Výška -->
+                            <TextBlock Text="Výška:" VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding Height, Mode=TwoWay}" Margin="0,0,0,4"/>
+
+                            <!-- Design Width -->
+                            <TextBlock Text="Design W:" VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding DesignWidth, Mode=TwoWay}" Margin="0,0,0,4"/>
+
+                            <!-- Design Height -->
+                            <TextBlock Text="Design H:" VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding DesignHeight, Mode=TwoWay}" Margin="0,0,0,4"/>
+
+                            <!-- SubGroup -->
+                            <TextBlock Text="SubGroup:" VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding SubGroupName, Mode=TwoWay}" Margin="0"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Border>
+
+                <!-- (Případně další sekce jako styl, pozice, typ atd.) -->
+
+            </StackPanel>
+        </ScrollViewer>
 
     </Grid>
+
 </UserControl>
 
-    
+<!-- ===================================================== -->
+<!-- 🧭 ResolutionControl – komentář všech bindingů v UI -->
+<!-- ===================================================== -->
+
+<!--
+🧩 Levý panel – Nastavení layoutu (ScrollViewer Grid.Column="0")
+.............................................................................
+
+Všechny bindingy míří přímo na DataContext ViewModel komponenty (typicky LayoutVM):
+
+    Scale           // Obecné měřítko layoutu (TwoWay)
+    ScaleX          // Nezávislé horizontální škálování (TwoWay)
+    ScaleY          // Nezávislé vertikální škálování (TwoWay)
+    ScaleText       // Škálování textů (TwoWay)
+    DesignWidth     // Návrhová šířka layoutu (TwoWay)
+    DesignHeight    // Návrhová výška layoutu (TwoWay)
+    WindowWidth     // Aktuální šířka okna (OneWay, ReadOnly)
+    WindowHeight    // Aktuální výška okna (OneWay, ReadOnly)
+
+- **Readonly pole** (`WindowWidth`, `WindowHeight`) mají Style="{StaticResource ReadOnlyTextBoxStyle}"  
+  → jasně odlišené, needitovatelné, tooltip *Pouze pro čtení*.
+
+⚙️ **Zámky poměrů stran**:
+    - Checkboxy nemají datové bindingy, používají události Checked/Unchecked.
+    - Logika zamykání řešena v code-behind (AspectRatioCheckBox_Checked/Unchecked).
+
+🖥️ **Výběr rozlišení (aspect ratio buttons)**:
+    - Tlačítka mají vlastnost `Tag` (např. "1280x720").
+    - Akce je řízena v code-behind (ResizeTo) – nepoužívají binding.
+
+
+
+🎛 **Střední panel – Vizualizace a metadata (Grid.Column="1")**
+.............................................................................
+
+- CurrentResolution     // Výpis aktuálního rozlišení okna (OneWay)
+- BoundElementType      // Typ vybraného UI prvku (OneWay)
+- BoundElementName      // Název UI prvku (OneWay)
+- GroupName             // Název skupiny (OneWay)
+- DesignWidth/DesignHeight   // Rozměry pro náhled (OneWay)
+- ScaleX/ScaleY         // Pro RenderTransform ve vizuálním náhledu (OneWay)
+
+- **Vizuální náhled** (Rectangle):  
+  Šířka/ výška vázána na DesignWidth/DesignHeight, škálování přes ScaleX/ScaleY (ScaleTransform).
+
+
+
+📋 **Pravý panel – Detailní vlastnosti prvku (Grid.Column="2")**
+.............................................................................
+
+- BoundElementName   // Název prvku (TwoWay)
+- GroupName          // Skupina (TwoWay)
+- Width              // Šířka (TwoWay)
+- Height             // Výška (TwoWay)
+- DesignWidth        // Návrhová šířka (TwoWay)
+- DesignHeight       // Návrhová výška (TwoWay)
+- SubGroupName       // Název podskupiny (TwoWay)
+
+- Panel je rozšiřitelný o další metadata (např. pozice, styl, binding path...).
+
+
+
+📝 **Poznámky a doporučení**
+.............................................................................
+- Všechny bindingy jsou `{Binding}` na VM/DataContext.
+- Všechny vlastnosti musí implementovat INotifyPropertyChanged.
+- ReadOnlyTextBoxStyle pro needitovatelná pole – UX jasně označeno.
+- Pro vstupní validaci lze využít `INotifyDataErrorInfo` nebo validaci v code-behind.
+- RenderTransform na Rectangle umožňuje živý náhled efektu škálování.
+- Button/Checkbox logika je čistě v code-behind (bez bindingu).
+
+
+
+Celá komponenta je tak **přehledná, rozšiřitelná a optimalizovaná pro produkční použití**.
+
+-->

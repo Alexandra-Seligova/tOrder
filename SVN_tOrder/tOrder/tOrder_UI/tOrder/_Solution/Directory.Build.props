@@ -1,0 +1,38 @@
+<Project>
+	<!-- See https://aka.ms/dotnet/msbuild/customize for more details on customizing your build -->
+	<PropertyGroup>
+
+		<!-- 🏷 Assembly versioning -->
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+		<InformationalVersion>1.0.0</InformationalVersion>
+		<!-- Used for display purposes (e.g., About dialogs) -->
+
+		<!-- 🔒 Nullable reference type enforcement -->
+		<Nullable>enable</Nullable>
+		<!-- Helps detect potential null reference issues -->
+
+		<!-- ✅ Language version -->
+		<LangVersion>latest</LangVersion>
+		<!-- Enables the latest available C# features -->
+
+		<!-- ⚠️ Treat all warnings as errors -->
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<!-- Prevents successful builds with any warnings -->
+
+		<!-- 📂 Unified output folder -->
+		<OutputPath>$(MSBuildThisFileDirectory)\bin\$(Configuration)\</OutputPath>
+		<!-- All build outputs go to a consistent location -->
+
+		<!-- 📦 Product metadata -->
+		<Company>SPC Solutions</Company>
+		<Product>tOrder</Product>
+		<Authors>Alexandra Seligová</Authors>
+
+
+		<!-- 📜 XML documentation generation -->
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<!-- Produces .xml for IntelliSense and API docs -->
+
+	</PropertyGroup>
+</Project>

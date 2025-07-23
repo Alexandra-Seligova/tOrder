@@ -3,8 +3,11 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 using tOrder.Common;
 
 /// <summary>
@@ -276,12 +279,18 @@ public sealed partial class DashboardContentPortC : UserControl
     }
     private void TabButton_Loaded(object sender, RoutedEventArgs e)
     {
-        if (sender is Button btn && btn.Content is TextBlock tb)
+        if (sender is Button btn)
         {
-            int index = TabRepeater.GetElementIndex(btn);
-            tb.Text = (index + 1).ToString(); // 1-based
+            // Najdi TextBlock uvnitř Buttonu
+            var tb = btn.FindName("TabLabel") as TextBlock;
+            if (tb != null)
+            {
+                int index = TabRepeater.GetElementIndex(btn);
+                tb.Text = (index + 1).ToString(); // 1-based index
+            }
         }
     }
+
 
 
 }

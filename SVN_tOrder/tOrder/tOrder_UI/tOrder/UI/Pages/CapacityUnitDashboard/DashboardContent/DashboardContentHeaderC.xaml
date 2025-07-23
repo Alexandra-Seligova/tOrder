@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:common="using:tOrder.Common"
     >
 
     <UserControl.Resources>
@@ -43,7 +44,12 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="#F5F5F5" Padding="8">
+    <Grid Background="#F5F5F5" Padding="8"
+          Height="96"
+      common:DesignProperties.DesignHeight="96"
+      common:DesignProperties.GroupTag="TabRoot"
+      common:DesignProperties.GroupSubTag="TabSelector">
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

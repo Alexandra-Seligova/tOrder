@@ -6,11 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="800"
-    d:DesignWidth="1200">
+    d:DesignHeight="768"
+    d:DesignWidth="1024">
 
     <Grid>
         <!-- 🧭 Navigační menu (levý panel) -->
+
         <NavigationView
             x:Name="NavView"
             IsTabStop="True"
@@ -18,7 +19,9 @@
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False"
             IsPaneOpen="False"
-            SelectionChanged="NavigationView_SelectionChanged">
+            SelectionChanged="NavigationView_SelectionChanged"
+                IsPaneToggleButtonVisible="False" 
+            >
 
             <!-- 📋 Položky hlavního menu -->
             <NavigationView.MenuItems>
@@ -55,7 +58,7 @@
 
                 <!-- 🔝 Horní panel -->
                 <Viewbox x:Name="TopBarViewbox" Stretch="Uniform" Height="Auto">
-                    <Grid x:Name="TopBarContainer" Width="1280" Height="70">
+                    <Grid x:Name="TopBarContainer" Width="1024" >
                         <Grid.RenderTransform>
                             <ScaleTransform x:Name="TopBarScale" />
                         </Grid.RenderTransform>

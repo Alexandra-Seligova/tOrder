@@ -24,28 +24,44 @@ namespace tOrder.Shell
     /// </summary>
     public sealed partial class TopBar : UserControl
     {
-        /// <summary>Gets the ViewModel for this control.</summary>
-        public TopBarVM VM
+        public TopBarVM VM { get; }
+
+        private string _tooltipText = "TopBar";
+
+        public string TooltipText
         {
-            get;
+            get => _tooltipText;
+            set
+            {
+                if (_tooltipText != value)
+                {
+                    _tooltipText = value;
+                    ToolTipService.SetToolTip(TopBarBorder, _tooltipText);
+                }
+            }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TopBar"/> class.
-        /// </summary>
         public TopBar()
         {
             this.InitializeComponent();
-            // Získání ViewModelu přes App.GetService<T>() (DI)
             VM = App.GetService<TopBarVM>();
             this.DataContext = VM;
 
+            TopBarGrid.SizeChanged += TopBarGrid_SizeChanged;
 
-
-            Console.WriteLine("[TopBar View] Construct");
-
-
+            UpdateTooltip();
         }
 
+        private void TopBarGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            UpdateTooltip();
+        }
+
+        private void UpdateTooltip()
+        {
+            int columnCount = TopBarGrid.ColumnDefinitions.Count;
+            TooltipText = $"TopBar {TopBarGrid.ActualWidth:0}x{TopBarGrid.ActualHeight:0} {columnCount}xcol.";
+        }
     }
+
 }

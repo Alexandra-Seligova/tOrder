@@ -5,11 +5,12 @@
     xmlns:local="using:tOrder.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    xmlns:common="using:tOrder.Common">
 
     <UserControl.Resources>
         <!-- Proměnné pro pohodlné ladění -->
-        <x:Double x:Key="FooterInfoBoxHeight">60</x:Double>
+        <x:Double x:Key="FooterInfoBoxHeight">48</x:Double>
         <x:Double x:Key="FooterButtonMinWidth">120</x:Double>
         <x:Double x:Key="FooterButtonHeight">40</x:Double>
         <x:Double x:Key="FooterButtonFontSize">16</x:Double>
@@ -57,12 +58,20 @@
 
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Padding="16"  Background="#F5F5F5">
+    <Grid x:Name="LayoutRoot" Padding="12"  Background="#F5F5F5"
+          
+          Height="124"
+      common:DesignProperties.DesignHeight="124"
+      common:DesignProperties.GroupTag="TabRoot"
+      common:DesignProperties.GroupSubTag="TabSelector"
+          
+          
+          >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <!-- Info Boxes -->
-            <RowDefinition Height="10"/>
-            <!-- Info Boxes -->
+            <RowDefinition Height="8"/>
+            <!-- free space -->
             <RowDefinition Height="Auto"/>
             <!-- Footer Buttons -->
         </Grid.RowDefinitions>
@@ -81,14 +90,15 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Style="{StaticResource InfoLabelStyle}"
                    Text="Reststücke für die&#x0a;nächsten WZK wechsel:"/>
                 <Border Grid.Column="2" Style="{StaticResource InfoValueBoxStyle}" CornerRadius="0" 
-                VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="-20,0,0,0">
-                    <TextBlock Text="123456789" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Right"/>
+                VerticalAlignment="Center" 
+                      >
+                    <TextBlock Text="1234567" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Right"/>
                 </Border>
                 <TextBlock Grid.Column="3" Style="{StaticResource InfoPostfixStyle}" Text="Stk."/>
             </Grid>
@@ -100,15 +110,30 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Style="{StaticResource InfoLabelStyle}"
                    Text="Reststücke für die&#x0a;nächsten QA Messung:"/>
+
+
+
+                <!-- 
                 <Border Grid.Column="2" Style="{StaticResource InfoValueBoxStyle}" CornerRadius="0" 
-                VerticalAlignment="Center" HorizontalAlignment="Stretch" >
-                    <TextBlock Text="123456789" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Right" />
+                VerticalAlignment="Center" 
+                        HorizontalAlignment="Stretch" >
+                    <TextBlock Text="1234567" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Right" />
                 </Border>
+                 -->
+                <TextBox Grid.Column="2"
+    Text="1234567"
+    Style="{StaticResource InfoValueStyle}"
+    common:ViewOnlyBehavior.IsViewOnly="True"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Center"/>
+
+
+
                 <TextBlock Grid.Column="3" Style="{StaticResource InfoPostfixStyle}" Text="Stk."/>
             </Grid>
         </Border>
@@ -120,11 +145,13 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="0"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Style="{StaticResource InfoLabelStyle}"
                  Text="Restzeit für die&#x0a;nächsten QA Messung:"/>
                 <Border Grid.Column="2" Style="{StaticResource InfoValueBoxStyle}" CornerRadius="0" 
-              VerticalAlignment="Center" HorizontalAlignment="Stretch" >
+              VerticalAlignment="Center" 
+                        HorizontalAlignment="Stretch" >
                     <TextBlock Text="00:12:05" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Center"/>
                 </Border>
             </Grid>

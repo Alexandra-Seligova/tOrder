@@ -32,34 +32,34 @@ namespace tOrder.Shell
 
         private void MainWindow_SizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
-            if (_isResizingInternally) return;
+            /*  if (_isResizingInternally) return;
 
-            _isResizingInternally = true;
+              _isResizingInternally = true;
 
-            var currentSize = e.Size;
-            double width = currentSize.Width;
-            double height = currentSize.Height;
+              var currentSize = e.Size;
+              double width = currentSize.Width;
+              double height = currentSize.Height;
 
-            double aspectRatio = width / height;
+              double aspectRatio = width / height;
 
-            var targetRatios = new List<(string Label, double Ratio)>
-            {
-                ("16:9", 16.0 / 9.0),
-                ("16:10", 16.0 / 10.0),
-                ("4:3", 4.0 / 3.0)
-            };
+              var targetRatios = new List<(string Label, double Ratio)>
+              {
+                  ("16:9", 16.0 / 9.0),
+                  ("16:10", 16.0 / 10.0),
+                  ("4:3", 4.0 / 3.0)
+              };
 
-            var closest = targetRatios.OrderBy(r => Math.Abs(aspectRatio - r.Ratio)).First();
-            double newHeight = width / closest.Ratio;
+              var closest = targetRatios.OrderBy(r => Math.Abs(aspectRatio - r.Ratio)).First();
+              double newHeight = width / closest.Ratio;
 
-            // Změň velikost okna přes AppWindow
-            var appWindow = this.AppWindow;
-            if (appWindow != null)
-            {
-                appWindow.Resize(new SizeInt32((int)width, (int)newHeight));
-            }
+              // Změň velikost okna přes AppWindow
+              var appWindow = this.AppWindow;
+              if (appWindow != null)
+              {
+                  appWindow.Resize(new SizeInt32((int)width, (int)newHeight));
+              }
 
-            _isResizingInternally = false;
+              _isResizingInternally = false;*/
         }
 
         private AppWindow AppWindow => Microsoft.UI.Windowing.AppWindow.GetFromWindowId(

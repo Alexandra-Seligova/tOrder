@@ -44,7 +44,7 @@
 
         <!-- 🔝 Horní panel -->
         <Viewbox x:Name="DashboardHeadViewbox" Stretch="Uniform" Height="Auto">
-            <Grid x:Name="DashboardHeadContainer" Width="1280" Height="70">
+            <Grid x:Name="DashboardHeadContainer" Width="1024" Height="68">
                 <Grid.RenderTransform>
                     <ScaleTransform x:Name="DashboardHeadScale" />
                 </Grid.RenderTransform>
@@ -54,11 +54,11 @@
 
 
         <!--
-            Main content section (with 18px padding)
+            Main content section (with 8px padding)
             Contains TabSelectorView for tab navigation and
             ContentPresenter for tab detail content.
         -->
-        <Border Grid.Row="1" Padding="12">
+        <Border Grid.Row="1" Padding="8">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -69,7 +69,7 @@
 
                 <!-- Tab navigation under the header -->
                 <Viewbox x:Name="TabSelectorViewbox" Stretch="Uniform" Height="Auto">
-                    <Grid x:Name="TabSelectorContainer" Width="1280">
+                    <Grid x:Name="TabSelectorContainer" Width="1024">
                         <Grid.RenderTransform>
                             <ScaleTransform x:Name="TabSelectorViewScale" />
                         </Grid.RenderTransform>

@@ -30,7 +30,7 @@ Layout:
 
     <Grid>
         <Viewbox x:Name="MainScaleBox" Stretch="Uniform">
-            <Grid Width="1280" Height="720" 
+            <Grid Width="1024" Height="768" 
                   RenderTransformOrigin="0.5,0.5">
                 <Grid.RenderTransform>
                     <ScaleTransform 

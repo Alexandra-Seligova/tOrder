@@ -15,10 +15,18 @@
     xmlns:local="using:tOrder.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    xmlns:common="using:tOrder.Common">
 
     <!-- Centralized resources for styling and layout -->
     <UserControl.Resources>
+        <!-- Barva textu pro neaktivní taby -->
+        <SolidColorBrush x:Key="TabInactiveTextBrush" Color="#555555"/>
+
+        <!-- Výška odsazení spodní hrany (pro Border) -->
+        <Thickness x:Key="TabIndicatorMarginInactive">0,0,0,0</Thickness>
+        <Thickness x:Key="TabIndicatorMarginActive">0,0,0,0</Thickness>
+
         <!-- Colors for tab states -->
         <SolidColorBrush x:Key="TabActiveBrush" Color="#154A84"/>
         <SolidColorBrush x:Key="TabInactiveBrush" Color="#888"/>
@@ -29,15 +37,20 @@
 
         <!-- Dimensions and sizing -->
         <x:Double x:Key="TabButtonWidth">112</x:Double>
-        <x:Double x:Key="TabButtonHeight">49</x:Double>
+        <x:Double x:Key="TabButtonHeight">38</x:Double>
         <x:Double x:Key="TabButtonFontSize">16</x:Double>
-        <x:Double x:Key="TabIndicatorHeight">4</x:Double>
+        <x:Double x:Key="TabIndicatorHeight">2</x:Double>
         <x:Double x:Key="TabSpacing">11</x:Double>
         <CornerRadius x:Key="TabButtonCornerRadius">4,4,0,0</CornerRadius>
 
-        <!-- Font weights -->
+        <!-- Font weights 
+        
+        Normal
+        SemiBold
+        Bold
+        -->
         <FontWeight x:Key="TabButtonFontWeightBold">Bold</FontWeight>
-        <FontWeight x:Key="TabButtonFontWeightNormal">Normal</FontWeight>
+        <FontWeight x:Key="TabButtonFontWeightNormal">Bold</FontWeight>
 
         <!-- Button style for tabs -->
         <Style x:Key="TabButtonStyle" TargetType="Button">
@@ -62,10 +75,14 @@
             </Setter>
         </Style>
     </UserControl.Resources>
+    <Grid x:Name="TabRoot"
+            Height="40"
 
-    <Grid x:Name="TabRoot">
+      common:DesignProperties.DesignHeight="40"
+      common:DesignProperties.GroupTag="TabRoot"
+      common:DesignProperties.GroupSubTag="TabSelector">
+
         <Grid.ColumnDefinitions>
-
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="12"/>
             <ColumnDefinition Width="*"/>
@@ -82,110 +99,128 @@
             <ColumnDefinition Width="12"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <!--  nelze protože double neprojde 
-            <ColumnDefinition Width="{StaticResource TabButtonWidth}"/>
-            <ColumnDefinition Width="{StaticResource TabSpacing}"/>
-        -->
 
         <!-- Dashboard tab -->
-        <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Button Content="Dashboard"
-                    Tag="0"
-                    Click="Tab_Click"
-                    Style="{StaticResource TabButtonStyle}"
-                    Foreground="{StaticResource TabActiveBrush}"
-                    FontWeight="{StaticResource TabButtonFontWeightBold}"/>
-            <!-- Indicator bar for active tab -->
-            <Border Height="{StaticResource TabIndicatorHeight}"
-                    Background="{StaticResource TabIndicatorActiveBrush}"
-                    Margin="0,-4,0,0"/>
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <Button x:Name="TabButton_0"
+                Content="Dashboard"
+                Tag="0"
+                Click="Tab_Click"
+                Style="{StaticResource TabButtonStyle}"
+                Foreground="{StaticResource TabActiveBrush}"
+                FontWeight="{StaticResource TabButtonFontWeightBold}"/>
+            <Border x:Name="Indicator_0"
+                Height="{StaticResource TabIndicatorHeight}"
+                Background="{StaticResource TabIndicatorActiveBrush}"
+                Margin="{StaticResource TabIndicatorMarginActive}"/>
         </StackPanel>
+
         <!-- Chargen/Behälter tab -->
-        <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Button Content="Chargen/Behälter"
-                    Tag="1"
-                    Click="Tab_Click"
-                    Style="{StaticResource TabButtonStyle}"
-                    Foreground="{StaticResource TabInactiveBrush}"
-                    FontWeight="{StaticResource TabButtonFontWeightNormal}"/>
-            <Border Height="{StaticResource TabIndicatorHeight}"
-                    Background="{StaticResource TabIndicatorActiveBrush}"
-                    Margin="0,-4,0,0"/>
+        <StackPanel Grid.Column="2" Orientation="Vertical">
+            <Button x:Name="TabButton_1"
+                Content="Chargen/Behälter"
+                Tag="1"
+                Click="Tab_Click"
+                Style="{StaticResource TabButtonStyle}"
+                Foreground="{StaticResource TabInactiveTextBrush}"
+                FontWeight="{StaticResource TabButtonFontWeightNormal}"/>
+            <Border x:Name="Indicator_1"
+                Height="{StaticResource TabIndicatorHeight}"
+                Background="{StaticResource TabIndicatorActiveBrush}"
+                Margin="{StaticResource TabIndicatorMarginInactive}"/>
         </StackPanel>
+
         <!-- Werkzeuge tab -->
-        <StackPanel Grid.Column="4" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Button Content="Werkzeuge"
-                    Tag="2"
-                    Click="Tab_Click"
-                    Style="{StaticResource TabButtonStyle}"
-                    Foreground="{StaticResource TabInactiveBrush}"
-                    FontWeight="{StaticResource TabButtonFontWeightNormal}"/>
-            <Border Height="{StaticResource TabIndicatorHeight}"
-                    Background="{StaticResource TabIndicatorActiveBrush}"
-                    Margin="0,-4,0,0"/>
+        <StackPanel Grid.Column="4" Orientation="Vertical">
+            <Button x:Name="TabButton_2"
+                Content="Werkzeuge"
+                Tag="2"
+                Click="Tab_Click"
+                Style="{StaticResource TabButtonStyle}"
+                Foreground="{StaticResource TabInactiveTextBrush}"
+                FontWeight="{StaticResource TabButtonFontWeightNormal}"/>
+            <Border x:Name="Indicator_2"
+                Height="{StaticResource TabIndicatorHeight}"
+                Background="{StaticResource TabIndicatorActiveBrush}"
+                Margin="{StaticResource TabIndicatorMarginInactive}"/>
         </StackPanel>
+
         <!-- Qualität tab -->
-        <StackPanel Grid.Column="6" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Button Content="Qualität"
-                    Tag="3"
-                    Click="Tab_Click"
-                    Style="{StaticResource TabButtonStyle}"
-                    Foreground="{StaticResource TabInactiveBrush}"
-                    FontWeight="{StaticResource TabButtonFontWeightNormal}"/>
-            <Border Height="{StaticResource TabIndicatorHeight}"
-                    Background="{StaticResource TabIndicatorActiveBrush}"
-                    Margin="0,-4,0,0"/>
+        <StackPanel Grid.Column="6" Orientation="Vertical">
+            <Button x:Name="TabButton_3"
+                Content="Qualität"
+                Tag="3"
+                Click="Tab_Click"
+                Style="{StaticResource TabButtonStyle}"
+                Foreground="{StaticResource TabInactiveTextBrush}"
+                FontWeight="{StaticResource TabButtonFontWeightNormal}"/>
+            <Border x:Name="Indicator_3"
+                Height="{StaticResource TabIndicatorHeight}"
+                Background="{StaticResource TabIndicatorActiveBrush}"
+                Margin="{StaticResource TabIndicatorMarginInactive}"/>
         </StackPanel>
+
         <!-- Arbeitsplan tab -->
-        <StackPanel Grid.Column="8" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Button Content="Arbeitsplan"
-                    Tag="4"
-                    Click="Tab_Click"
-                    Style="{StaticResource TabButtonStyle}"
-                    Foreground="{StaticResource TabInactiveBrush}"
-                    FontWeight="{StaticResource TabButtonFontWeightNormal}"/>
-            <Border Height="{StaticResource TabIndicatorHeight}"
-                    Background="{StaticResource TabIndicatorActiveBrush}"
-                    Margin="0,-4,0,0"/>
+        <StackPanel Grid.Column="8" Orientation="Vertical">
+            <Button x:Name="TabButton_4"
+                Content="Arbeitsplan"
+                Tag="4"
+                Click="Tab_Click"
+                Style="{StaticResource TabButtonStyle}"
+                Foreground="{StaticResource TabInactiveTextBrush}"
+                FontWeight="{StaticResource TabButtonFontWeightNormal}"/>
+            <Border x:Name="Indicator_4"
+                Height="{StaticResource TabIndicatorHeight}"
+                Background="{StaticResource TabIndicatorActiveBrush}"
+                Margin="{StaticResource TabIndicatorMarginInactive}"/>
         </StackPanel>
+
         <!-- Dokumenten tab -->
-        <StackPanel Grid.Column="10" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Button Content="Dokumenten"
-                    Tag="5"
-                    Click="Tab_Click"
-                    Style="{StaticResource TabButtonStyle}"
-                    Foreground="{StaticResource TabInactiveBrush}"
-                    FontWeight="{StaticResource TabButtonFontWeightNormal}"/>
-            <Border Height="{StaticResource TabIndicatorHeight}"
-                    Background="{StaticResource TabIndicatorActiveBrush}"
-                    Margin="0,-4,0,0"/>
+        <StackPanel Grid.Column="10" Orientation="Vertical">
+            <Button x:Name="TabButton_5"
+                Content="Dokumenten"
+                Tag="5"
+                Click="Tab_Click"
+                Style="{StaticResource TabButtonStyle}"
+                Foreground="{StaticResource TabInactiveTextBrush}"
+                FontWeight="{StaticResource TabButtonFontWeightNormal}"/>
+            <Border x:Name="Indicator_5"
+                Height="{StaticResource TabIndicatorHeight}"
+                Background="{StaticResource TabIndicatorActiveBrush}"
+                Margin="{StaticResource TabIndicatorMarginInactive}"/>
         </StackPanel>
+
         <!-- Info tab -->
-        <StackPanel Grid.Column="12" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Button Content="Info"
-                    Tag="6"
-                    Click="Tab_Click"
-                    Style="{StaticResource TabButtonStyle}"
-                    Foreground="{StaticResource TabInactiveBrush}"
-                    FontWeight="{StaticResource TabButtonFontWeightNormal}"/>
-            <Border Height="{StaticResource TabIndicatorHeight}"
-                    Background="{StaticResource TabIndicatorActiveBrush}"
-                    Margin="0,-4,0,0"/>
+        <StackPanel Grid.Column="12" Orientation="Vertical">
+            <Button x:Name="TabButton_6"
+                Content="Info"
+                Tag="6"
+                Click="Tab_Click"
+                Style="{StaticResource TabButtonStyle}"
+                Foreground="{StaticResource TabInactiveTextBrush}"
+                FontWeight="{StaticResource TabButtonFontWeightNormal}"/>
+            <Border x:Name="Indicator_6"
+                Height="{StaticResource TabIndicatorHeight}"
+                Background="{StaticResource TabIndicatorActiveBrush}"
+                Margin="{StaticResource TabIndicatorMarginInactive}"/>
         </StackPanel>
+
         <!-- OEE tab -->
-        <StackPanel Grid.Column="14" Orientation="Vertical" HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch">
-            <Button Content="OEE"
-                    Tag="7"
-                    Click="Tab_Click"
-                    Style="{StaticResource TabButtonStyle}"
-                    Foreground="{StaticResource TabInactiveBrush}"
-                    FontWeight="{StaticResource TabButtonFontWeightNormal}"/>
-            <Border Height="{StaticResource TabIndicatorHeight}"
-                    Background="{StaticResource TabIndicatorActiveBrush}"
-                    Margin="0,-4,0,0"/>
+        <StackPanel Grid.Column="14" Orientation="Vertical">
+            <Button x:Name="TabButton_7"
+                Content="OEE"
+                Tag="7"
+                Click="Tab_Click"
+                Style="{StaticResource TabButtonStyle}"
+                Foreground="{StaticResource TabInactiveTextBrush}"
+                FontWeight="{StaticResource TabButtonFontWeightNormal}"/>
+            <Border x:Name="Indicator_7"
+                Height="{StaticResource TabIndicatorHeight}"
+                Background="{StaticResource TabIndicatorActiveBrush}"
+                Margin="{StaticResource TabIndicatorMarginInactive}"/>
         </StackPanel>
     </Grid>
+
 </UserControl>
     
     

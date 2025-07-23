@@ -47,7 +47,7 @@
 
         <!-- TABULKA -->
         <Viewbox Grid.Row="0" Stretch="Uniform">
-            <Grid Width="1280">
+            <Grid Width="1024">
                 <toolkit:DataGrid x:Name="WerkzeugeDataGrid"
                                   AutoGenerateColumns="False"
                                   HeadersVisibility="Column"
@@ -93,7 +93,7 @@
 
         <!-- TLAČÍTKA -->
         <Viewbox Grid.Row="1" Stretch="Uniform">
-            <Grid Width="1280" HorizontalAlignment="Center">
+            <Grid Width="1024" HorizontalAlignment="Center">
                 <Grid HorizontalAlignment="Center" Margin="0,16,0,0" Width="1050" Padding="0,0,0,20">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />

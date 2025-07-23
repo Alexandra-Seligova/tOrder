@@ -23,23 +23,22 @@ namespace tOrder.UI
 
         private void TryHookWindowEvents()
         {
-            // Pokud už je zaregistrováno, nedělej nic
             if (_isWindowEventsHooked)
                 return;
 
             var window = App.MainAppWindow;
             if (window != null)
             {
-                window.SizeChanged += Window_SizeChanged;
-                ApplyLayoutBasedOnAspect(window.Bounds.Width, window.Bounds.Height);
+                var size = window.Size;
+                ApplyLayoutBasedOnAspect(size.Width, size.Height);
                 _isWindowEventsHooked = true;
             }
             else
             {
-                // Odlož provázání přes Dispatcher (okno ještě nemusí být připravené)
                 this.DispatcherQueue.TryEnqueue(() => TryHookWindowEvents());
             }
         }
+
 
         private void Window_SizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
@@ -60,11 +59,16 @@ namespace tOrder.UI
             {
                 MainContentGrid.Height = 500;
             }
+
+            LogRowHeight();
         }
 
         private void DashboardContentView_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             ApplyScale(e.NewSize.Width);
+            LogRowHeight();
+            //  MainContentGrid.Height = e.NewSize.Height;
+            // LogRowHeight();
         }
 
         private void ApplyScale(double currentWidth)
@@ -74,6 +78,16 @@ namespace tOrder.UI
 
             // Aplikuj škálování podle potřeby
             // Např. PortManualScale.ScaleX = scale;
+        }
+        private void LogRowHeight()
+        {
+            if (this.Content is Grid mainGrid &&
+                mainGrid.RowDefinitions.Count >= 2)
+            {
+                double middleRowHeight = mainGrid.RowDefinitions[1].ActualHeight;
+                MainContentGrid.Height = middleRowHeight;
+                Console.WriteLine($"[DashboardContentView] Middle Row (Row 1) Height: {middleRowHeight:F0}px");
+            }
         }
     }
 }
