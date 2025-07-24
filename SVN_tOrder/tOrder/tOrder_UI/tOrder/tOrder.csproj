@@ -52,8 +52,8 @@
 		<PackageReference Include="CommunityToolkit.WinUI.Triggers" Version="8.2.250402" />
 		<PackageReference Include="CommunityToolkit.WinUI.UI.Controls.DataGrid" Version="7.1.2" />
 		<PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.1.2" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.5" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.5" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.7" />
 		<PackageReference Include="Microsoft.UI.Xaml" Version="2.8.7" />
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.10" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
@@ -69,7 +69,7 @@
 		<Content Include="Assets\StoreLogo.png" />
 		<Content Include="Assets\Wide310x150Logo.scale-200.png" />
 		<Content Include="Common\Services\Data\MockData.xml">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
 
@@ -86,8 +86,8 @@
 		<ProjectCapability Include="Msix" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4188" />
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250513003" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4654" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250606001" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="3.0.0" />
 	</ItemGroup>
 
@@ -141,64 +141,64 @@
 		<Folder Include="UI\Pages\OverviewByIPC\CardFooter\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="ResolutionControl.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Update="ResolutionControl.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="ResolutionWindow.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Update="ResolutionWindow.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="UI\Pages\CapacityUnitDashboard\WerkzeugeContent\WerkzeugeContentC.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Update="UI\Pages\CapacityUnitDashboard\WerkzeugeContent\WerkzeugeContentC.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="UI\Pages\CapacityUnitDashboard\ChargenContent\ChargenContentC.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Update="UI\Pages\CapacityUnitDashboard\ChargenContent\ChargenContentC.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="UI\Pages\CapacityUnitDashboard\DashboardFooter\DashboardFooterC.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Update="UI\Pages\CapacityUnitDashboard\DashboardFooter\DashboardFooterC.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentPortC.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentPortC.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentHeaderC.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentHeaderC.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Update="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="UI\Pages\CapacityUnitDashboard\TabSelectorView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Update="UI\Pages\CapacityUnitDashboard\TabSelectorView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="UI\Pages\CapacityUnitDashboard\DashboardHeadC.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Update="UI\Pages\CapacityUnitDashboard\DashboardHeadC.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="UI\Pages\CapacityUnitDashboard.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Update="UI\Pages\CapacityUnitDashboard.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="UI\Pages\OverviewByIPC\CardContent\CardContentSwitcherC.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Update="UI\Pages\OverviewByIPC\CardContent\CardContentSwitcherC.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
 		<Page Update="UI\Pages\OverviewByIPC\Card Controls\CardFooterC.xaml">
@@ -222,11 +222,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Page Update="UI\Pages\OverviewByIPC\Card Controls\CardProductionContentC.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</Page>
-	</ItemGroup>
-	<ItemGroup>
-		<Page Update="Shell\DummyPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
 	</ItemGroup>

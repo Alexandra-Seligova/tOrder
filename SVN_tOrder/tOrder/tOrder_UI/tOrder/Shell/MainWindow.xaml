@@ -1,19 +1,20 @@
-﻿<!--
-===========================================================================
-🪟 MainWindow.xaml
+﻿<!--===========================================================================
+    🪟 MainWindow.xaml
 ===========================================================================
 
-MainWindow slouží jako hostitelské okno aplikace tOrder. Zobrazuje `MainLayout`,
-který obsahuje:
-- Navigační panel (NavigationView),
-- Horní panel (TopBar),
-- Hlavní obsahový rámec (Frame),
-- Alert notifikace.
+    MainWindow serves as the host window for the tOrder application.
+    It renders the `MainLayout`, which includes:
+    ┌────────────────────────────────────────────────────────────┐
+    │ - NavigationView (left menu panel)                         │
+    │ - TopBar (header layout section)                           │
+    │ - Main content Frame (dynamic page navigation)             │
+    │ - Alerts & notifications                                   │
+    └────────────────────────────────────────────────────────────┘
 
-Tento soubor obsahuje pouze jeden vizuální prvek `MainLayout`.
-Veškeré UI a logika jsou delegovány na něj.
-===========================================================================
--->
+    This file only includes a single visual root: <MainLayout>.
+    All UI structure and logic are delegated to it.
+
+===========================================================================-->
 
 <Window
     x:Class="tOrder.Shell.MainWindow"
@@ -25,7 +26,7 @@ Veškeré UI a logika jsou delegovány na něj.
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <!-- Root Layout hostující celou vizuální strukturu aplikace -->
+    <!-- Root layout hosting the full UI structure -->
     <navigation:MainLayout x:Name="RootLayout" />
 
 </Window>

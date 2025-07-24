@@ -23,7 +23,7 @@
 
         <!-- Header -->
         <Viewbox Grid.Row="0" x:Name="DashboardContentHeaderViewbox" Stretch="Uniform" Height="Auto">
-            <Grid x:Name="DashboardContentHeaderContainer" Width="1280">
+            <Grid x:Name="DashboardContentHeaderContainer" Width="1024">
                 <Grid.RenderTransform>
                     <ScaleTransform x:Name="DashboardContentHeaderScale" />
                 </Grid.RenderTransform>
@@ -42,7 +42,7 @@
             </Grid.RowDefinitions>
 
             <Viewbox Grid.Row="1" Stretch="Uniform" Height="Auto">
-                <Grid Width="1280" >
+                <Grid Width="1024" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <!-- header -->
@@ -130,7 +130,7 @@
 
         <!-- Header -->
         <Viewbox Grid.Row="2" x:Name="DashboardContentFooterViewbox" Stretch="Uniform" Height="Auto">
-            <Grid   x:Name="DashboardContentFooterContainer" Width="1280">
+            <Grid   x:Name="DashboardContentFooterContainer" Width="1024">
                 <Grid.RenderTransform>
                     <ScaleTransform x:Name="DashboardContentFooterScale" />
                 </Grid.RenderTransform>

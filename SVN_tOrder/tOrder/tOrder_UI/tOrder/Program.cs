@@ -206,9 +206,16 @@ public static class Program
 
         services.AddTransient<PopupDisplayControlVM>(); // 🆕
 
+
+        services.AddSingleton<LayoutConfigModel>();
+        services.AddSingleton<LayoutConfigVM>();
+
         // Registrace ladicího nástroje:
         services.AddSingleton<WindowDebugViewModel>();
         services.AddTransient<ResolutionWindow>();
+
+
+
 
         services.AddSingleton<MainWindow>();
         services.AddSingleton<App>();

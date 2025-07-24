@@ -1,4 +1,4 @@
-<!--===================================================================
+﻿<!--===================================================================
     MainLayout (tOrder.Shell)
 
     Primary application layout containing:
@@ -9,6 +9,7 @@
     └────────────────────────────────────────────────────────────┘
     All visual parts are wrapped in scalable containers.
 ====================================================================-->
+
 <UserControl
     x:Class="tOrder.Shell.MainLayout"
     x:Name="MainLayoutControl"
@@ -29,10 +30,14 @@
 
     Width="Auto"
     Height="Auto"
-    
+    MinWidth="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.MinWindowWidth}"
+    MinHeight="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.MinWindowHeight}"
     Background="Transparent"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
+    Opacity="1.0"
+    Visibility="Visible"
+    RenderTransformOrigin="0.5,0.5"
 
     common:DesignProperties.Control="MainLayoutControl"
     common:DesignProperties.Position="Top"
@@ -46,7 +51,6 @@
     =============================================================-->
     <UserControl.Resources>
         <common:BindingProxy x:Key="LayoutConfigProxy"
-                             x:Name="LayoutConfigProxy"
                              Data="{x:Bind LayoutConfig, Mode=OneWay}" />
     </UserControl.Resources>
 
@@ -70,29 +74,23 @@
 
             <!-- 📋 Main navigation menu items -->
             <NavigationView.MenuItems>
-                <NavigationViewItem x:Name="NavItem_OverviewByIPC"
-                                    IsSelected="True"
+                <NavigationViewItem IsSelected="True"
                                     Margin="0,12,0,0"
                                     Icon="Setting"
                                     Content="Übersicht per IPC"
                                     Tag="OverviewByIPC" />
-                <NavigationViewItem x:Name="NavItem_CapacityUnitDashboard"
-                                    Content="CapacityUnitDashboard"
+                <NavigationViewItem Content="CapacityUnitDashboard"
                                     Tag="CapacityUnitDashboard" />
-                <NavigationViewItem x:Name="NavItem_OverviewByBetreiber"
-                                    Icon="Contact"
+                <NavigationViewItem Icon="Contact"
                                     Content="Übersicht per Betreiber"
                                     Tag="OverviewByBetreiber" />
-                <NavigationViewItem x:Name="NavItem_SchichtAnfang"
-                                    Icon="Switch"
+                <NavigationViewItem Icon="Switch"
                                     Content="Schicht Anfang"
                                     Tag="SchichtAnfang" />
-                <NavigationViewItem x:Name="NavItem_SchichtEnde"
-                                    Icon="Cancel"
+                <NavigationViewItem Icon="Cancel"
                                     Content="Schicht Ende"
                                     Tag="SchichtEnde" />
-                <NavigationViewItem x:Name="NavItem_Rusten"
-                                    Icon="Repair"
+                <NavigationViewItem Icon="Repair"
                                     Content="Rüsten"
                                     Tag="Rusten" />
             </NavigationView.MenuItems>
@@ -100,13 +98,12 @@
             <!--=======================================================
                 📦 Main content area – TopBar and dynamic Page content
             =========================================================-->
-            <Grid x:Name="NavContentGrid"
-                  Background="{StaticResource BackgroundColor}">
+            <Grid Background="{StaticResource BackgroundColor}">
                 <Grid.RowDefinitions>
-                    <!-- 🔝 TopBar section row -->
-                    <RowDefinition Height="Auto" x:Name="TopBarRow" />
-                    <!-- 📄 ContentFrame section row -->
-                    <RowDefinition Height="*" x:Name="ContentFrameRow" />
+                    <RowDefinition Height="Auto" />
+                    <!-- TopBar -->
+                    <RowDefinition Height="*"    />
+                    <!-- Page Content -->
                 </Grid.RowDefinitions>
 
                 <!-- 🔝 TopBar section (scalable via Viewbox) -->
@@ -116,11 +113,11 @@
                     <Grid x:Name="TopBarContainer"
                           Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}">
                         <Grid.RenderTransform>
-                            <ScaleTransform x:Name="TopBarScaleTransform"
-                                            ScaleX="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.LayoutScale}"
-                                            ScaleY="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.LayoutScale}" />
+                            <ScaleTransform
+                                ScaleX="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.LayoutScale}"
+                                ScaleY="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.LayoutScale}" />
                         </Grid.RenderTransform>
-                        <local:TopBar x:Name="TopBarControl" />
+                        <local:TopBar />
                     </Grid>
                 </Viewbox>
 
@@ -133,6 +130,7 @@
         </NavigationView>
     </Grid>
 </UserControl>
+
 
 <!--
 =====================================================================
@@ -219,3 +217,172 @@ to be loaded dynamically via `ContentFrame`.
 
 Designed for production-grade scaling and responsive layout behavior.
 -->
+
+
+
+
+# ✅ Design Principles for XAML Layouts in tOrder (Style: MainLayout)
+
+A structured guide for maintaining consistent, scalable, and readable XAML files across the `tOrder` project.
+
+---
+
+## 1. 🌍 ASCII Header Comment Block
+
+Each `.xaml` file must start with a descriptive, structured comment:
+
+```xml
+<!--===================================================================
+    ComponentName (Namespace)
+
+    High-level purpose / role of this component
+    └── Visual breakdown:
+    ┌─────────────────────────────────────┐
+    │ 1. Element purpose / placement              │
+    │ 2. Element purpose / placement              │
+    │ 3. Optional layout/scale behavior           │
+    └─────────────────────────────────────┘
+====================================================================-->
+```
+
+---
+
+## 2. 🔹 UserControl Declaration with Grouped Attributes
+
+Organize `UserControl` attributes by logical groups:
+
+### 🔸 Metadata & Context
+
+```xml
+x:Class="..."
+x:Name="..."
+x:DataType="..." (required for x:Bind)
+```
+
+### 🔸 Namespaces & Design-time
+
+```xml
+xmlns:common="using:tOrder.Common"
+mc:Ignorable="d"
+d:DesignWidth="..."
+d:DataContext="{d:DesignInstance ...}"
+```
+
+### 🔸 Layout Attributes
+
+```xml
+Width="Auto"
+Height="Auto"
+MinWidth="{Binding ...}"
+HorizontalAlignment="Stretch"
+```
+
+### 🔸 Project Metadata (DesignProperties)
+
+```xml
+common:DesignProperties.Control="..."
+common:DesignProperties.Page="..."
+common:DesignProperties.Position="..."
+```
+
+---
+
+## 3. 🌐 Layout Regions via Comment Blocks
+
+Structure visual content using `<!--=========================================================== -->` blocks.
+
+```xml
+<!--===========================================================
+    Resources: Layout binding proxy for scale and width config
+============================================================-->
+```
+
+---
+
+## 4. 🔗 Use BindingProxy for Layout Configuration
+
+In `<UserControl.Resources>`, define layout access:
+
+```xml
+<common:BindingProxy x:Key="LayoutConfigProxy"
+                     Data="{x:Bind LayoutConfig, Mode=OneWay}" />
+```
+
+Used for:
+
+* Width / Height binding
+* ScaleTransform
+* Min/max dimensions
+
+---
+
+## 5. 🌿 Use Viewbox for Scalable Sections
+
+Wrap headers like `TopBar` in a `Viewbox`:
+
+* Inner `Grid` has width bound to `LayoutConfig.DesignWidth`
+* `ScaleTransform` is bound to `LayoutConfig.LayoutScale`
+
+---
+
+## 6. 🌐 Identify Layout Blocks with `DesignProperties`
+
+Use attached properties:
+
+```xml
+common:DesignProperties.Control="MainLayout"
+common:DesignProperties.Page="Shell"
+common:DesignProperties.GroupTag="Layout"
+```
+
+Used for visual tooling, runtime inspection, and automated testing.
+
+---
+
+## 7. 🔹 Visual Summary Comment at End of File
+
+Add a detailed visual description:
+
+```xml
+<!--
+=====================================================================
+📊 Component.xaml – Visual Structure Overview
+=====================================================================
+
+📈 Root Layout Structure
+...
+
+📜 UI Element Breakdown
+...
+
+🔗 Data Binding
+...
+
+✅ Summary
+...
+-->
+```
+
+---
+
+## 🛠 Recommended .xaml Sections Order
+
+1. 📄 ASCII Header
+2. 🌟 UserControl declaration with grouped attributes
+3. 🔹 Resources + BindingProxy
+4. 📍 Root container (Grid/Panel)
+5. 📊 TopBar/Header layout section
+6. 📜 Main content section (Frame, TabView)
+7. 🔹 Closing comment with visual breakdown
+
+---
+
+## ✅ Why This Structure?
+
+| Goal                        | Benefit                                  |
+| --------------------------- | ---------------------------------------- |
+| Consistent visual style     | Easier orientation across components     |
+| Self-descriptive XAML       | Understand purpose without code digging  |
+| Strong `x:Bind` + Proxy use | High-performance + flexible layout logic |
+| `DesignProperties` metadata | Metadata-driven design & debugging       |
+| Testability & tooling ready | For automated UI inspectors and overlays |

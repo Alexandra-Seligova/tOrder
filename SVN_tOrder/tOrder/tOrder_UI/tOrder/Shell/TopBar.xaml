@@ -1,38 +1,63 @@
-<!-- 
-    TopBar komponenta
-    ──────────────────
-    Záhlaví aplikace zobrazující:
-    - Hamburger menu (pro otevření bočního panelu)
-    - Tlačítko zpět
-    - Název stránky a breadcrumb navigaci
-    - Informace o uživateli a čase
-    - Ikonu oznámení
+<!--===================================================================
+    TopBar (tOrder.Shell)
 
-    Výška (v návrhu): 68 px (common:DesignProperties.DesignHeight)
-    Přizpůsobení velikosti pomocí globálního vertikálního ScaleTransform.
--->
+    Application header component containing:
+    ┌────────────────────────────────────────────────────────────┐
+    │ 1. Hamburger menu (toggles NavigationView)                 │
+    │ 2. Back button (optional)                                  │
+    │ 3. Page title and breadcrumb                               │
+    │ 4. User info (name, session time, photo)                   │
+    │ 5. Notifications icon (alerts / messages)                  │
+    └────────────────────────────────────────────────────────────┘
+    Intended to be placed inside a Viewbox and scaled via LayoutConfigVM.
+====================================================================-->
 
 <UserControl
     x:Class="tOrder.Shell.TopBar"
+    x:Name="TopBarControl"
+
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:tOrder.Shell"
-    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     xmlns:common="using:tOrder.Common"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    x:DataType="local:TopBarVM">
 
+    mc:Ignorable="d"
+    d:DesignWidth="1024"
+    d:DesignHeight="68"
+    d:DataContext="{d:DesignInstance Type=local:TopBarVM, IsDesignTimeCreatable=True}"
+
+    x:DataType="local:TopBarVM"
+
+    Width="Auto"
+    Height="Auto"
+    Background="Transparent"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Top"
+
+    common:DesignProperties.Control="TopBarControl"
+    common:DesignProperties.Position="Top"
+    common:DesignProperties.GroupTag="Layout"
+    common:DesignProperties.GroupSubTag="Header"
+    common:DesignProperties.DesignWidth="1024"
+    common:DesignProperties.DesignHeight="68">
+
+
+    <!--===========================================================
+        TopBar layout container (Header strip for app shell)
+    =============================================================-->
     <Border x:Name="TopBarBorder"
             Background="#003f7f"
             VerticalAlignment="Top">
 
+        <!--=======================================================
+            TopBar content Grid – contains all interactive sections
+        =========================================================-->
         <Grid x:Name="TopBarGrid"
-              Height="68"
               Padding="8,0"
               ColumnSpacing="20"
-
               common:DesignProperties.DesignHeight="68"
               common:DesignProperties.GroupTag="Layout"
               common:DesignProperties.GroupSubTag="Header">
@@ -45,47 +70,67 @@
                 <ColumnDefinition Width="Auto"/>
                 <!-- Reserved -->
                 <ColumnDefinition Width="*"/>
-                <!-- Page title + breadcrumb -->
+                <!-- Title + breadcrumb -->
                 <ColumnDefinition Width="Auto"/>
                 <!-- Reserved -->
                 <ColumnDefinition Width="Auto"/>
                 <!-- User info -->
                 <ColumnDefinition Width="Auto"/>
-                <!-- Notification -->
+                <!-- Notifications -->
             </Grid.ColumnDefinitions>
 
-            <!-- 1️⃣ Hamburger Menu -->
-            <Button Grid.Column="0"
+            <!--=======================================================
+                1️⃣ Hamburger Menu
+            =========================================================-->
+            <Button x:Name="HamburgerButton"
+                    Grid.Column="0"
                     Background="Transparent"
                     BorderThickness="0"
                     Command="{x:Bind VM.ToggleMenuCommand}">
-                <FontIcon Glyph="&#xE700;" FontSize="28" Foreground="White"/>
+                <FontIcon x:Name="HamburgerIcon"
+                          Glyph="&#xE700;"
+                          FontSize="28"
+                          Foreground="White"/>
             </Button>
 
-            <!-- 2️⃣ Back Button -->
-            <Button Grid.Column="1"
+            <!--=======================================================
+                2️⃣ Back Button
+            =========================================================-->
+            <Button x:Name="BackButton"
+                    Grid.Column="1"
                     Background="Transparent"
                     BorderThickness="0"
                     ToolTipService.ToolTip="Back">
-                <FontIcon Glyph="&#xE72B;" FontSize="28" Foreground="White"/>
+                <FontIcon x:Name="BackIcon"
+                          Glyph="&#xE72B;"
+                          FontSize="28"
+                          Foreground="White"/>
             </Button>
 
-            <!-- 3️⃣ Page Title + Breadcrumb -->
-            <StackPanel Grid.Column="3"
+            <!--=======================================================
+                3️⃣ Page Title + Breadcrumb
+            =========================================================-->
+            <StackPanel x:Name="PageTitlePanel"
+                        Grid.Column="3"
                         Orientation="Vertical"
                         VerticalAlignment="Center"
                         Spacing="2">
-                <TextBlock Text="{x:Bind VM.Heading, Mode=OneWay}"
+                <TextBlock x:Name="HeadingText"
+                           Text="{x:Bind VM.Heading, Mode=OneWay}"
                            FontSize="20"
                            FontWeight="Bold"
                            Foreground="White"/>
-                <TextBlock Text="{x:Bind VM.BreadCrumpText, Mode=OneWay}"
+                <TextBlock x:Name="BreadcrumbText"
+                           Text="{x:Bind VM.BreadCrumpText, Mode=OneWay}"
                            FontSize="14"
                            Foreground="White"/>
             </StackPanel>
 
-            <!-- 4️⃣ User Info (User Picture + Session Details) -->
-            <Grid Grid.Column="5"
+            <!--=======================================================
+                4️⃣ User Info – name, surname, session + avatar
+            =========================================================-->
+            <Grid x:Name="UserInfoGrid"
+                  Grid.Column="5"
                   Background="#052f60"
                   VerticalAlignment="Center"
                   Padding="8,4">
@@ -94,28 +139,122 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <controls:PersonPicture Grid.Column="0"
+                <controls:PersonPicture x:Name="UserPicture"
+                                        Grid.Column="0"
                                         Width="36"
                                         Height="36"
                                         Margin="0,0,8,0"/>
 
-                <StackPanel Grid.Column="1"
+                <StackPanel x:Name="UserDetailsPanel"
+                            Grid.Column="1"
                             Orientation="Vertical"
                             VerticalAlignment="Center">
-                    <TextBlock Text="{x:Bind VM.UserName}" Foreground="White" FontSize="12"/>
-                    <TextBlock Text="{x:Bind VM.UserSurname}" Foreground="White" FontSize="12"/>
-                    <TextBlock Text="{x:Bind VM.SessionDuration}" Foreground="White" FontSize="10"/>
+                    <TextBlock x:Name="UserNameText"
+                               Text="{x:Bind VM.UserName}"
+                               Foreground="White"
+                               FontSize="12"/>
+                    <TextBlock x:Name="UserSurnameText"
+                               Text="{x:Bind VM.UserSurname}"
+                               Foreground="White"
+                               FontSize="12"/>
+                    <TextBlock x:Name="SessionDurationText"
+                               Text="{x:Bind VM.SessionDuration}"
+                               Foreground="White"
+                               FontSize="10"/>
                 </StackPanel>
             </Grid>
 
-            <!-- 5️⃣ Notifications Icon -->
-            <Button Grid.Column="6"
+            <!--=======================================================
+                5️⃣ Notifications Button
+            =========================================================-->
+            <Button x:Name="NotificationButton"
+                    Grid.Column="6"
                     Background="Transparent"
                     BorderThickness="0"
                     ToolTipService.ToolTip="Notifications">
-                <FontIcon Glyph="&#xEA8F;" FontSize="28" Foreground="White"/>
+                <FontIcon x:Name="NotificationIcon"
+                          Glyph="&#xEA8F;"
+                          FontSize="28"
+                          Foreground="White"/>
             </Button>
 
         </Grid>
     </Border>
 </UserControl>
+<!--
+=====================================================================
+📐 TopBar.xaml – Visual Structure Overview
+=====================================================================
+
+This file defines the top-level header bar used across all pages
+of the tOrder application. It includes primary user interface
+elements for navigation, page context, and user session.
+
+The component is designed to be placed inside a `Viewbox` and 
+scaled proportionally using centralized layout configuration 
+(`LayoutConfigVM.LayoutScale`).
+
+🧩 Root Structure:
+────────────────────────────────────────────
+UserControl (TopBar)
+└── Border (TopBarBorder)
+    └── Grid (TopBarGrid)
+        ├── Button (HamburgerButton)
+        ├── Button (BackButton)
+        ├── StackPanel (PageTitlePanel)
+        ├── Grid (UserInfoGrid)
+        └── Button (NotificationButton)
+
+────────────────────────────────────────────
+
+📘 UI Element Breakdown:
+────────────────────────────────────────────
+
+1️⃣ Button: HamburgerButton
+    - Left-aligned menu toggle icon (☰).
+    - Bound to `VM.ToggleMenuCommand`.
+
+2️⃣ Button: BackButton
+    - Optional back navigation icon.
+    - Shown conditionally or always depending on context.
+
+3️⃣ StackPanel: PageTitlePanel
+    - Displays current page title and breadcrumb.
+    - Bound to `VM.Heading` and `VM.BreadCrumpText`.
+
+4️⃣ Grid: UserInfoGrid
+    - Shows logged-in user info, picture and session time.
+    - Uses `PersonPicture` and text fields bound to:
+        → `VM.UserName`, `VM.UserSurname`, `VM.SessionDuration`.
+
+5️⃣ Button: NotificationButton
+    - Right-aligned notification bell icon.
+    - Intended for future alert/notification system.
+
+────────────────────────────────────────────
+
+🧩 Design & Scaling:
+────────────────────────────────────────────
+
+- The control assumes a fixed design width (1024px) and height (68px),
+  specified via `common:DesignProperties`.
+
+- To achieve layout consistency across resolutions, it is recommended
+  to wrap this control inside a `Viewbox` and bind scale from:
+
+      → `LayoutConfigVM.LayoutScale`
+
+- The component scales proportionally with the rest of the shell.
+
+────────────────────────────────────────────
+
+✅ Summary
+────────────────────────────────────────────
+
+TopBar is a reusable, scalable shell-level header component.
+It displays page context, user session data, and basic commands.
+
+It follows the same layout configuration model as `MainLayout.xaml`,
+ensuring consistent appearance across resolutions and DPI settings.
+Designed to work with MVVM and centralized layout control.
+-->

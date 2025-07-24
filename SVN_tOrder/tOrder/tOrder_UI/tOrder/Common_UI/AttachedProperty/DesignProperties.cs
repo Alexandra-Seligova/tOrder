@@ -134,5 +134,142 @@ namespace tOrder.Common
             => (string)element.GetValue(GroupSubTagProperty);
 
         #endregion
+
+        #region Control
+
+        public static readonly DependencyProperty ControlProperty =
+            DependencyProperty.RegisterAttached(
+                "Control",
+                typeof(string),
+                typeof(DesignProperties),
+                new PropertyMetadata(string.Empty));
+
+        public static void SetControl(FrameworkElement element, string value)
+            => element.SetValue(ControlProperty, value);
+
+        public static string GetControl(FrameworkElement element)
+            => (string)element.GetValue(ControlProperty);
+
+        #endregion
+
+        #region Page
+
+        public static readonly DependencyProperty PageProperty =
+            DependencyProperty.RegisterAttached(
+                "Page",
+                typeof(string),
+                typeof(DesignProperties),
+                new PropertyMetadata(string.Empty));
+
+        public static void SetPage(FrameworkElement element, string value)
+            => element.SetValue(PageProperty, value);
+
+        public static string GetPage(FrameworkElement element)
+            => (string)element.GetValue(PageProperty);
+
+        #endregion
+
+        #region SubPage
+
+        public static readonly DependencyProperty SubPageProperty =
+            DependencyProperty.RegisterAttached(
+                "SubPage",
+                typeof(string),
+                typeof(DesignProperties),
+                new PropertyMetadata(string.Empty));
+
+        public static void SetSubPage(FrameworkElement element, string value)
+            => element.SetValue(SubPageProperty, value);
+
+        public static string GetSubPage(FrameworkElement element)
+            => (string)element.GetValue(SubPageProperty);
+
+        #endregion
+
+        #region Position
+
+        public static readonly DependencyProperty PositionProperty =
+            DependencyProperty.RegisterAttached(
+                "Position",
+                typeof(string),
+                typeof(DesignProperties),
+                new PropertyMetadata(""));
+
+        public static void SetPosition(FrameworkElement element, string value)
+            => element.SetValue(PositionProperty, value);
+
+        public static string GetPosition(FrameworkElement element)
+            => (string)element.GetValue(PositionProperty);
+
+        #endregion
+
+        #region PaddingPosition
+
+        public static readonly DependencyProperty PaddingPositionProperty =
+            DependencyProperty.RegisterAttached(
+                "PaddingPosition",
+                typeof(string),
+                typeof(DesignProperties),
+                new PropertyMetadata(""));
+
+        public static void SetPaddingPosition(FrameworkElement element, string value)
+            => element.SetValue(PaddingPositionProperty, value);
+
+        public static string GetPaddingPosition(FrameworkElement element)
+            => (string)element.GetValue(PaddingPositionProperty);
+
+        #endregion
+
+        #region PaddingTop
+
+        public static readonly DependencyProperty PaddingTopProperty =
+            DependencyProperty.RegisterAttached(
+                "PaddingTop",
+                typeof(double),
+                typeof(DesignProperties),
+                new PropertyMetadata(0.0));
+
+        public static void SetPaddingTop(FrameworkElement element, double value)
+            => element.SetValue(PaddingTopProperty, value);
+
+        public static double GetPaddingTop(FrameworkElement element)
+            => (double)element.GetValue(PaddingTopProperty);
+
+        #endregion
+
+        #region PaddingMiddle
+
+        public static readonly DependencyProperty PaddingMiddleProperty =
+            DependencyProperty.RegisterAttached(
+                "PaddingMiddle",
+                typeof(double),
+                typeof(DesignProperties),
+                new PropertyMetadata(0.0));
+
+        public static void SetPaddingMiddle(FrameworkElement element, double value)
+            => element.SetValue(PaddingMiddleProperty, value);
+
+        public static double GetPaddingMiddle(FrameworkElement element)
+            => (double)element.GetValue(PaddingMiddleProperty);
+
+        #endregion
+
+        #region PaddingBottom
+
+        public static readonly DependencyProperty PaddingBottomProperty =
+            DependencyProperty.RegisterAttached(
+                "PaddingBottom",
+                typeof(double),
+                typeof(DesignProperties),
+                new PropertyMetadata(0.0));
+
+        public static void SetPaddingBottom(FrameworkElement element, double value)
+            => element.SetValue(PaddingBottomProperty, value);
+
+        public static double GetPaddingBottom(FrameworkElement element)
+            => (double)element.GetValue(PaddingBottomProperty);
+
+        #endregion
+
     }
 }

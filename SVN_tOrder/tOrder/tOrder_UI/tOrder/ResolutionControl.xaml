@@ -116,15 +116,11 @@
                 <Border Style="{StaticResource CardStyle}">
                     <StackPanel>
                         <TextBlock Text="🧩 Škálování layoutu" FontWeight="Bold" FontSize="14" Margin="0,0,0,8"/>
-
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
-                                <!-- Popisky -->
                                 <ColumnDefinition Width="1.2*" />
-                                <!-- Hodnoty -->
                             </Grid.ColumnDefinitions>
-
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -136,34 +132,41 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <!-- Napojení na DataContext přes běžný Binding -->
+                            <!-- Globální scale -->
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Scale:" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Scale, Mode=TwoWay}" Margin="0,2"/>
 
+                            <!-- Horizontální scale -->
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Scale X:" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ScaleX, Mode=TwoWay}" Margin="0,2"/>
 
+                            <!-- Vertikální scale -->
                             <TextBlock Grid.Row="2" Grid.Column="0" Text="Scale Y:" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ScaleY, Mode=TwoWay}" Margin="0,2"/>
 
+                            <!-- Text scale -->
                             <TextBlock Grid.Row="3" Grid.Column="0" Text="Scale Text:" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ScaleText, Mode=TwoWay}" Margin="0,2"/>
 
+                            <!-- Návrhová šířka -->
                             <TextBlock Grid.Row="4" Grid.Column="0" Text="Design Width:" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding DesignWidth, Mode=TwoWay}" Margin="0,2"/>
 
+                            <!-- Návrhová výška -->
                             <TextBlock Grid.Row="5" Grid.Column="0" Text="Design Height:" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding DesignHeight, Mode=TwoWay}" Margin="0,2"/>
 
+                            <!-- Skutečná šířka okna  -->
                             <TextBlock Grid.Row="6" Grid.Column="0" Text="Window Width:" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding WindowWidth, Mode=OneWay}" IsReadOnly="True" Margin="0,2"/>
+                            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding WindowWidth, Mode=TwoWay}"  Margin="0,2"/>
 
+                            <!-- Skutečná výška okna  -->
                             <TextBlock Grid.Row="7" Grid.Column="0" Text="Window Height:" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding WindowHeight, Mode=OneWay}" IsReadOnly="True" Margin="0,2"/>
-
+                            <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding WindowHeight, Mode=TwoWay}" Margin="0,2"/>
                         </Grid>
                     </StackPanel>
                 </Border>
+
 
 
                 <!-- 🖥️ Sekce výběru rozlišení -->
