@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--===================================================================
+    DashboardContentHeaderC (tOrder.UI)
+
+    Shared UI header for dashboard content sections.
+    ┌────────────────────────────────────────────────────────────┐
+    │ Used inside CapacityUnitDashboard tab content              │
+    │ to visually separate logical sections                      │
+    │ Typically contains title, date, status, or KPI             │
+    └────────────────────────────────────────────────────────────┘
+    Intended to be placed inside a Viewbox and scaled via LayoutConfigVM.
+====================================================================-->
 <UserControl
     x:Class="tOrder.UI.DashboardContentHeaderC"
+    x:Name="DashboardContentHeaderControl"
+    
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:tOrder.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
     xmlns:common="using:tOrder.Common"
-    >
+    
+    mc:Ignorable="d"
+    d:DesignWidth="1024"
+    d:DesignHeight="96"
+    
+    Width="Auto"
+    Height="Auto"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Top"
+    Background="Transparent"
+    
+    common:DesignProperties.Control="DashboardContentHeaderControl"
+    common:DesignProperties.Position="Top"
+    common:DesignProperties.GroupTag="Layout"
+    common:DesignProperties.GroupSubTag="SectionHeader"
+    common:DesignProperties.DesignWidth="1024"
+    common:DesignProperties.DesignHeight="96">
+
 
     <UserControl.Resources>
         <Style x:Key="HeaderLabelStyle" TargetType="TextBlock">

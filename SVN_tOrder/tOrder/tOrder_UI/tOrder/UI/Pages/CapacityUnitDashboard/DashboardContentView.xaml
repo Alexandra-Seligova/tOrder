@@ -1,15 +1,48 @@
+<!--===================================================================
+    DashboardContentView (tOrder.UI)
+
+    Content container for dashboard tab section.
+    ┌────────────────────────────────────────────────────────────┐
+    │ This control wraps multiple dashboard blocks               │
+    │ (e.g. production metrics, counters, charts)                │
+    │ and ensures layout consistency and padding                 │
+    └────────────────────────────────────────────────────────────┘
+    Intended to be placed inside a Viewbox and scaled via LayoutConfigVM.
+====================================================================-->
+
 <UserControl
     x:Class="tOrder.UI.DashboardContentView"
+    x:Name="DashboardContentViewControl"
+
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:tOrder.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:common="using:tOrder.Common"
+
     mc:Ignorable="d"
-    >
+    d:DesignWidth="1024"
+    d:DesignHeight="768"
+
+    Width="Auto"
+    Height="Auto"
+    Background="Transparent"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+
+    common:DesignProperties.Control="DashboardContentViewControl"
+    common:DesignProperties.Position="Top"
+    common:DesignProperties.GroupTag="Layout"
+    common:DesignProperties.GroupSubTag="DashboardContent"
+    common:DesignProperties.DesignWidth="1024"
+    common:DesignProperties.DesignHeight="768">
+
 
     <UserControl.Resources>
-
+        <common:BindingProxy x:Key="LayoutConfigProxy"
+                x:Name="LayoutConfigProxy"
+                Data="{x:Bind LayoutConfig, Mode=OneWay}" />
 
     </UserControl.Resources>
 
@@ -23,9 +56,14 @@
 
         <!-- Header -->
         <Viewbox Grid.Row="0" x:Name="DashboardContentHeaderViewbox" Stretch="Uniform" Height="Auto">
-            <Grid x:Name="DashboardContentHeaderContainer" Width="1024">
+            <Grid x:Name="DashboardContentHeaderContainer"  
+                  Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+         >
                 <Grid.RenderTransform>
-                    <ScaleTransform x:Name="DashboardContentHeaderScale" />
+                    <ScaleTransform x:Name="DashboardContentHeaderScale" 
+                    ScaleX="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.LayoutScale}"
+                    ScaleY="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.LayoutScale}" />
+
                 </Grid.RenderTransform>
 
                 <local:DashboardContentHeaderC />
@@ -42,7 +80,8 @@
             </Grid.RowDefinitions>
 
             <Viewbox Grid.Row="1" Stretch="Uniform" Height="Auto">
-                <Grid Width="1024" >
+                <Grid         Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <!-- header -->
@@ -130,9 +169,12 @@
 
         <!-- Header -->
         <Viewbox Grid.Row="2" x:Name="DashboardContentFooterViewbox" Stretch="Uniform" Height="Auto">
-            <Grid   x:Name="DashboardContentFooterContainer" Width="1024">
+            <Grid   x:Name="DashboardContentFooterContainer"          
+                    Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+>
                 <Grid.RenderTransform>
-                    <ScaleTransform x:Name="DashboardContentFooterScale" />
+                    <ScaleTransform x:Name="DashboardContentFooterScale"
+                      />
                 </Grid.RenderTransform>
 
 

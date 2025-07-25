@@ -1,3 +1,13 @@
+//===================================================================
+// $Workfile:: ResolutionControl.xaml.cs                            $
+// $Author:: Alexandra_Seligova                                     $
+// $Revision:: 1                                                    $
+// $Date:: 2025-07-25 01:50:00 +0200 (pá, 25 èvc 2025)              $
+//===================================================================
+// Description: SPC - tOrder
+//     Code-behind for ResolutionControl (layout preview, DPI testing)
+//===================================================================
+
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -8,30 +18,44 @@ using Windows.Graphics;
 
 namespace tOrder;
 
+/// <summary>
+/// Partial class for ResolutionControl. Provides logic for interacting
+/// with resolution presets, aspect locks, and visual feedback.
+/// </summary>
 public sealed partial class ResolutionControl : UserControl
 {
+    //-----------------------------------------------------------
+    #region Fields & Properties
+    //-----------------------------------------------------------
+
     public event EventHandler<ResolutionChangedEventArgs>? ResolutionChanged;
 
     private string? _lastAppliedResolution;
 
-    // ViewModel získaný pøes DI (celý layout aplikace)
     private readonly LayoutConfigVM layoutVM;
+
+    public string CurrentResolution => $"{(int)layoutVM.WindowWidth} x {(int)layoutVM.WindowHeight}";
+
+    #endregion
+
+    //-----------------------------------------------------------
+    #region Constructor
+    //-----------------------------------------------------------
 
     public ResolutionControl()
     {
         InitializeComponent();
+
         layoutVM = App.GetService<LayoutConfigVM>();
-        DataContext = layoutVM; // Všechny bindingy v XAML jdou na layoutVM
+        DataContext = layoutVM;
     }
 
-    /// <summary>
-    /// Vrací aktuální rozlišení okna jako string (pro zobrazení ve view)
-    /// </summary>
-    public string CurrentResolution => $"{(int)layoutVM.WindowWidth} x {(int)layoutVM.WindowHeight}";
+    #endregion
 
-    /// <summary>
-    /// Nastaví rozlišení na základì Tag tlaèítka (ve formátu "ŠxV")
-    /// </summary>
+    //-----------------------------------------------------------
+    #region Resolution Change Handlers
+    //-----------------------------------------------------------
+
     private void ResizeTo(object sender, RoutedEventArgs e)
     {
         if (sender is Button btn && btn.Tag is string tag)
@@ -41,7 +65,6 @@ public sealed partial class ResolutionControl : UserControl
                 int.TryParse(parts[0], out int width) &&
                 int.TryParse(parts[1], out int height))
             {
-                // Nastav hodnoty do ViewModelu – zpropaguje se do MainWindow a všude jinde
                 layoutVM.WindowWidth = width;
                 layoutVM.WindowHeight = height;
 
@@ -52,9 +75,6 @@ public sealed partial class ResolutionControl : UserControl
         }
     }
 
-    /// <summary>
-    /// Zvìtší okno o 20 % a uloží novou velikost do VM.
-    /// </summary>
     private void EnlargeWindow_Click(object sender, RoutedEventArgs e)
     {
         int newWidth = (int)(layoutVM.WindowWidth * 1.2);
@@ -67,9 +87,6 @@ public sealed partial class ResolutionControl : UserControl
         HighlightActiveButton();
     }
 
-    /// <summary>
-    /// Resetuje okno na výchozí rozlišení (1280x720).
-    /// </summary>
     private void ResetWindow_Click(object sender, RoutedEventArgs e)
     {
         const int defaultWidth = 1280;
@@ -82,9 +99,12 @@ public sealed partial class ResolutionControl : UserControl
         HighlightActiveButton();
     }
 
-    /// <summary>
-    /// Zvýrazní aktivní tlaèítko rozlišení podle posledního nastaveného.
-    /// </summary>
+    #endregion
+
+    //-----------------------------------------------------------
+    #region Visual Feedback – Highlight Active Button
+    //-----------------------------------------------------------
+
     private void HighlightActiveButton()
     {
         foreach (var element in RootGrid.Children)
@@ -95,7 +115,7 @@ public sealed partial class ResolutionControl : UserControl
                 {
                     if (child is Button button && button.Tag is string tag)
                     {
-                        if ($"{tag.Replace(" ", "")}" == _lastAppliedResolution?.Replace(" ", ""))
+                        if (tag.Replace(" ", "") == _lastAppliedResolution?.Replace(" ", ""))
                         {
                             button.Background = new SolidColorBrush(ColorHelper.FromArgb(255, 112, 140, 180));
                             button.Foreground = new SolidColorBrush(Colors.White);
@@ -111,9 +131,12 @@ public sealed partial class ResolutionControl : UserControl
         }
     }
 
-    /// <summary>
-    /// Obsluha zamèení pomìru stran – pro další rozšíøení do ViewModelu
-    /// </summary>
+    #endregion
+
+    //-----------------------------------------------------------
+    #region Aspect Ratio Locks
+    //-----------------------------------------------------------
+
     private void AspectRatioCheckBox_Checked(object sender, RoutedEventArgs e)
     {
         if (sender == Lock16_9CheckBox)
@@ -145,9 +168,17 @@ public sealed partial class ResolutionControl : UserControl
             Console.WriteLine("[ResolutionControl] Aspect ratio lock removed.");
         }
     }
+
+    #endregion
 }
 
-// Událost pro zmìnu rozlišení (volitelnì, pro napojení dalších èástí UI)
+//===================================================================
+// class ResolutionChangedEventArgs
+//===================================================================
+
+/// <summary>
+/// Represents a resolution change event.
+/// </summary>
 public class ResolutionChangedEventArgs : EventArgs
 {
     public int Width { get; }

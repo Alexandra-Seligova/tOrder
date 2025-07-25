@@ -26,6 +26,11 @@ using Microsoft.UI.Xaml.Controls;
 
 public sealed partial class CapacityUnitDashboard : Page
 {
+    /// <summary>
+    /// Layout configuration settings (e.g., scale, width) provided via DI.
+    /// </summary>
+    public LayoutConfigVM LayoutConfig => App.GetService<LayoutConfigVM>();
+
     //-----------------------------------------------------------
     #region Constructor
     //-----------------------------------------------------------

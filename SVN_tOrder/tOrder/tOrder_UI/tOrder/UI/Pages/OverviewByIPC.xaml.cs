@@ -23,14 +23,19 @@ namespace tOrder.UI
     /// </summary>
     public sealed partial class OverviewByIPC : Page
     {
-        public OverviewByIPCVM ViewModel { get; }
+        public OverviewByIPCVM VM { get; }
+
+        /// <summary>
+        /// Layout configuration settings (e.g., scale, width) provided via DI.
+        /// </summary>
+        public LayoutConfigVM LayoutConfig => App.GetService<LayoutConfigVM>();
 
         public OverviewByIPC()
         {
             this.InitializeComponent();
 
-            ViewModel = App.GetService<OverviewByIPCVM>();
-            this.DataContext = ViewModel;
+            VM = App.GetService<OverviewByIPCVM>();
+            this.DataContext = VM;
 
             this.Loaded += OverviewByIPC_Loaded;
 
@@ -39,7 +44,7 @@ namespace tOrder.UI
 
         private async void OverviewByIPC_Loaded(object sender, RoutedEventArgs e)
         {
-            await ViewModel.LoadedCommand.ExecuteAsync(null);
+            await VM.LoadedCommand.ExecuteAsync(null);
         }
     }
 }
