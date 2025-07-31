@@ -62,6 +62,7 @@ public sealed partial class TopBar : UserControl
 
         VM = App.GetService<TopBarVM>();
         this.DataContext = VM;
+        this.Loaded += OnLoaded;
 
         TopBarGrid.SizeChanged += TopBarGrid_SizeChanged;
 
@@ -70,6 +71,10 @@ public sealed partial class TopBar : UserControl
 
     #endregion // Constructor
 
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        UIElementRegistry.RegisterElement(nameof(TopBarGrid), TopBarGrid);
+    }
     //-----------------------------------------------------------
     #region Events
     //-----------------------------------------------------------

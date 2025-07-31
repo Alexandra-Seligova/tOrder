@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 
-namespace tOrder.Common;
+namespace tOrder;
 
 public static class UIElementRegistry
 {
