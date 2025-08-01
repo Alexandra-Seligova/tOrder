@@ -55,19 +55,20 @@ public sealed partial class DashboardContentPortC : UserControl
 
         PortContainers.Add(new PortContainerM
         {
+            IsInput = false,
+            PieceCount = 1,
+            ContainerId = 1,
+            // Description = "Minimální výstup"
+        });
+
+        PortContainers.Add(new PortContainerM
+        {
             IsInput = true,
             PieceCount = 0,
             ContainerId = 0,
             // Description = "Prázdný vstup"
         });
 
-        PortContainers.Add(new PortContainerM
-        {
-            IsInput = false,
-            PieceCount = 1,
-            ContainerId = 1,
-            // Description = "Minimální výstup"
-        });
 
         PortContainers.Add(new PortContainerM
         {

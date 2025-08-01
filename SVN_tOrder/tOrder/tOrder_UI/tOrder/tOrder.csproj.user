@@ -10,6 +10,12 @@
     <None Update="App.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="UI\Pages\CapacityUnitDashboard\ArbeitsplanContent\ArbeitsplanContentC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Pages\CapacityUnitDashboard\QualitatContent\QualitatContentC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Common_UI\Controls\ReadOnlyGridView.xaml">
       <SubType>Designer</SubType>
     </Page>

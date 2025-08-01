@@ -84,32 +84,36 @@ public sealed partial class CapacityUnitDashboard : Page
 
             case 3:
                 // "Qualität" tab
-                //DashboardContentPresenter.Content = new QualitatContentC();
+                DashboardContentPresenter.Content = new QualitatContentC();
                 break;
 
             case 4:
                 // "Arbeitsplan" tab
-                //DashboardContentPresenter.Content = new ArbeitsplanContentC();
+                var v = 1;
+                DashboardContentPresenter.Content = new ArbeitsplanContentC();
                 break;
 
             case 5:
                 // "Dokumenten" tab
+                var vv = 1;
                 //DashboardContentPresenter.Content = new DokumentenContentC();
                 break;
 
             case 6:
                 // "Info" tab
+                var vvv = 1;
                 //DashboardContentPresenter.Content = new InfoContentC();
                 break;
 
             case 7:
                 // "OEE" tab
+                var vvvv = 1;
                 //DashboardContentPresenter.Content = new OeeContentC();
                 break;
 
             default:
                 // For any other index, show nothing or a placeholder
-                DashboardContentPresenter.Content = null;
+                //DashboardContentPresenter.Content = null;
                 break;
         }
     }

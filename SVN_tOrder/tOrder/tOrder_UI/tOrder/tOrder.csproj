@@ -117,10 +117,12 @@
 		<None Remove="ResolutionControl.xaml" />
 		<None Remove="ResolutionWindow.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard.xaml" />
+		<None Remove="UI\Pages\CapacityUnitDashboard\ArbeitsplanContent\ArbeitsplanContentC.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\ChargenContent\ChargenContentC.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentPortC.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentView.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardFooter\DashboardFooterC.xaml" />
+		<None Remove="UI\Pages\CapacityUnitDashboard\QualitatContent\QualitatContentC.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\TabSelectorView.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\WerkzeugeContent\WerkzeugeContentC.xaml" />
 		<None Remove="UI\Pages\OverviewByIPC\Card Controls\CardFooterC.xaml" />
@@ -133,13 +135,21 @@
 		<Folder Include="Common\Services\Implementations\" />
 		<Folder Include="Common\Services\Interfaces\" />
 		<Folder Include="Common_UI\Factories\" />
-		<Folder Include="UI\Pages\CapacityUnitDashboard\ArbeitsplanContent\" />
 		<Folder Include="UI\Pages\CapacityUnitDashboard\DokumentenContent\" />
 		<Folder Include="UI\Pages\CapacityUnitDashboard\InfoContent\" />
 		<Folder Include="UI\Pages\CapacityUnitDashboard\OeeContent\" />
-		<Folder Include="UI\Pages\CapacityUnitDashboard\QualitatContent\" />
 		<Folder Include="UI\Pages\OverviewByIPC\CardHead\" />
 		<Folder Include="UI\Pages\OverviewByIPC\CardFooter\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="UI\Pages\CapacityUnitDashboard\ArbeitsplanContent\ArbeitsplanContentC.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="UI\Pages\CapacityUnitDashboard\QualitatContent\QualitatContentC.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 	<ItemGroup>
 	  <Page Update="Common_UI\Controls\ReadOnlyGridView.xaml">
