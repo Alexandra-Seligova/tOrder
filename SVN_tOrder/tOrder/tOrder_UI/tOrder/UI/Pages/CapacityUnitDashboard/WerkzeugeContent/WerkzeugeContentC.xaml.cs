@@ -28,6 +28,7 @@ namespace tOrder.UI
 
     public sealed partial class WerkzeugeContentC : UserControl
     {
+        public LayoutConfigVM LayoutConfig => App.GetService<LayoutConfigVM>();
         public ObservableCollection<WerkzeugRow> Rows { get; set; } = new();
 
         public WerkzeugeContentC()

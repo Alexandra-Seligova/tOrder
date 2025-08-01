@@ -58,7 +58,7 @@
 
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Padding="12"  Background="#F5F5F5"
+    <Grid x:Name="LayoutRoot" Padding="12"  Background="#F0F0F0"
           
           Height="124"
       common:DesignProperties.DesignHeight="124"
@@ -95,11 +95,16 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Style="{StaticResource InfoLabelStyle}"
                    Text="Reststücke für die&#x0a;nächsten WZK wechsel:"/>
-                <Border Grid.Column="2" Style="{StaticResource InfoValueBoxStyle}" CornerRadius="0" 
-                VerticalAlignment="Center" 
-                      >
-                    <TextBlock Text="1234567" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Right"/>
-                </Border>
+
+
+                <TextBox Grid.Column="2" Margin="0,2,0,2" CornerRadius="0"   
+             
+ Text="1234567"
+                TextAlignment="Right"
+                FontSize="18"
+                   FontWeight="SemiBold"
+                common:ViewOnlyBehavior.IsViewOnly="True"
+       />
                 <TextBlock Grid.Column="3" Style="{StaticResource InfoPostfixStyle}" Text="Stk."/>
             </Grid>
         </Border>
@@ -125,14 +130,14 @@
                     <TextBlock Text="1234567" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Right" />
                 </Border>
                  -->
-                <TextBox Grid.Column="2"
-    Text="1234567"
-    Style="{StaticResource InfoValueStyle}"
-    common:ViewOnlyBehavior.IsViewOnly="True"
-    HorizontalAlignment="Stretch"
-    VerticalAlignment="Center"/>
 
-
+                <TextBox Grid.Column="2" Margin="0,2,0,2" CornerRadius="0"   
+                Text="1234567"
+                 TextAlignment="Right"
+                 FontSize="18"
+                    FontWeight="SemiBold"
+                 common:ViewOnlyBehavior.IsViewOnly="True"
+        />
 
                 <TextBlock Grid.Column="3" Style="{StaticResource InfoPostfixStyle}" Text="Stk."/>
             </Grid>
@@ -149,11 +154,16 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Style="{StaticResource InfoLabelStyle}"
                  Text="Restzeit für die&#x0a;nächsten QA Messung:"/>
-                <Border Grid.Column="2" Style="{StaticResource InfoValueBoxStyle}" CornerRadius="0" 
-              VerticalAlignment="Center" 
-                        HorizontalAlignment="Stretch" >
-                    <TextBlock Text="00:12:05" Style="{StaticResource InfoValueStyle}" HorizontalAlignment="Center"/>
-                </Border>
+
+
+                <TextBox Grid.Column="2" Margin="0,2,0,2" CornerRadius="0"   
+              
+    Text="00:12:05"
+                 TextAlignment="Right"
+                 FontSize="18"
+                    FontWeight="SemiBold"
+                 common:ViewOnlyBehavior.IsViewOnly="True"
+        />
             </Grid>
         </Border>
 

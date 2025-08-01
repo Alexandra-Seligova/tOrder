@@ -113,6 +113,7 @@
 	<ItemGroup>
 		<None Remove="Assets\DashboardMachine.png" />
 		<None Remove="Common\Services\Data\MockData.xml" />
+		<None Remove="Common_UI\Controls\ReadOnlyGridView.xaml" />
 		<None Remove="ResolutionControl.xaml" />
 		<None Remove="ResolutionWindow.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard.xaml" />
@@ -139,6 +140,11 @@
 		<Folder Include="UI\Pages\CapacityUnitDashboard\QualitatContent\" />
 		<Folder Include="UI\Pages\OverviewByIPC\CardHead\" />
 		<Folder Include="UI\Pages\OverviewByIPC\CardFooter\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="Common_UI\Controls\ReadOnlyGridView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 	<ItemGroup>
 		<Page Update="ResolutionControl.xaml">

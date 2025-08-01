@@ -6,9 +6,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
-    mc:Ignorable="d">
+        xmlns:common="using:tOrder.Common"
+
+    mc:Ignorable="d"
+    d:DesignWidth="1024"
+    d:DesignHeight="768"
+>
 
     <UserControl.Resources>
+        <common:BindingProxy x:Key="LayoutConfigProxy"
+                x:Name="LayoutConfigProxy"
+                Data="{x:Bind LayoutConfig, Mode=OneWay}" />
+
+
         <x:Double x:Key="FooterButtonMinWidth">140</x:Double>
         <x:Double x:Key="FooterButtonHeight">38</x:Double>
         <x:Double x:Key="FooterButtonFontSize">16</x:Double>
@@ -37,6 +47,16 @@
             <Setter Property="CornerRadius" Value="3"/>
             <Setter Property="Margin" Value="2"/>
         </Style>
+
+        <Style x:Key="DataGridCellTextStyle" TargetType="TextBlock">
+            <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+
     </UserControl.Resources>
 
     <Grid Background="#F5F7FA" Padding="0">
@@ -46,54 +66,69 @@
         </Grid.RowDefinitions>
 
         <!-- TABULKA -->
-        <Viewbox Grid.Row="0" Stretch="Uniform">
-            <Grid Width="1024">
+        <Viewbox  Grid.Row="0" x:Name="DashboardContentHeaderViewbox" Stretch="Uniform" Height="Auto"  VerticalAlignment="Top">
+            <Grid x:Name="DashboardContentHeaderContainer"  
+                  Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+             Background="#F6F6F6"
+         >
                 <toolkit:DataGrid x:Name="WerkzeugeDataGrid"
-                                  AutoGenerateColumns="False"
-                                  HeadersVisibility="Column"
-                                  GridLinesVisibility="All"
-                                  IsReadOnly="True"
-                                  Margin="8"
-                                  RowHeight="36"
-                                  SelectionMode="Single">
+                          AutoGenerateColumns="False"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="All"
+                          IsReadOnly="True"
+                          RowHeight="32"
+                          SelectionMode="Single"
+                          BorderThickness="1"
+                          BorderBrush="#CCCCCC"
+                         >
+
                     <toolkit:DataGrid.Columns>
-                        <toolkit:DataGridTextColumn Header="Kap.Stelle" Binding="{Binding KapStelle}" Width="*" />
-                        <toolkit:DataGridTextColumn Header="Seite" Binding="{Binding Seite}" Width="40" />
-                        <toolkit:DataGridTextColumn Header="Lage" Binding="{Binding Lage}" Width="80" />
-                        <toolkit:DataGridTextColumn Header="Stückzähler" Binding="{Binding Stueckzaehler}" Width="90" />
-                        <toolkit:DataGridTextColumn Header="Rückm.Nr." Binding="{Binding RueckNr}" Width="80" />
-                        <toolkit:DataGridTextColumn Header="Werkzeug" Binding="{Binding Werkzeug}" Width="100" />
-                        <toolkit:DataGridTextColumn Header="WZ Seite" Binding="{Binding WZSeite}" Width="60" />
-                        <toolkit:DataGridTextColumn Header="Zähler" Binding="{Binding Zaehler}" Width="70" />
-                        <toolkit:DataGridTextColumn Header="Stand Menge" Binding="{Binding StandMenge}" Width="90" />
-                        <toolkit:DataGridTextColumn Header="Restkap." Binding="{Binding Restkap}" Width="70" />
-                        <toolkit:DataGridTemplateColumn Header="Verw. Kap" Width="80">
+                        <toolkit:DataGridTextColumn Header="Kap.Stelle" Binding="{Binding KapStelle}" MinWidth="100" Width="Auto"/>
+                        <toolkit:DataGridTextColumn Header="Seite" Binding="{Binding Seite}" MinWidth="60" Width="Auto"/>
+                        <toolkit:DataGridTextColumn Header="Lage" Binding="{Binding Lage}" MinWidth="80" Width="Auto"/>
+                        <toolkit:DataGridTextColumn Header="Stückzähler" Binding="{Binding Stueckzaehler}" MinWidth="100" Width="Auto"/>
+                        <toolkit:DataGridTextColumn Header="Rückm.Nr." Binding="{Binding RueckNr}" MinWidth="100" Width="Auto"/>
+                        <toolkit:DataGridTextColumn Header="Werkzeug" Binding="{Binding Werkzeug}" MinWidth="120" Width="Auto"/>
+                        <toolkit:DataGridTextColumn Header="WZ Seite" Binding="{Binding WZSeite}" MinWidth="80" Width="Auto"/>
+                        <toolkit:DataGridTextColumn Header="Zähler" Binding="{Binding Zaehler}" MinWidth="80" Width="Auto"/>
+                        <toolkit:DataGridTextColumn Header="Stand Menge" Binding="{Binding StandMenge}" MinWidth="120" Width="Auto"/>
+                        <toolkit:DataGridTextColumn Header="Restkap." Binding="{Binding Restkap}" MinWidth="100" Width="Auto"/>
+
+                        <toolkit:DataGridTemplateColumn Header="Verw. Kap" Width="100">
                             <toolkit:DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Border Background="{Binding PercentCellBackground}"
-                                            CornerRadius="3"
-                                            Padding="0,2"
-                                            HorizontalAlignment="Center">
+                                    <Border Background="{Binding PercentCellBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                         <TextBlock Text="{Binding VerwKap}"
-                                                   Foreground="Black"
-                                                   FontWeight="Bold"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Center"
-                                                   Padding="4,0"/>
+                               Padding="0"
+                               Margin="0"
+                               FontStretch="Condensed"
+                               FontSize="14"
+                               TextTrimming="CharacterEllipsis"
+                               TextWrapping="NoWrap"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontWeight="Bold"
+                               Foreground="Black"/>
                                     </Border>
                                 </DataTemplate>
                             </toolkit:DataGridTemplateColumn.CellTemplate>
                         </toolkit:DataGridTemplateColumn>
-                        <toolkit:DataGridTextColumn Header="Geändert am" Binding="{Binding GeaendertAm}" Width="160" />
-                        <toolkit:DataGridTextColumn Header="Geändert durch" Binding="{Binding GeaendertDurch}" Width="60" />
+
+                        <toolkit:DataGridTextColumn Header="Geändert am" Binding="{Binding GeaendertAm}" MinWidth="120" Width="Auto"/>
+                        <toolkit:DataGridTextColumn Header="Geändert durch" Binding="{Binding GeaendertDurch}" MinWidth="120" Width="Auto"/>
                     </toolkit:DataGrid.Columns>
+
                 </toolkit:DataGrid>
+
             </Grid>
         </Viewbox>
 
         <!-- TLAČÍTKA -->
-        <Viewbox Grid.Row="1" Stretch="Uniform">
-            <Grid Width="1024" HorizontalAlignment="Center">
+        <Viewbox  Grid.Row="1" x:Name="Viewbox" Stretch="Uniform" Height="Auto"  VerticalAlignment="Top">
+            <Grid x:Name="Container"  
+                Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+           Background="#F6F6F6"
+       >
                 <Grid HorizontalAlignment="Center" Margin="0,16,0,0" Width="1050" Padding="0,0,0,20">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />

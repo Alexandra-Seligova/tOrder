@@ -29,6 +29,7 @@ using tOrder.Common;
 
 public sealed partial class DashboardContentPortC : UserControl
 {
+    public LayoutConfigVM LayoutConfig => App.GetService<LayoutConfigVM>();
     public enum PortSide { Left, Right }
 
     public PortSide Side { get; set; } = PortSide.Left;
@@ -112,7 +113,7 @@ public sealed partial class DashboardContentPortC : UserControl
         int count = PortContainers.Count;
         if (count > 0)
         {
-            double totalWidth = this.ActualWidth;
+            double totalWidth = LayoutConfig.DesignWidth / 4;
             TabWidth = totalWidth / count;
         }
     }
@@ -260,6 +261,13 @@ public sealed partial class DashboardContentPortC : UserControl
         }
     }
 
+    private void PortTopContainer_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (LayoutConfig != null)
+        {
+            PortTopContainer.Width = LayoutConfig.DesignWidth / 8.0;
+        }
+    }
 
 
 

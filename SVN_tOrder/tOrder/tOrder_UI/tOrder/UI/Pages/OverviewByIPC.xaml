@@ -59,124 +59,39 @@ Layout:
 
     <Grid>
         <Viewbox x:Name="OverviewByIPCViewbox" Stretch="Uniform" Height="Auto">
+            <Grid  x:Name="OverviewByIPCContainer" 
+                     Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+                    
+                   Height="768" 
+                  RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <ScaleTransform 
+                        ScaleX="{StaticResource GlobalScaleFactor}"
+                        ScaleY="{StaticResource GlobalScaleFactor}" />
+                </Grid.RenderTransform>
 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="52" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="52" />
+                </Grid.ColumnDefinitions>
 
-            <Grid RowSpacing="12" Padding="12">
+                <ItemsControl Grid.Column="1"
+                              ItemsSource="{x:Bind VM.CapacityCards, Mode=OneWay}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapGrid Orientation="Horizontal"
+                                      HorizontalAlignment="Left"
+                                      Margin="0,20,0,0" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <!-- Table -->
-                    <RowDefinition Height="*"/>
-                    <!-- Details -->
-                    <RowDefinition Height="Auto"/>
-                    <!-- Buttons -->
-                </Grid.RowDefinitions>
-
-                <!-- 🧾 Data Table -->
-                <!-- 🧾 Data Table Replacement using ListView -->
-                <ListView Grid.Row="0"
-          SelectionMode="Single"
-          HorizontalAlignment="Stretch"
-          ScrollViewer.HorizontalScrollMode="Enabled"
-          ScrollViewer.HorizontalScrollBarVisibility="Auto">
-
-                    <ListViewItem>
-                        <Grid Padding="4" ColumnSpacing="12">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50"/>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="60"/>
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock Text="AFO123" Grid.Column="0" />
-                            <TextBlock Text="08:00" Grid.Column="1" />
-                            <TextBlock Text="12:00" Grid.Column="2" />
-                            <TextBlock Text="Waschen Position" Grid.Column="3" />
-                            <TextBlock Text="OP01" Grid.Column="4" />
-                            <TextBlock Text="Gruppe A" Grid.Column="5" />
-                            <TextBlock Text="Typ X" Grid.Column="6" />
-                            <TextBlock Text="Extern" Grid.Column="7" />
-                        </Grid>
-                    </ListViewItem>
-
-                    <ListViewItem>
-                        <Grid Padding="4" ColumnSpacing="12">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50"/>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="60"/>
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock Text="AFO456" Grid.Column="0" />
-                            <TextBlock Text="13:00" Grid.Column="1" />
-                            <TextBlock Text="17:00" Grid.Column="2" />
-                            <TextBlock Text="Trocknen" Grid.Column="3" />
-                            <TextBlock Text="OP02" Grid.Column="4" />
-                            <TextBlock Text="Gruppe B" Grid.Column="5" />
-                            <TextBlock Text="Typ Y" Grid.Column="6" />
-                            <TextBlock Text="Intern" Grid.Column="7" />
-                        </Grid>
-                    </ListViewItem>
-
-                </ListView>
-
-
-
-                <Grid Grid.Row="1" ColumnSpacing="40">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>
-
-                    <!-- ⬅️ Left Info Panel -->
-                    <StackPanel Grid.Column="0" Spacing="8">
-                        <TextBlock Text="Nutzungsgrad:" />
-                        <TextBlock Text="85,00%" FontWeight="Bold"/>
-
-                        <TextBlock Text="Waschprogramm:" />
-                        <TextBlock Text="n.a." FontWeight="Bold"/>
-
-                        <TextBlock Text="Warenbewegung:" />
-                        <TextBlock Text="n.a." FontWeight="Bold"/>
-
-                        <TextBlock Text="Bemerkung:" />
-                        <TextBlock Text="Zählen-NICHT waschen" FontWeight="Bold"/>
-
-                        <TextBlock Text="Waschprogramm abg.:" />
-                        <TextBlock Text="n.a." FontWeight="Bold"/>
-
-                        <TextBlock Text="Warenbewegung abg.:" />
-                        <TextBlock Text="n.a." FontWeight="Bold"/>
-
-                        <TextBlock Text="Abg.Bemerkung:" />
-                        <TextBlock Text="Zählen-NICHT waschen" FontWeight="Bold"/>
-
-                        <TextBlock Text="Zusatztara 1:" />
-                        <TextBlock Text="CPAL010   Clipspalette Ventilhülse 027/032" FontWeight="Bold"/>
-
-                        <TextBlock Text="Zusatztara 2:" />
-                        <TextBlock Text="—" FontWeight="Bold"/>
-                    </StackPanel>
-
-                    <!-- ➡️ Right Checkboxes -->
-                    <StackPanel Grid.Column="1" Spacing="10">
-                        <CheckBox Content="QS-Prüfung" IsChecked="False" />
-                        <CheckBox Content="QSF-Prüfung" IsChecked="True" />
-                        <CheckBox Content="HS Pflicht" IsChecked="False" />
-                        <CheckBox Content="HS Machine" IsChecked="False" />
-                        <CheckBox Content="HS Schleifscheibe" IsChecked="False" />
-                    </StackPanel>
-                </Grid>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="controls:CapacityPositionCardVM">
+                            <controls:CapacityPositionCard />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Grid>
         </Viewbox>
     </Grid>

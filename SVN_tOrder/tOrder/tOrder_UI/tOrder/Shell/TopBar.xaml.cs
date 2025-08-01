@@ -42,7 +42,7 @@ public sealed partial class TopBar : UserControl
             if (_tooltipText != value)
             {
                 _tooltipText = value;
-                ToolTipService.SetToolTip(TopBarBorder, _tooltipText);
+                ToolTipService.SetToolTip(TopBarGrid, _tooltipText);
             }
         }
     }

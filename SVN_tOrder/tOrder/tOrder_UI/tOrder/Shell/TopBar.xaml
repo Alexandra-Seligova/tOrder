@@ -35,7 +35,7 @@
     Height="Auto"
     Background="Transparent"
     HorizontalAlignment="Stretch"
-    VerticalAlignment="Top"
+    VerticalAlignment="Stretch"
 
     common:DesignProperties.Control="TopBarControl"
     common:DesignProperties.Position="Top"
@@ -105,150 +105,148 @@
         <x:String x:Key="TopBar_NoSession">–:––</x:String>
 
     </UserControl.Resources>
-    <!--===========================================================
-    TopBar layout container (Header strip for app shell)
-=============================================================-->
-    <Border x:Name="TopBarBorder"
-        Background="{StaticResource TopBarBackgroundBrush}"
-        VerticalAlignment="Top">
 
-        <!--=======================================================
+    <!--=======================================================
         TopBar content Grid – contains all interactive sections
     =========================================================-->
-        <Grid x:Name="TopBarGrid"
+    <Grid x:Name="TopBarGrid"
           Padding="{StaticResource TopBarGridPadding}"
           ColumnSpacing="{StaticResource TopBarColumnSpacing}"
           ToolTipService.ToolTip="{StaticResource TopBarControl.ToolTip}"
           common:DesignProperties.DesignHeight="68"
           common:DesignProperties.GroupTag="Layout"
-          common:DesignProperties.GroupSubTag="Header">
+          common:DesignProperties.GroupSubTag="Header"
+        Background="{StaticResource TopBarBackgroundBrush}"
+          
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+          
+          >
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <!-- Hamburger -->
-                <ColumnDefinition Width="Auto"/>
-                <!-- Back button -->
-                <ColumnDefinition Width="Auto"/>
-                <!-- Reserved -->
-                <ColumnDefinition Width="*"/>
-                <!-- Page title -->
-                <ColumnDefinition Width="Auto"/>
-                <!-- Reserved -->
-                <ColumnDefinition Width="Auto"/>
-                <!-- User info -->
-                <ColumnDefinition Width="Auto"/>
-                <!-- Notifications -->
-            </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <!-- Hamburger -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- Back button -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- Reserved -->
+            <ColumnDefinition Width="*"/>
+            <!-- Page title -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- Reserved -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- User info -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- Notifications -->
+        </Grid.ColumnDefinitions>
 
-            <!--=======================================================
+        <!--=======================================================
             1️ Hamburger Menu
         =========================================================-->
-            <Button x:Name="HamburgerButton"
+        <Button x:Name="HamburgerButton"
                 Grid.Column="0"
                 Background="Transparent"
                 BorderThickness="0"
                 Command="{x:Bind VM.ToggleMenuCommand}"
                 ToolTipService.ToolTip="{StaticResource TopBar_HamburgerButton.ToolTip}">
-                <FontIcon x:Name="HamburgerIcon"
+            <FontIcon x:Name="HamburgerIcon"
                       Glyph="&#xE700;"
                       Style="{StaticResource TopBarIconStyle}" />
-            </Button>
+        </Button>
 
-            <!--=======================================================
+        <!--=======================================================
             2️ Back Button
         =========================================================-->
-            <Button x:Name="BackButton"
+        <Button x:Name="BackButton"
                 Grid.Column="1"
                 Background="Transparent"
                 BorderThickness="0"
                 ToolTipService.ToolTip="{StaticResource TopBar_BackButton.ToolTip}">
-                <FontIcon x:Name="BackIcon"
+            <FontIcon x:Name="BackIcon"
                       Glyph="&#xE72B;"
                       Style="{StaticResource TopBarIconStyle}" />
-            </Button>
+        </Button>
 
-            <!--=======================================================
+        <!--=======================================================
             3️ Page Title + Breadcrumb
         =========================================================-->
-            <StackPanel x:Name="PageTitlePanel"
+        <StackPanel x:Name="PageTitlePanel"
                     Grid.Column="3"
                     Orientation="Vertical"
                     VerticalAlignment="Center"
                     Spacing="2"
                     ToolTipService.ToolTip="{StaticResource TopBar_PageTitlePanel.ToolTip}">
-                <TextBlock x:Name="HeadingText"
+            <TextBlock x:Name="HeadingText"
                        Text="{x:Bind VM.Heading, Mode=OneWay}"
                        Style="{StaticResource TopBarHeadingTextStyle}" />
 
-                <TextBlock x:Name="BreadcrumbText"
+            <TextBlock x:Name="BreadcrumbText"
                        Text="{x:Bind VM.BreadCrumpText, Mode=OneWay}"
                        Style="{StaticResource TopBarBreadcrumbTextStyle}" />
-            </StackPanel>
+        </StackPanel>
 
-            <!--=======================================================
+        <!--=======================================================
             4️ User Info – name, surname, session + avatar
         =========================================================-->
-            <Grid x:Name="UserInfoGrid"
+        <Grid x:Name="UserInfoGrid"
               Grid.Column="5"
               Background="{StaticResource UserInfoBackgroundBrush}"
               VerticalAlignment="Center"
               Padding="{StaticResource UserInfoPadding}"
               ToolTipService.ToolTip="{StaticResource TopBar_UserInfo.ToolTip}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-                <controls:PersonPicture x:Name="UserPicture"
+            <controls:PersonPicture x:Name="UserPicture"
                                     Grid.Column="0"
                                     Width="{StaticResource UserPictureSize}"
                                     Height="{StaticResource UserPictureSize}"
                                     Margin="0,0,8,0" />
 
-                <StackPanel x:Name="UserDetailsPanel"
+            <StackPanel x:Name="UserDetailsPanel"
                         Grid.Column="1"
                         Orientation="Vertical"
                         VerticalAlignment="Center">
-                    <TextBlock x:Name="UserNameText"
+                <TextBlock x:Name="UserNameText"
                            Text="{x:Bind VM.UserName}"
                            Foreground="White"
                            FontSize="{StaticResource UserInfoFontSize}" />
-                    <TextBlock x:Name="UserSurnameText"
+                <TextBlock x:Name="UserSurnameText"
                            Text="{x:Bind VM.UserSurname}"
                            Foreground="White"
                            FontSize="{StaticResource UserInfoFontSize}" />
-                    <TextBlock x:Name="SessionDurationText"
+                <TextBlock x:Name="SessionDurationText"
                            Text="{x:Bind VM.SessionDuration}"
                            Foreground="White"
                            FontSize="{StaticResource UserInfoSecondaryFontSize}" />
-                </StackPanel>
-            </Grid>
+            </StackPanel>
+        </Grid>
 
-            <!--=======================================================
+        <!--=======================================================
             5️ Notifications Button (Temporarily Disabled)
             TODO: Hook to INotificationService when ready.
         =========================================================-->
-            <Border Grid.Column="6"
+        <Border Grid.Column="6"
                 CornerRadius="{StaticResource DefaultCornerRadius}"
                 BorderBrush="{StaticResource DisabledBorderBrush}"
                 BorderThickness="1"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 ToolTipService.ToolTip="{StaticResource TopBar_NotificationButton.ToolTip}">
-                <Button x:Name="NotificationButton"
+            <Button x:Name="NotificationButton"
                     IsEnabled="True"
                     Background="Transparent"
                     BorderThickness="0"
                     Padding="{StaticResource NotificationButtonPadding}">
-                    <FontIcon x:Name="NotificationIcon"
+                <FontIcon x:Name="NotificationIcon"
                           Glyph="&#xEA8F;"
                           Style="{StaticResource TopBarIconStyle}" />
-                </Button>
-            </Border>
+            </Button>
+        </Border>
 
-        </Grid>
-
-    </Border>
+    </Grid>
 
 </UserControl>
 <!--

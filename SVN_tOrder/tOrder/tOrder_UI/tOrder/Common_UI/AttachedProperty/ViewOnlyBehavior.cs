@@ -30,23 +30,17 @@ namespace tOrder.Common
             if (isViewOnly)
             {
                 textBox.IsReadOnly = true;
-                textBox.IsTabStop = false;
-                textBox.IsHitTestVisible = false;
-
-                textBox.BorderThickness = new Thickness(0);
                 textBox.Background = new SolidColorBrush(Color.FromArgb(255, 187, 187, 187)); // #BBBBBB
-                textBox.Foreground = new SolidColorBrush(Colors.Black);
-                textBox.Padding = new Thickness(2);
+                textBox.FontSize = 16; // ⬅️ Zvětšení textu
 
-                textBox.TextAlignment = TextAlignment.Right;
-                textBox.VerticalContentAlignment = VerticalAlignment.Center;
-                textBox.TextWrapping = TextWrapping.NoWrap;
-
-                var transparent = new SolidColorBrush(Colors.Transparent);
-                textBox.FocusVisualPrimaryBrush = transparent;
-                textBox.FocusVisualSecondaryBrush = transparent;
-                textBox.SelectionHighlightColorWhenNotFocused = transparent;
+            }
+            else
+            {
+                textBox.ClearValue(TextBox.IsReadOnlyProperty);
+                textBox.ClearValue(TextBox.BackgroundProperty);
+                textBox.ClearValue(TextBox.FontSizeProperty);
             }
         }
     }
+
 }

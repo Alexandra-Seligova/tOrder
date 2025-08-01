@@ -112,7 +112,9 @@
                 <!-- 🔝 TopBar section (scalable via Viewbox) -->
                 <Viewbox x:Name="TopBarViewbox"
                          Stretch="Uniform"
-                         Height="Auto">
+                         Height="Auto"
+                         Grid.Row="0"
+                         >
                     <Grid x:Name="TopBarContainer"
                           Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}">
                         <Grid.RenderTransform>

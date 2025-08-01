@@ -48,9 +48,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition x:Name="MainContentRowDefinition" Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
 
@@ -69,103 +69,83 @@
                 <local:DashboardContentHeaderC />
             </Grid>
         </Viewbox>
-        <Grid Grid.Row="1" >
+
+
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <!-- adaptivní horní prostor -->
-                <RowDefinition Height="Auto" />
-                <!-- uzamčený Viewbox obsah -->
-                <RowDefinition Height="*" />
-                <!-- adaptivní spodní prostor -->
+                <RowDefinition Height="Auto"/>
+                <!-- header -->
+                <RowDefinition Height="*"/>
+                <!-- main 3 columns -->
+                <RowDefinition Height="Auto"/>
+                <!-- footer -->
             </Grid.RowDefinitions>
 
-            <Viewbox Grid.Row="1" Stretch="Uniform" Height="Auto">
-                <Grid         Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
->
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <!-- header -->
-                        <RowDefinition Height="*"/>
-                        <!-- main 3 columns -->
-                        <RowDefinition Height="Auto"/>
-                        <!-- footer -->
-                    </Grid.RowDefinitions>
+            <!-- 📦 Hlavní obsah – 3 sloupce -->
+            <Grid x:Name="MainContentGrid" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                    <!-- 📦 Hlavní obsah – 3 sloupce -->
-                    <Grid x:Name="MainContentGrid" Grid.Row="1" >
+                <!-- Levý port -->
+                <local:DashboardContentPortC 
+           
+            Grid.Column="0"
+            HeaderText="Eingang Behälter" 
+            OutputText="Eingang 1.:" 
+            OutputTypeText="" 
+            ButtonText="Behälter öffnen zur&#x0a;Bearbeitung"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Side="Left" />
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                <!-- Prostřední obrázek -->
+                <Grid Grid.Column="1" Background="#ECECEC">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
 
-                        <!-- Levý port -->
-                        <local:DashboardContentPortC 
-                            Width="300"
-                        Grid.Column="0"
-                        HeaderText="Eingang Behälter" 
-                        OutputText="Eingang 251.:" 
-                        OutputTypeText="" 
-                        ButtonText="Behälter öffnen zur&#x0a;Bearbeitung"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                            Side="Left"
-                            />
+                    <Image Grid.Column="1"
+                   Source="ms-appx:///Assets/PortInput.svg"
+                   Stretch="Uniform"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Width="60" Height="60"/>
 
-                        <!-- Prostřední obrázek -->
-                        <Grid Grid.Column="1" Background="#ECECEC">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="40"/>
-                            </Grid.ColumnDefinitions>
+                    <Image Grid.Column="2"
+                   Source="ms-appx:///Assets/DashboardMachine.png"
+                   Stretch="Uniform"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
 
-                            <!-- Ikona vstupu -->
-                            <Image Grid.Column="1"
-           Source="ms-appx:///Assets/PortInput.svg"
-           Stretch="Uniform"
-           HorizontalAlignment="Center"
-           VerticalAlignment="Center"
-           Width="60"
-           Height="60"/>
-
-                            <!-- Obrázek stroje -->
-                            <Image Grid.Column="2"
-           Source="ms-appx:///Assets/DashboardMachine.png"
-           Stretch="Uniform"
-           HorizontalAlignment="Center"
-           VerticalAlignment="Center"/>
-
-                            <!-- Ikona výstupu -->
-                            <Image Grid.Column="3"
-           Source="ms-appx:///Assets/PortOutput.svg"
-           Stretch="Uniform"
-           HorizontalAlignment="Center"
-           VerticalAlignment="Center"
-           Width="60"
-           Height="60"/>
-                        </Grid>
-
-
-
-                        <!-- Pravý port -->
-                        <local:DashboardContentPortC 
-                             Width="300"
-                                 Side="Right"
-                        Grid.Column="2"
-                        HeaderText="Ausgang Behälter" 
-                        OutputText="Ausgang 251.:" 
-                        OutputTypeText="Produktion" 
-                        ButtonText="Behälter abschließen &#x0a;nach der Bearbeitung"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"/>
-                    </Grid>
+                    <Image Grid.Column="3"
+                   Source="ms-appx:///Assets/PortOutput.svg"
+                   Stretch="Uniform"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Width="60" Height="60"/>
                 </Grid>
-            </Viewbox>
+
+                <!-- Pravý port -->
+                <local:DashboardContentPortC 
+            
+            Grid.Column="2"
+            HeaderText="Ausgang Behälter" 
+            OutputText="Ausgang 1.:" 
+            OutputTypeText="Produktion" 
+            ButtonText="Behälter abschließen &#x0a;nach der Bearbeitung"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Side="Right"/>
+            </Grid>
         </Grid>
+
 
         <!-- Header -->
         <Viewbox Grid.Row="2" x:Name="DashboardContentFooterViewbox" Stretch="Uniform" Height="Auto">
