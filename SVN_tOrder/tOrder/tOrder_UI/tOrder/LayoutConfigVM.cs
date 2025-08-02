@@ -60,6 +60,19 @@ public class LayoutConfigVM : INotifyPropertyChanged
     public int DisplayHeight { get; private set; }
     public double DisplayDpi { get; private set; }
 
+    public const int MinDesignWidth = 600;
+    public const int MaxDesignWidth = 1400;
+
+    public double GuiScaleNormalized
+    {
+        get => (DesignWidth - 1024) / 400.0; // 0 odpovídá 1024
+        set
+        {
+            DesignWidth = (int)Math.Round(1024 + value * 50);
+            OnPropertyChanged(nameof(GuiScaleNormalized));
+        }
+    }
+
     public LayoutConfigVM(LayoutConfigModel model)
     {
         Model = model ?? throw new ArgumentNullException(nameof(model));

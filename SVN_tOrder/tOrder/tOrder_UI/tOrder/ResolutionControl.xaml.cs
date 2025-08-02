@@ -12,6 +12,7 @@ using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Media;
 using System;
 using Windows.Graphics;
@@ -31,10 +32,21 @@ public sealed partial class ResolutionControl : UserControl
     public event EventHandler<ResolutionChangedEventArgs>? ResolutionChanged;
 
     private string? _lastAppliedResolution;
+    public LayoutConfigVM LayoutConfig => App.GetService<LayoutConfigVM>();
 
-    private readonly LayoutConfigVM layoutVM;
+    public string CurrentResolution => $"{(int)LayoutConfig.WindowWidth} x {(int)LayoutConfig.WindowHeight}";
 
-    public string CurrentResolution => $"{(int)layoutVM.WindowWidth} x {(int)layoutVM.WindowHeight}";
+
+    //-----------------------------------------------------------
+    // Zoom GUI Controls (DesignWidth based)
+    //-----------------------------------------------------------
+
+    private const int MinDesignWidth = 600;
+    private const int MaxDesignWidth = 1400;
+    private const int DefaultDesignWidth = 1024;
+    private const int ZoomStep = 50;
+
+
 
     #endregion
 
@@ -46,8 +58,7 @@ public sealed partial class ResolutionControl : UserControl
     {
         InitializeComponent();
 
-        layoutVM = App.GetService<LayoutConfigVM>();
-        DataContext = layoutVM;
+        DataContext = LayoutConfig;
     }
 
     #endregion
@@ -65,8 +76,8 @@ public sealed partial class ResolutionControl : UserControl
                 int.TryParse(parts[0], out int width) &&
                 int.TryParse(parts[1], out int height))
             {
-                layoutVM.WindowWidth = width;
-                layoutVM.WindowHeight = height;
+                LayoutConfig.WindowWidth = width;
+                LayoutConfig.WindowHeight = height;
 
                 _lastAppliedResolution = $"{width}x{height}";
                 HighlightActiveButton();
@@ -77,11 +88,11 @@ public sealed partial class ResolutionControl : UserControl
 
     private void EnlargeWindow_Click(object sender, RoutedEventArgs e)
     {
-        int newWidth = (int)(layoutVM.WindowWidth * 1.2);
-        int newHeight = (int)(layoutVM.WindowHeight * 1.2);
+        int newWidth = (int)(LayoutConfig.WindowWidth * 1.2);
+        int newHeight = (int)(LayoutConfig.WindowHeight * 1.2);
 
-        layoutVM.WindowWidth = newWidth;
-        layoutVM.WindowHeight = newHeight;
+        LayoutConfig.WindowWidth = newWidth;
+        LayoutConfig.WindowHeight = newHeight;
 
         _lastAppliedResolution = $"{newWidth}x{newHeight}";
         HighlightActiveButton();
@@ -92,11 +103,25 @@ public sealed partial class ResolutionControl : UserControl
         const int defaultWidth = 1280;
         const int defaultHeight = 720;
 
-        layoutVM.WindowWidth = defaultWidth;
-        layoutVM.WindowHeight = defaultHeight;
+        LayoutConfig.WindowWidth = defaultWidth;
+        LayoutConfig.WindowHeight = defaultHeight;
 
         _lastAppliedResolution = $"{defaultWidth}x{defaultHeight}";
         HighlightActiveButton();
+    }
+    private void ZoomIn_Click(object sender, RoutedEventArgs e)
+    {
+        LayoutConfig.DesignWidth = Math.Min(MaxDesignWidth, LayoutConfig.DesignWidth + ZoomStep);
+    }
+
+    private void ZoomOut_Click(object sender, RoutedEventArgs e)
+    {
+        LayoutConfig.DesignWidth = Math.Max(MinDesignWidth, LayoutConfig.DesignWidth - ZoomStep);
+    }
+
+    private void ZoomReset_Click(object sender, RoutedEventArgs e)
+    {
+        LayoutConfig.DesignWidth = DefaultDesignWidth;
     }
 
     #endregion
@@ -133,43 +158,7 @@ public sealed partial class ResolutionControl : UserControl
 
     #endregion
 
-    //-----------------------------------------------------------
-    #region Aspect Ratio Locks
-    //-----------------------------------------------------------
 
-    private void AspectRatioCheckBox_Checked(object sender, RoutedEventArgs e)
-    {
-        if (sender == Lock16_9CheckBox)
-        {
-            Lock4_3CheckBox.IsChecked = false;
-            Lock16_10CheckBox.IsChecked = false;
-            Console.WriteLine("[ResolutionControl] Locked aspect ratio to 16:9");
-        }
-        else if (sender == Lock4_3CheckBox)
-        {
-            Lock16_9CheckBox.IsChecked = false;
-            Lock16_10CheckBox.IsChecked = false;
-            Console.WriteLine("[ResolutionControl] Locked aspect ratio to 4:3");
-        }
-        else if (sender == Lock16_10CheckBox)
-        {
-            Lock16_9CheckBox.IsChecked = false;
-            Lock4_3CheckBox.IsChecked = false;
-            Console.WriteLine("[ResolutionControl] Locked aspect ratio to 16:10");
-        }
-    }
-
-    private void AspectRatioCheckBox_Unchecked(object sender, RoutedEventArgs e)
-    {
-        if (Lock16_9CheckBox.IsChecked != true &&
-            Lock4_3CheckBox.IsChecked != true &&
-            Lock16_10CheckBox.IsChecked != true)
-        {
-            Console.WriteLine("[ResolutionControl] Aspect ratio lock removed.");
-        }
-    }
-
-    #endregion
 }
 
 //===================================================================

@@ -42,6 +42,11 @@
     =============================================================-->
     <UserControl.Resources>
 
+        <common:BindingProxy x:Key="LayoutConfigProxy"
+         x:Name="LayoutConfigProxy"
+         Data="{x:Bind LayoutConfig, Mode=OneWay}" />
+
+
         <!--=======================================================
             🎨 Color Brushes
         =========================================================-->
@@ -70,7 +75,7 @@
             🟦 Action Button – Square format
         =========================================================-->
         <Style x:Key="SquareActionButtonStyle" TargetType="Button">
-            <Setter Property="Width"        Value="44"/>
+            <Setter Property="Width"        Value="60"/>
             <Setter Property="Height"       Value="44"/>
             <Setter Property="FontSize"     Value="18"/>
             <Setter Property="Background"   Value="{StaticResource AccentBrush}"/>
@@ -143,208 +148,291 @@
         =========================================================-->
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <!-- Text -->
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <!-- Titulek -->
                 <ColumnDefinition Width="Auto"/>
+                <!-- Resolution info -->
+                <ColumnDefinition Width="Auto" />
                 <!-- Ikony -->
             </Grid.ColumnDefinitions>
 
             <!-- 🧠 Title -->
-            <TextBlock Text="🧠 Layout editor"
-                       FontSize="20"
-                       FontWeight="Bold"
-                       VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Text="🧠 Layout editor"
+               FontSize="20"
+               FontWeight="Bold"
+               VerticalAlignment="Center"/>
+
+            <!-- 🧾 Design Resolution Display (as Width × Height) -->
+            <StackPanel Grid.Column="2"
+            Orientation="Horizontal"
+            VerticalAlignment="Center"
+            Margin="12,0,16,0"
+            Spacing="8">
+
+                <!-- Label -->
+                <TextBlock Text="Resolution:"
+               FontSize="14"
+               FontWeight="SemiBold"
+               VerticalAlignment="Center"
+               Foreground="DimGray"/>
+
+                <!-- Width Box -->
+                <Border Background="#FFF6F6F6"
+            CornerRadius="4"
+            Padding="8,4"
+            BorderBrush="#CCC"
+            BorderThickness="1">
+                    <TextBlock Text="{Binding DesignWidth}"
+                   FontSize="14"
+                   FontWeight="Bold"
+                   Foreground="DarkSlateGray"
+                   VerticalAlignment="Center"/>
+                </Border>
+
+                <!-- Cross symbol -->
+                <TextBlock Text="×"
+               FontSize="16"
+               FontWeight="SemiBold"
+               VerticalAlignment="Center"
+               Foreground="DimGray"/>
+
+                <!-- Height Box -->
+                <Border Background="#FFF6F6F6"
+            CornerRadius="4"
+            Padding="8,4"
+            BorderBrush="#CCC"
+            BorderThickness="1">
+                    <TextBlock Text="{Binding DesignHeight}"
+                   FontSize="14"
+                   FontWeight="Bold"
+                   Foreground="DarkSlateGray"
+                   VerticalAlignment="Center"/>
+                </Border>
+
+            </StackPanel>
+
 
             <!-- 🔘 Header Action Buttons -->
-            <StackPanel Orientation="Horizontal"
-                        Grid.Column="1"
-                        VerticalAlignment="Center">
-                <Button Content="🔍"
-                        Style="{StaticResource SquareActionButtonStyle}"
-                        Click="EnlargeWindow_Click"/>
-                <Button Content="⟳"
-                        Style="{StaticResource SquareActionButtonStyle}"
-                        Click="ResetWindow_Click"/>
-            </StackPanel>
+            <Border Grid.Column="3" Background="#22CCCCCC" Padding="4" CornerRadius="6" Margin="0,0,4,0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="➖" Style="{StaticResource SquareActionButtonStyle}" Click="ZoomOut_Click"/>
+                    <Button Content="🔁" Style="{StaticResource SquareActionButtonStyle}" Click="ZoomReset_Click"/>
+                    <Button Content="➕" Style="{StaticResource SquareActionButtonStyle}" Click="ZoomIn_Click"/>
+                    <Button Content="🔍" Style="{StaticResource SquareActionButtonStyle}" Click="EnlargeWindow_Click"/>
+                    <Button Content="⟳"  Style="{StaticResource SquareActionButtonStyle}" Click="ResetWindow_Click"/>
+                </StackPanel>
+            </Border>
         </Grid>
 
+
+
         <!--===========================================================
-            🧭 Left Settings Panel (with scroll)
-        =============================================================-->
-        <ScrollViewer Grid.Row="1"
-                      Grid.Column="0"
-                      VerticalScrollBarVisibility="Auto">
-            <StackPanel>
+    🧭 Left Settings Panel (with scroll)
+============================================================-->
+        <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <!-- Levý sloupec -->
+                    <ColumnDefinition Width="*" />
+                    <!-- Pravý sloupec -->
+                </Grid.ColumnDefinitions>
 
-                <!--=======================================================
-                    🧩 Section: Layout Scaling
-                =========================================================-->
-                <Border Style="{StaticResource CardStyle}">
-                    <StackPanel>
-                        <TextBlock Text="🧩 Škálování layoutu"
-                                   FontWeight="Bold"
-                                   FontSize="14"
-                                   Margin="0,0,0,8"/>
+                <!--=============================================
+            🧩 Levý panel – Škálování layoutu
+        ==============================================-->
+                <StackPanel Grid.Column="0" Margin="8">
+                    <Border Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="🧩 Škálování layoutu"
+                               FontWeight="Bold"
+                               FontSize="14"
+                               Margin="0,0,0,8"/>
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="1.2*" />
-                            </Grid.ColumnDefinitions>
+                            <!-- GUI Layout Scale Slider (normalized) -->
+                            <Border Background="#22FFAA00" CornerRadius="4" Padding="6" Margin="0,0,0,12">
+                                <StackPanel>
+                                    <TextBlock Text="Scale GUI (Design Width)" 
+                               FontWeight="SemiBold" 
+                               FontSize="12"
+                               Margin="0,0,0,4"/>
+                                    <Slider Minimum="-10"
+        Maximum="10"
+        Value="{Binding GuiScaleNormalized, Mode=TwoWay}"
+        TickFrequency="0.1"
+        HorizontalAlignment="Stretch"/>
+                                    <TextBlock Text="{Binding DesignWidth}"
+           FontSize="10"
+           HorizontalAlignment="Center"
+           Foreground="Gray"
+           Margin="0,4,0,0"/>
+                                </StackPanel>
+                            </Border>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="1.2*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- Scale -->
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- ScaleX -->
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- ScaleY -->
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- ScaleText -->
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- DesignWidth -->
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- DesignHeight -->
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- WindowWidth -->
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- WindowHeight -->
+                                </Grid.RowDefinitions>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <!-- Scale -->
-                                <RowDefinition Height="Auto"/>
-                                <!-- ScaleX -->
-                                <RowDefinition Height="Auto"/>
-                                <!-- ScaleY -->
-                                <RowDefinition Height="Auto"/>
-                                <!-- ScaleText -->
-                                <RowDefinition Height="Auto"/>
-                                <!-- DesignWidth -->
-                                <RowDefinition Height="Auto"/>
-                                <!-- DesignHeight -->
-                                <RowDefinition Height="Auto"/>
-                                <!-- WindowWidth -->
-                                <RowDefinition Height="Auto"/>
-                                <!-- WindowHeight -->
-                            </Grid.RowDefinitions>
-
-                            <!-- Global Scale -->
-                            <TextBlock Grid.Row="0" Grid.Column="0"
+                                <!-- Global Scale -->
+                                <TextBlock Grid.Row="0" Grid.Column="0"
                                        Text="Scale:" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="0" Grid.Column="1"
+                                <TextBox Grid.Row="0" Grid.Column="1"
                                      Text="{Binding Scale, Mode=TwoWay}" Margin="0,2"/>
-
-                            <!-- Horizontal Scale -->
+                                <!--
+                            Horizontal Scale 
                             <TextBlock Grid.Row="1" Grid.Column="0"
                                        Text="Scale X:" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="1" Grid.Column="1"
                                      Text="{Binding ScaleX, Mode=TwoWay}" Margin="0,2"/>
 
-                            <!-- Vertical Scale -->
+                            Vertical Scale 
                             <TextBlock Grid.Row="2" Grid.Column="0"
                                        Text="Scale Y:" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="2" Grid.Column="1"
                                      Text="{Binding ScaleY, Mode=TwoWay}" Margin="0,2"/>
 
-                            <!-- Text Scale -->
+                            Text Scale 
                             <TextBlock Grid.Row="3" Grid.Column="0"
                                        Text="Scale Text:" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="3" Grid.Column="1"
                                      Text="{Binding ScaleText, Mode=TwoWay}" Margin="0,2"/>
-
-                            <!-- Design Width -->
-                            <TextBlock Grid.Row="4" Grid.Column="0"
+-->
+                                <!-- Design Width -->
+                                <TextBlock Grid.Row="4" Grid.Column="0"
                                        Text="Design Width:" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="4" Grid.Column="1"
+                                <TextBox Grid.Row="4" Grid.Column="1"
                                      Text="{Binding DesignWidth, Mode=TwoWay}" Margin="0,2"/>
 
-                            <!-- Design Height -->
-                            <TextBlock Grid.Row="5" Grid.Column="0"
+                                <!-- Design Height -->
+                                <TextBlock Grid.Row="5" Grid.Column="0"
                                        Text="Design Height:" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="5" Grid.Column="1"
+                                <TextBox Grid.Row="5" Grid.Column="1"
                                      Text="{Binding DesignHeight, Mode=TwoWay}" Margin="0,2"/>
 
-                            <!-- Actual Window Width -->
-                            <TextBlock Grid.Row="6" Grid.Column="0"
+                                <!-- Actual Window Width -->
+                                <TextBlock Grid.Row="6" Grid.Column="0"
                                        Text="Window Width:" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="6" Grid.Column="1"
+                                <TextBox Grid.Row="6" Grid.Column="1"
                                      Text="{Binding WindowWidth, Mode=TwoWay}" Margin="0,2"/>
 
-                            <!-- Actual Window Height -->
-                            <TextBlock Grid.Row="7" Grid.Column="0"
+                                <!-- Actual Window Height -->
+                                <TextBlock Grid.Row="7" Grid.Column="0"
                                        Text="Window Height:" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="7" Grid.Column="1"
+                                <TextBox Grid.Row="7" Grid.Column="1"
                                      Text="{Binding WindowHeight, Mode=TwoWay}" Margin="0,2"/>
-                        </Grid>
-                    </StackPanel>
-                </Border>
+                            </Grid>
+                        </StackPanel>
 
-                <!--=======================================================
+
+                    </Border>
+                </StackPanel>
+                <!--=============================================
+            🖥️ Pravý panel – Výběr rozlišení
+        ==============================================-->
+                <StackPanel Grid.Column="1" Margin="8">
+                    <!--=======================================================
                     🖥️ Section: Resolution Presets
                 =========================================================-->
-                <Border Style="{StaticResource CardStyle}" Margin="8,8,8,4">
-                    <StackPanel>
-                        <TextBlock Text="🖥️ Výběr rozlišení"
+                    <Border Style="{StaticResource CardStyle}" Margin="8,8,8,4">
+                        <StackPanel>
+                            <TextBlock Text="🖥️ Výběr rozlišení"
                                    FontWeight="Bold"
                                    FontSize="14"
                                    Margin="0,0,0,8"/>
 
-                        <!--===================================================
+                            <!--===================================================
                             Grid with resolution groups by aspect ratio
                         =====================================================-->
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <!-- Nadpisy -->
-                                <RowDefinition Height="*"/>
-                                <!-- Tlačítka -->
-                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <!-- Nadpisy -->
+                                    <RowDefinition Height="*"/>
+                                    <!-- Tlačítka -->
+                                </Grid.RowDefinitions>
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <!-- 16:9 -->
-                                <ColumnDefinition Width="Auto"/>
-                                <!-- 4:3 -->
-                                <ColumnDefinition Width="Auto"/>
-                                <!-- 16:10 -->
-                            </Grid.ColumnDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!-- 16:9 -->
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!-- 4:3 -->
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!-- 16:10 -->
+                                </Grid.ColumnDefinitions>
 
-                            <!--==========================
+                                <!--==========================
                                 🔤 Aspect Ratio Labels
                             ============================-->
-                            <TextBlock Grid.Row="0" Grid.Column="0"
+                                <TextBlock Grid.Row="0" Grid.Column="0"
                                        Text="16:9"
                                        FontWeight="SemiBold"
                                        HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1"
+                                <TextBlock Grid.Row="0" Grid.Column="1"
                                        Text="4:3"
                                        FontWeight="SemiBold"
                                        HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Row="0" Grid.Column="2"
+                                <TextBlock Grid.Row="0" Grid.Column="2"
                                        Text="16:10"
                                        FontWeight="SemiBold"
                                        HorizontalAlignment="Center"/>
 
-                            <!--==========================
+                                <!--==========================
                                 📐 16:9 Resolutions
                             ============================-->
-                            <StackPanel Grid.Row="1" Grid.Column="0" Margin="4">
-                                <Button Content="1280x720"   Tag="1280x720"   Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-                                <Button Content="1600x900"   Tag="1600x900"   Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-                                <Button Content="2560x1440"  Tag="2560x1440"  Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-                                <Button Content="1366x768"   Tag="1366x768"   Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-                                <Button Content="1920x1080"  Tag="1920x1080"  Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-                                <Button Content="3840x2160"  Tag="3840x2160"  Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-                            </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="0" Margin="4">
+                                    <Button Content="1280x720"   Tag="1280x720"   Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                    <Button Content="1600x900"   Tag="1600x900"   Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                    <Button Content="2560x1440"  Tag="2560x1440"  Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                    <Button Content="1366x768"   Tag="1366x768"   Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                    <Button Content="1920x1080"  Tag="1920x1080"  Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                    <Button Content="3840x2160"  Tag="3840x2160"  Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                </StackPanel>
 
-                            <!--==========================
+                                <!--==========================
                                 📐 4:3 Resolutions
                             ============================-->
-                            <StackPanel Grid.Row="1" Grid.Column="1" Margin="4">
-                                <Button Content="960x720"    Tag="960x720"    Style="{StaticResource DeprecatedResolutionButtonStyle}" Click="ResizeTo"/>
-                                <Button Content="1024x768"   Tag="1024x768"   Style="{StaticResource DeprecatedResolutionButtonStyle}" Click="ResizeTo"/>
-                                <Button Content="1280x960"   Tag="1280x960"   Style="{StaticResource PreferredResolutionButtonStyle}"  Click="ResizeTo"/>
-                                <Button Content="1600x1200"  Tag="1600x1200"  Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-                            </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="1" Margin="4">
+                                    <Button Content="960x720"    Tag="960x720"    Style="{StaticResource DeprecatedResolutionButtonStyle}" Click="ResizeTo"/>
+                                    <Button Content="1024x768"   Tag="1024x768"   Style="{StaticResource DeprecatedResolutionButtonStyle}" Click="ResizeTo"/>
+                                    <Button Content="1280x960"   Tag="1280x960"   Style="{StaticResource PreferredResolutionButtonStyle}"  Click="ResizeTo"/>
+                                    <Button Content="1600x1200"  Tag="1600x1200"  Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                </StackPanel>
 
-                            <!--==========================
+                                <!--==========================
                                 📐 16:10 Resolutions
                             ============================-->
-                            <StackPanel Grid.Row="1" Grid.Column="2" Margin="4">
-                                <Button Content="1280x800"   Tag="1280x800"   Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-                                <Button Content="1920x1200"  Tag="1920x1200"  Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-                                <Button Content="2560x1600"  Tag="2560x1600"  Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
-                            </StackPanel>
-                        </Grid>
-                    </StackPanel>
-                </Border>
+                                <StackPanel Grid.Row="1" Grid.Column="2" Margin="4">
+                                    <Button Content="1280x800"   Tag="1280x800"   Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                    <Button Content="1920x1200"  Tag="1920x1200"  Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                    <Button Content="2560x1600"  Tag="2560x1600"  Style="{StaticResource ResolutionButtonStyle}" Click="ResizeTo"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
 
-                <!--=======================================================
+                    <!--=======================================================
                     ⚙️ Section: Aspect Ratio Locks
-                =========================================================-->
+                ========================================================
                 <Border Style="{StaticResource CardStyle}" Margin="8,4,8,8">
                     <StackPanel>
                         <TextBlock Text="⚙️ Poměr stran (zámky)"
@@ -352,7 +440,7 @@
                                    FontSize="14"
                                    Margin="0,0,0,8"/>
 
-                        <!-- 🔒 Lock 16:9 -->
+                        🔒 Lock 16:9 
                         <CheckBox x:Name="Lock16_9CheckBox"
                                   Content="🔒  16:9"
                                   ToolTipService.ToolTip="Zamknout 16:9"
@@ -360,7 +448,7 @@
                                   Unchecked="AspectRatioCheckBox_Unchecked"
                                   Margin="0,2"/>
 
-                        <!-- 🔒 Lock 4:3 -->
+                         🔒 Lock 4:3 
                         <CheckBox x:Name="Lock4_3CheckBox"
                                   Content="🔒  4:3"
                                   ToolTipService.ToolTip="Zamknout 4:3"
@@ -368,7 +456,7 @@
                                   Unchecked="AspectRatioCheckBox_Unchecked"
                                   Margin="0,2"/>
 
-                        <!-- 🔒 Lock 16:10 -->
+                        🔒 Lock 16:10 
                         <CheckBox x:Name="Lock16_10CheckBox"
                                   Content="🔒  16:10"
                                   ToolTipService.ToolTip="Zamknout 16:10"
@@ -377,10 +465,10 @@
                                   Margin="0,2"/>
                     </StackPanel>
                 </Border>
+-->
 
-
-
-            </StackPanel>
+                </StackPanel>
+            </Grid>
         </ScrollViewer>
 
         <!--===========================================================

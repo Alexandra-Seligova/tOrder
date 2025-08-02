@@ -132,6 +132,7 @@
 		<None Remove="UI\Pages\OverviewByIPC\CardContent\CardContentSwitcherC.xaml" />
 	</ItemGroup>
 	<ItemGroup>
+		<Folder Include="Assets\Docs\" />
 		<Folder Include="Common\Services\Implementations\" />
 		<Folder Include="Common\Services\Interfaces\" />
 		<Folder Include="Common_UI\Factories\" />
