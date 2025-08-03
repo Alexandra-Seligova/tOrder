@@ -89,20 +89,19 @@ public sealed partial class CapacityUnitDashboard : Page
 
             case 4:
                 // "Arbeitsplan" tab
-                var v = 1;
                 DashboardContentPresenter.Content = new ArbeitsplanContentC();
                 break;
 
             case 5:
                 // "Dokumenten" tab
-                var vv = 1;
-                //DashboardContentPresenter.Content = new DokumentenContentC();
+
+                DashboardContentPresenter.Content = new DokumentenContentC();
                 break;
 
             case 6:
                 // "Info" tab
-                var vvv = 1;
-                //DashboardContentPresenter.Content = new InfoContentC();
+
+                DashboardContentPresenter.Content = new InfoContentC();
                 break;
 
             case 7:

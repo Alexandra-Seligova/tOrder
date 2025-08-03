@@ -57,6 +57,7 @@
 		<PackageReference Include="Microsoft.UI.Xaml" Version="2.8.7" />
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.10" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+
 	</ItemGroup>
 
 
@@ -114,6 +115,7 @@
 		<None Remove="Assets\DashboardMachine.png" />
 		<None Remove="Common\Services\Data\MockData.xml" />
 		<None Remove="Common_UI\Controls\ReadOnlyGridView.xaml" />
+		<None Remove="Common_UI\PdfViewerPage.xaml" />
 		<None Remove="ResolutionControl.xaml" />
 		<None Remove="ResolutionWindow.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard.xaml" />
@@ -122,6 +124,9 @@
 		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentPortC.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardContent\DashboardContentView.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\DashboardFooter\DashboardFooterC.xaml" />
+		<None Remove="UI\Pages\CapacityUnitDashboard\DokumentenContent\DokumentenContentC.xaml" />
+		<None Remove="UI\Pages\CapacityUnitDashboard\InfoContent\InfoContentC.xaml" />
+		<None Remove="UI\Pages\CapacityUnitDashboard\OeeContent\OeeContentC.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\QualitatContent\QualitatContentC.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\TabSelectorView.xaml" />
 		<None Remove="UI\Pages\CapacityUnitDashboard\WerkzeugeContent\WerkzeugeContentC.xaml" />
@@ -136,26 +141,48 @@
 		<Folder Include="Common\Services\Implementations\" />
 		<Folder Include="Common\Services\Interfaces\" />
 		<Folder Include="Common_UI\Factories\" />
-		<Folder Include="UI\Pages\CapacityUnitDashboard\DokumentenContent\" />
-		<Folder Include="UI\Pages\CapacityUnitDashboard\InfoContent\" />
-		<Folder Include="UI\Pages\CapacityUnitDashboard\OeeContent\" />
 		<Folder Include="UI\Pages\OverviewByIPC\CardHead\" />
 		<Folder Include="UI\Pages\OverviewByIPC\CardFooter\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="UI\Pages\CapacityUnitDashboard\ArbeitsplanContent\ArbeitsplanContentC.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Content Update="Assets\Docs\torder.dwg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="UI\Pages\CapacityUnitDashboard\QualitatContent\QualitatContentC.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Update="Common_UI\PdfViewerPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="Common_UI\Controls\ReadOnlyGridView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Update="UI\Pages\CapacityUnitDashboard\OeeContent\OeeContentC.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="UI\Pages\CapacityUnitDashboard\InfoContent\InfoContentC.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="UI\Pages\CapacityUnitDashboard\DokumentenContent\DokumentenContentC.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="UI\Pages\CapacityUnitDashboard\ArbeitsplanContent\ArbeitsplanContentC.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="UI\Pages\CapacityUnitDashboard\QualitatContent\QualitatContentC.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Update="Common_UI\Controls\ReadOnlyGridView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 	<ItemGroup>
 		<Page Update="ResolutionControl.xaml">

@@ -59,6 +59,7 @@ Layout:
 
     <Grid>
         <Viewbox x:Name="OverviewByIPCViewbox" Stretch="Uniform" Height="Auto">
+
             <Grid  x:Name="OverviewByIPCContainer" 
                      Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
                     

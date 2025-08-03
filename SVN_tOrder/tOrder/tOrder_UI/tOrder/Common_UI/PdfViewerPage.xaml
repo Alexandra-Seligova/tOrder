@@ -1,0 +1,15 @@
+<Page
+    x:Class="tOrder.PdfViewerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:tOrder"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    Background="White">
+
+    <Grid>
+        <controls:WebView2 x:Name="WebViewPdf"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch"
+                           DefaultBackgroundColor="White"/>
+    </Grid>
+</Page>
