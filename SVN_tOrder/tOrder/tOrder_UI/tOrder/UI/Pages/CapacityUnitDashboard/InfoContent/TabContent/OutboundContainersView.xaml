@@ -1,0 +1,49 @@
+﻿<UserControl
+    x:Class="tOrder.UI.OutboundContainersView"
+    x:Name="OutboundContainersViewControl"
+
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:tOrder.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:common="using:tOrder.Common"
+
+    mc:Ignorable="d"
+    d:DesignWidth="1024"
+    d:DesignHeight="768"
+
+    Width="Auto"
+    Height="Auto"
+    Background="Transparent"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+
+    common:DesignProperties.Control="OutboundContainersViewControl"
+    common:DesignProperties.Position="Top"
+    common:DesignProperties.GroupTag="Layout"
+    common:DesignProperties.GroupSubTag="InfoContent"
+    common:DesignProperties.DesignWidth="1024"
+    common:DesignProperties.DesignHeight="768">
+
+    <UserControl.Resources>
+        <common:BindingProxy x:Key="LayoutConfigProxy"
+                             x:Name="LayoutConfigProxy"
+                             Data="{x:Bind LayoutConfig, Mode=OneWay}" />
+    </UserControl.Resources>
+
+    <Grid Padding="8">
+        <Grid x:Name="TabRoot"
+              Height="40"
+              common:DesignProperties.DesignHeight="40"
+              common:DesignProperties.GroupTag="TabRoot"
+              common:DesignProperties.GroupSubTag="TabSelector">
+            <!-- Tab selector UI here -->
+        </Grid>
+
+        <TextBlock Text="OutboundContainersView"
+                   FontSize="18"
+                   FontWeight="SemiBold"
+                   Margin="0,50,0,0"/>
+    </Grid>
+</UserControl>
