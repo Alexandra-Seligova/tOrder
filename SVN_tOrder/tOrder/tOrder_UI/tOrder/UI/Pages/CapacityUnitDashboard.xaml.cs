@@ -106,8 +106,7 @@ public sealed partial class CapacityUnitDashboard : Page
 
             case 7:
                 // "OEE" tab
-                var vvvv = 1;
-                //DashboardContentPresenter.Content = new OeeContentC();
+                DashboardContentPresenter.Content = new OeeContentC();
                 break;
 
             default:

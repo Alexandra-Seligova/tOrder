@@ -6,9 +6,149 @@
     xmlns:local="using:tOrder.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:common="using:tOrder.Common"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
 
-    <Grid>
+    mc:Ignorable="d"
+    d:DesignWidth="1024"
+    d:DesignHeight="768"
 
+    Width="Auto"
+    Height="Auto"
+    Background="Transparent"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+
+    common:DesignProperties.Control="DashboardContentViewControl"
+    common:DesignProperties.Position="Top"
+    common:DesignProperties.GroupTag="Layout"
+    common:DesignProperties.GroupSubTag="DashboardContent"
+    common:DesignProperties.DesignWidth="1024"
+    common:DesignProperties.DesignHeight="768">
+
+    <UserControl.Resources>
+        <common:BindingProxy x:Key="LayoutConfigProxy"
+                             x:Name="LayoutConfigProxy"
+                             Data="{x:Bind LayoutConfig, Mode=OneWay}" />
+    </UserControl.Resources>
+
+    <Grid Background="#F5F7FA" Padding="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Viewbox Grid.Row="0" x:Name="DashboardContentHeaderViewbox" Stretch="Uniform" Height="Auto" VerticalAlignment="Top">
+            <Grid x:Name="DashboardContentHeaderContainer"
+                  Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+                  Background="#F6F6F6"
+                  Padding="12">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Horní část -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Prostřední část -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Spodní část -->
+                </Grid.RowDefinitions>
+
+                <!-- 🟠 Horní část -->
+                <Grid Grid.Row="0" Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Hlavní OEE -->
+                    <Grid Grid.Column="0" Width="120" Height="120" Background="#FFF0F0F0" CornerRadius="60" BorderBrush="Red" BorderThickness="3">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="OEE" FontSize="14" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" />
+                            <TextBlock Text="00,00%" FontSize="20" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Grid>
+                    <!-- Vedlejší metriky -->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Spacing="24">
+                        <Grid Width="80" Height="80" Background="#FFF0F0F0" CornerRadius="40" BorderBrush="Red" BorderThickness="2">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="Kapazität" FontSize="12" HorizontalAlignment="Center" />
+                                <TextBlock Text="00,00%" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Grid>
+                        <Grid Width="80" Height="80" Background="#FFF0F0F0" CornerRadius="40" BorderBrush="Red" BorderThickness="2">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="Effizienz" FontSize="12" HorizontalAlignment="Center" />
+                                <TextBlock Text="00,00%" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Grid>
+                        <Grid Width="80" Height="80" Background="#FFF0F0F0" CornerRadius="40" BorderBrush="Red" BorderThickness="2">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="Qualität" FontSize="12" HorizontalAlignment="Center" />
+                                <TextBlock Text="00,00%" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+
+                <!-- 🟦 Prostřední část -->
+                <!-- 🟦 Prostřední část: GRID -->
+                <Grid Grid.Row="1" Margin="0,0,0,12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- 1. řádek -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Laufzeit:"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Total Sollmenge:"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="Ideale Stückzeit:"/>
+
+                        <!-- 2. řádek -->
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Geplante Stillstand:"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="Ausschuss Menge:"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="Echte Stückzeit:"/>
+
+                        <!-- 3. řádek -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Ungeplanter Stillstand:"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="Total Menge:"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text=""/>
+
+                        <!-- 4. řádek -->
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Total runter:"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text="Unterschied Menge:"/>
+                        <TextBlock Grid.Row="3" Grid.Column="2" Text="Unterschied Stückzeit:"/>
+
+                        <!-- 5. řádek -->
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Totaler Zeitverlust:"/>
+                        <TextBlock Grid.Row="4" Grid.Column="1" Text="Unterschied:"/>
+                        <TextBlock Grid.Row="4" Grid.Column="2" Text="Unterschied:"/>
+                    </Grid>
+                </Grid>
+                <!-- 🔻 Spodní část -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="24">
+                    <TextBlock Text="5:00" FontSize="12"/>
+                    <TextBlock Text="6:00" FontSize="12"/>
+                    <TextBlock Text="7:00" FontSize="12"/>
+                    <TextBlock Text="8:00" FontSize="12"/>
+                    <TextBlock Text="9:00" FontSize="12"/>
+                    <TextBlock Text="10:00" FontSize="12"/>
+                    <TextBlock Text="11:00" FontSize="12"/>
+                    <TextBlock Text="12:00" FontSize="12"/>
+                    <TextBlock Text="13:00" FontSize="12"/>
+                    <TextBlock Text="14:00" FontSize="12"/>
+                    <Button Content="📘 Logbuch" Margin="24,0,0,0" IsEnabled="False" />
+                </StackPanel>
+            </Grid>
+        </Viewbox>
     </Grid>
 </UserControl>
