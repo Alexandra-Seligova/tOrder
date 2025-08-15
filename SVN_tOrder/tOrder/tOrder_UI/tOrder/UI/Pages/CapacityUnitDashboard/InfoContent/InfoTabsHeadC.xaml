@@ -1,4 +1,23 @@
-﻿<UserControl
+﻿<!-- ===============================================================================
+InfoTabsHeadC.xaml
+Purpose:
+- Tab header for the Info section in CapacityUnitDashboard; hosts 5 tab buttons
+  and their indicator bars (active/inactive).
+
+Layout & Styling:
+- Unified "InfoTabs.*" resources (brushes, sizes, metrics) mirroring TabSelectorView.
+- Neutral default (inactive); active visuals handled by existing code-behind (OnTabClick)
+  and your SelectedTab DP.
+
+Structure:
+- (0) Grid container with equal-width columns and spacing columns
+- (1) Five vertical stacks: Button + Indicator
+
+Notes:
+- Names preserved (TabButton_*, Indicator_*) to keep current logic intact.
+============================================================================== -->
+
+<UserControl
     x:Class="tOrder.UI.InfoTabsHeadC"
     x:Name="InfoTabsHeadCControl"
 
@@ -14,7 +33,7 @@
     d:DesignHeight="60"
 
     Width="Auto"
-    Height="60"
+    Height="{StaticResource InfoTabs.HeadHeight}"
     Background="Transparent"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Top"
@@ -26,76 +45,125 @@
     common:DesignProperties.DesignWidth="1024"
     common:DesignProperties.DesignHeight="60">
 
-	<UserControl.Resources>
-		<SolidColorBrush x:Key="TabInactiveTextBrush" Color="#555555"/>
-		<SolidColorBrush x:Key="TabActiveBrush" Color="#154A84"/>
-		<SolidColorBrush x:Key="TabIndicatorActiveBrush" Color="#154A84"/>
-		<SolidColorBrush x:Key="TabIndicatorInactiveBrush" Color="Transparent"/>
+    <!-- ===========================================================
+         Resources — unified "InfoTabs.*" palette & metrics
+         =========================================================== -->
+    <UserControl.Resources>
+        <!-- Brushes -->
+        <SolidColorBrush x:Key="InfoTabs.TextInactiveBrush"   Color="#555555"/>
+        <SolidColorBrush x:Key="InfoTabs.TextActiveBrush"     Color="#154A84"/>
+        <SolidColorBrush x:Key="InfoTabs.IndicatorActive"     Color="#154A84"/>
+        <SolidColorBrush x:Key="InfoTabs.IndicatorInactive"   Color="Transparent"/>
+        <SolidColorBrush x:Key="InfoTabs.BarBackground"       Color="Transparent"/>
 
-		<x:Double x:Key="TabButtonHeight">32</x:Double>
-		<x:Double x:Key="TabButtonFontSize">14</x:Double>
-		<x:Double x:Key="TabIndicatorHeight">2</x:Double>
-		<x:Double x:Key="TabSpacing">8</x:Double>
+        <!-- Metrics -->
+        <x:Double x:Key="InfoTabs.HeadHeight">60</x:Double>
+        <x:Double x:Key="InfoTabs.ButtonHeight">32</x:Double>
+        <x:Double x:Key="InfoTabs.FontSize">14</x:Double>
+        <x:Double x:Key="InfoTabs.IndicatorHeight">2</x:Double>
+        <x:Double x:Key="InfoTabs.Spacing">8</x:Double>
+        <CornerRadius x:Key="InfoTabs.ButtonCornerRadius">4,4,0,0</CornerRadius>
 
-		<FontWeight x:Key="TabFontBold">Bold</FontWeight>
-		<FontWeight x:Key="TabFontNormal">Normal</FontWeight>
+        <!-- Typography -->
+        <FontWeight x:Key="InfoTabs.FontWeight.Inactive">Bold</FontWeight>
+        <FontWeight x:Key="InfoTabs.FontWeight.Active">Bold</FontWeight>
 
-		<Style x:Key="TabButtonStyle" TargetType="Button">
-			<Setter Property="Height" Value="{StaticResource TabButtonHeight}"/>
-			<Setter Property="FontSize" Value="{StaticResource TabButtonFontSize}"/>
-			<Setter Property="FontWeight" Value="{StaticResource TabFontBold}"/>
-			<Setter Property="Foreground" Value="{StaticResource TabInactiveTextBrush}"/>
-			<Setter Property="Background" Value="Transparent"/>
-			<Setter Property="BorderThickness" Value="0"/>
-			<Setter Property="Padding" Value="4,0"/>
-			<Setter Property="HorizontalAlignment" Value="Center"/>
-			<Setter Property="VerticalAlignment" Value="Center"/>
-			<Setter Property="ContentTemplate">
-				<Setter.Value>
-					<DataTemplate>
-						<TextBlock Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center"/>
-					</DataTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-	</UserControl.Resources>
+        <!-- Button Style -->
+        <Style x:Key="InfoTabButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="{StaticResource InfoTabs.ButtonHeight}"/>
+            <Setter Property="FontSize" Value="{StaticResource InfoTabs.FontSize}"/>
+            <Setter Property="FontWeight" Value="{StaticResource InfoTabs.FontWeight.Inactive}"/>
+            <Setter Property="Foreground" Value="{StaticResource InfoTabs.TextInactiveBrush}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="6,0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="CornerRadius" Value="{StaticResource InfoTabs.ButtonCornerRadius}"/>
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
 
-	<Grid x:Name="TabRoot" Height="60">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="8"/>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="8"/>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="8"/>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="8"/>
-			<ColumnDefinition Width="*"/>
-		</Grid.ColumnDefinitions>
+    <!-- ===========================================================
+         Header Grid: 5 equal columns split by spacing columns
+         =========================================================== -->
+    <Grid x:Name="TabRoot" Height="{StaticResource InfoTabs.HeadHeight}" Background="{StaticResource InfoTabs.BarBackground}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-		<StackPanel Grid.Column="0" Orientation="Vertical">
-			<Button x:Name="TabButton_0" Content="Production Order" Tag="ProductionOrder" Click="OnTabClick" Style="{StaticResource TabButtonStyle}"/>
-			<Border x:Name="Indicator_0" Height="{StaticResource TabIndicatorHeight}" Background="{StaticResource TabIndicatorInactiveBrush}"/>
-		</StackPanel>
+        <!-- Production Order -->
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <Button x:Name="TabButton_0"
+                    Content="Production Order"
+                    Tag="ProductionOrder"
+                    Click="OnTabClick"
+                    Style="{StaticResource InfoTabButtonStyle}"/>
+            <Border x:Name="Indicator_0"
+                    Height="{StaticResource InfoTabs.IndicatorHeight}"
+                    Background="{StaticResource InfoTabs.IndicatorInactive}"/>
+        </StackPanel>
 
-		<StackPanel Grid.Column="2" Orientation="Vertical">
-			<Button x:Name="TabButton_1" Content="Shift" Tag="Shift" Click="OnTabClick" Style="{StaticResource TabButtonStyle}"/>
-			<Border x:Name="Indicator_1" Height="{StaticResource TabIndicatorHeight}" Background="{StaticResource TabIndicatorInactiveBrush}"/>
-		</StackPanel>
+        <!-- Shift -->
+        <StackPanel Grid.Column="2" Orientation="Vertical">
+            <Button x:Name="TabButton_1"
+                    Content="Shift"
+                    Tag="Shift"
+                    Click="OnTabClick"
+                    Style="{StaticResource InfoTabButtonStyle}"/>
+            <Border x:Name="Indicator_1"
+                    Height="{StaticResource InfoTabs.IndicatorHeight}"
+                    Background="{StaticResource InfoTabs.IndicatorInactive}"/>
+        </StackPanel>
 
-		<StackPanel Grid.Column="4" Orientation="Vertical">
-			<Button x:Name="TabButton_2" Content="Inbound Containers" Tag="InboundContainers" Click="OnTabClick" Style="{StaticResource TabButtonStyle}"/>
-			<Border x:Name="Indicator_2" Height="{StaticResource TabIndicatorHeight}" Background="{StaticResource TabIndicatorInactiveBrush}"/>
-		</StackPanel>
+        <!-- Inbound Containers -->
+        <StackPanel Grid.Column="4" Orientation="Vertical">
+            <Button x:Name="TabButton_2"
+                    Content="Inbound Containers"
+                    Tag="InboundContainers"
+                    Click="OnTabClick"
+                    Style="{StaticResource InfoTabButtonStyle}"/>
+            <Border x:Name="Indicator_2"
+                    Height="{StaticResource InfoTabs.IndicatorHeight}"
+                    Background="{StaticResource InfoTabs.IndicatorInactive}"/>
+        </StackPanel>
 
-		<StackPanel Grid.Column="6" Orientation="Vertical">
-			<Button x:Name="TabButton_3" Content="Outbound Containers" Tag="OutboundContainers" Click="OnTabClick" Style="{StaticResource TabButtonStyle}"/>
-			<Border x:Name="Indicator_3" Height="{StaticResource TabIndicatorHeight}" Background="{StaticResource TabIndicatorInactiveBrush}"/>
-		</StackPanel>
+        <!-- Outbound Containers -->
+        <StackPanel Grid.Column="6" Orientation="Vertical">
+            <Button x:Name="TabButton_3"
+                    Content="Outbound Containers"
+                    Tag="OutboundContainers"
+                    Click="OnTabClick"
+                    Style="{StaticResource InfoTabButtonStyle}"/>
+            <Border x:Name="Indicator_3"
+                    Height="{StaticResource InfoTabs.IndicatorHeight}"
+                    Background="{StaticResource InfoTabs.IndicatorInactive}"/>
+        </StackPanel>
 
-		<StackPanel Grid.Column="8" Orientation="Vertical">
-			<Button x:Name="TabButton_4" Content="Containers for Processing" Tag="ContainersForProcessing" Click="OnTabClick" Style="{StaticResource TabButtonStyle}"/>
-			<Border x:Name="Indicator_4" Height="{StaticResource TabIndicatorHeight}" Background="{StaticResource TabIndicatorInactiveBrush}"/>
-		</StackPanel>
-	</Grid>
+        <!-- Containers for Processing -->
+        <StackPanel Grid.Column="8" Orientation="Vertical">
+            <Button x:Name="TabButton_4"
+                    Content="Containers for Processing"
+                    Tag="ContainersForProcessing"
+                    Click="OnTabClick"
+                    Style="{StaticResource InfoTabButtonStyle}"/>
+            <Border x:Name="Indicator_4"
+                    Height="{StaticResource InfoTabs.IndicatorHeight}"
+                    Background="{StaticResource InfoTabs.IndicatorInactive}"/>
+        </StackPanel>
+    </Grid>
 </UserControl>

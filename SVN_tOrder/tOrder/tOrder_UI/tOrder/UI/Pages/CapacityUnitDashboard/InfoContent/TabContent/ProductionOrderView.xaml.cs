@@ -31,7 +31,8 @@ public sealed partial class ProductionOrderView : UserControl
 
     public LayoutConfigVM LayoutConfig => App.GetService<LayoutConfigVM>();
 
-    // --- Hlavní info ---
+
+    // --- Main info ---
     public string Artikel { get; set; } = "F 00V H28 042";
     public string Beschreibung { get; set; } = "Ventilhülse aus 1.4418 nach BN 5 899 601 519\nFertigungsteil";
     public string Index { get; set; } = "AL";
@@ -44,7 +45,8 @@ public sealed partial class ProductionOrderView : UserControl
     public string TBKLager { get; set; } = "- 1 - QS";
     public string Stueckzeit { get; set; } = "6,00 s";
 
-    // --- Množství ---
+
+    // --- Quantities ---
     public string Auftragsmenge { get; set; } = "400.000";
     public string Fertigmenge { get; set; } = "0";
     public string Schwebend { get; set; } = "0";
@@ -52,7 +54,8 @@ public sealed partial class ProductionOrderView : UserControl
     public string Gesamtmenge { get; set; } = "0";
     public string SchwebendBEH { get; set; } = "0";
 
-    // --- Kumulativní hodnoty (rozdělené) ---
+
+    // --- Cumulative (split) values ---
     public string GSKummLink { get; set; } = "0";
     public string GSKummRechts { get; set; } = "0";
 
@@ -65,12 +68,14 @@ public sealed partial class ProductionOrderView : UserControl
     public string EinstellteileLink { get; set; } = "0";
     public string EinstellteileRechts { get; set; } = "0";
 
-    // --- Dodatečné ---
+
+    // --- Additional ---
     public string Zusatztara { get; set; } = "CPAL010 Clipspalette Ventilhülse 027/032";
     public string Warenbewegung { get; set; } = "63 US / Hubbewegung + Schaukeln 0,2 sec.";
     public string WarenbewegungAbg { get; set; } = "0 n.a.";
 
-    // --- Checkboxes ---
+
+    // --- Flags ---
     public bool IsQSPruefung { get; set; } = false;
     public bool IsQSFPruefung { get; set; } = true;
     public bool IsHSPflicht { get; set; } = false;
