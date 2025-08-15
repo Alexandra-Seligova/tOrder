@@ -1,4 +1,30 @@
-﻿<UserControl
+﻿<!--
+===============================================================================
+ShiftView.xaml
+
+Purpose:
+- Displays "Shift" tab content for CapacityUnitDashboard InfoContentC.
+- Shows two statistical panels:
+  (1) Mengenstatistik (Quantity statistics)
+  (2) Interne Beanstandung (Internal complaints)
+- Includes footer with action buttons.
+
+Layout & Scaling:
+- Follows dashboard header pattern: Viewbox wrapping fixed DesignWidth surface.
+- Two-column grid for left/right statistics.
+- Footer buttons aligned centrally using 5-column layout.
+
+Styling:
+- Centralized text styles (H2, Lbl, Val, Pfx) for consistency.
+- Centralized footer button styles (primary/secondary).
+- RowSpacing and ColumnSpacing ensure consistent padding.
+
+Notes:
+- Values are placeholders and expected to be bound to ViewModel.
+===============================================================================
+-->
+
+<UserControl
     x:Class="tOrder.UI.ShiftView"
     x:Name="ShiftViewControl"
 
@@ -26,24 +52,239 @@
     common:DesignProperties.DesignWidth="1024"
     common:DesignProperties.DesignHeight="768">
 
+    <!-- ===========================================================
+         RESOURCES
+         =========================================================== -->
     <UserControl.Resources>
+        <!-- LayoutConfig binding proxy -->
         <common:BindingProxy x:Key="LayoutConfigProxy"
                              x:Name="LayoutConfigProxy"
                              Data="{x:Bind LayoutConfig, Mode=OneWay}" />
+
+        <!-- Footer button base style -->
+        <Style x:Key="FooterButtonBase" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="MinWidth" Value="160"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Padding" Value="0,6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="6,0,6,0"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Primary footer button -->
+        <Style x:Key="FooterButtonPrimary" TargetType="Button" BasedOn="{StaticResource FooterButtonBase}">
+            <Setter Property="Background" Value="#19599A"/>
+        </Style>
+
+        <!-- Secondary footer button -->
+        <Style x:Key="FooterButtonSecondary" TargetType="Button" BasedOn="{StaticResource FooterButtonBase}">
+            <Setter Property="Background" Value="#2196F3"/>
+        </Style>
+
+        <!-- Text styles -->
+        <Style x:Key="H2" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+        <Style x:Key="Lbl" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="Val" TargetType="TextBlock" BasedOn="{StaticResource Lbl}">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+        </Style>
+        <Style x:Key="Pfx" TargetType="TextBlock" BasedOn="{StaticResource Lbl}">
+            <Setter Property="Margin" Value="8,0,0,0"/>
+            <Setter Property="Foreground" Value="#77000000"/>
+        </Style>
     </UserControl.Resources>
 
-    <Grid Padding="8">
-        <Grid x:Name="TabRoot"
-              Height="40"
-              common:DesignProperties.DesignHeight="40"
-              common:DesignProperties.GroupTag="TabRoot"
-              common:DesignProperties.GroupSubTag="TabSelector">
-            <!-- Tab selector UI here -->
-        </Grid>
+    <!-- ===========================================================
+         ROOT LAYOUT
+         =========================================================== -->
+    <Grid Background="#F5F7FA" Padding="0" RowSpacing="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <!-- content -->
+            <RowDefinition Height="Auto"/>
+            <!-- footer -->
+        </Grid.RowDefinitions>
 
-        <TextBlock Text="ShiftView"
-                   FontSize="18"
-                   FontWeight="SemiBold"
-                   Margin="0,50,0,0"/>
+        <!-- =======================================================
+             CONTENT AREA
+             ======================================================= -->
+        <Viewbox x:Name="DashboardContentHeaderViewbox"
+                 Grid.Row="0" Stretch="Uniform" Height="Auto" VerticalAlignment="Top">
+            <Grid x:Name="DashboardContentHeaderContainer"
+                  Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+                  Background="#F6F6F6"
+                  ColumnSpacing="24">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- LEFT PANEL: Mengenstatistik -->
+                <Grid Grid.Column="0" Padding="12">
+                    <TextBlock Text="Mengenstatistik:" ToolTipService.ToolTip="Quantity Statistics" 
+                               Style="{StaticResource H2}" Grid.Row="0"/>
+
+                    <Border Padding="4" Grid.Row="1">
+                        <Grid RowSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <!-- title -->
+                                <RowDefinition Height="20"/>
+                                <!-- spacer -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 0 -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 1 -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 2 -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 3 -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 4 -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 5 -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 6 -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 7 -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 8 -->
+                            </Grid.RowDefinitions>
+
+                            <!-- Values -->
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Auftragsmenge:" ToolTipService.ToolTip="Order Quantity" Style="{StaticResource Lbl}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="XXX.XXX.XXX" Style="{StaticResource Val}"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Vorgabemenge gesamt:" ToolTipService.ToolTip="Total Target Quantity" Style="{StaticResource Lbl}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="XXX.XXX.XXX" Style="{StaticResource Val}"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Zurückgemeldete Menge insgesamt:" ToolTipService.ToolTip="Total Reported Quantity" Style="{StaticResource Lbl}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="XXX.XXX.XXX" Style="{StaticResource Val}"/>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Gut und assort. Gutmenge:" ToolTipService.ToolTip="Good and Assorted Good Quantity" Style="{StaticResource Lbl}"/>
+                            <TextBlock Grid.Row="5" Grid.Column="1" Text="XXX.XXX.XXX" Style="{StaticResource Val}"/>
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Ausbringungsrate [(G+GS/Vorgabem.)]:" ToolTipService.ToolTip="Output Rate" Style="{StaticResource Lbl}"/>
+                            <TextBlock Grid.Row="6" Grid.Column="1" Text="XXX" Style="{StaticResource Val}"/>
+                            <TextBlock Grid.Row="6" Grid.Column="2" Text="%" Style="{StaticResource Pfx}"/>
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="Schwebende menge:" ToolTipService.ToolTip="Pending Quantity" Style="{StaticResource Lbl}"/>
+                            <TextBlock Grid.Row="7" Grid.Column="1" Text="XXX.XXX.XXX" Style="{StaticResource Val}"/>
+
+                            <TextBlock Grid.Row="8" Grid.Column="0" Text="Beanst. Menge [Werker und QS]:" ToolTipService.ToolTip="Complained Quantity (Worker + QS)" Style="{StaticResource Lbl}"/>
+                            <TextBlock Grid.Row="8" Grid.Column="1" Text="XXX.XXX.XXX" Style="{StaticResource Val}"/>
+
+                            <TextBlock Grid.Row="9" Grid.Column="0" Text="Gesamtanzahl Schichten:" ToolTipService.ToolTip="Total Number of Shifts" Style="{StaticResource Lbl}"/>
+                            <TextBlock Grid.Row="9" Grid.Column="1" Text="XXX" Style="{StaticResource Val}"/>
+
+                            <TextBlock Grid.Row="10" Grid.Column="0" Text="Letztes Update:" ToolTipService.ToolTip="Last Update" Style="{StaticResource Lbl}"/>
+                            <TextBlock Grid.Row="10" Grid.Column="1" Text="20.12.2023 14:00" Style="{StaticResource Val}"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- RIGHT PANEL: Interne Beanstandung -->
+                <Grid Grid.Column="1" Padding="12">
+                    <TextBlock Text="Interne Beanstandung:" ToolTipService.ToolTip="Internal Complaints" 
+                               Style="{StaticResource H2}" Grid.Row="0"/>
+
+                    <Border Padding="4" Grid.Row="1">
+                        <Grid RowSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <!-- title -->
+                                <RowDefinition Height="20"/>
+                                <!-- spacer -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 0 -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 1 -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 2 -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 3 -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- 4 -->
+                            </Grid.RowDefinitions>
+
+                            <!-- Values -->
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Ausschuss:" ToolTipService.ToolTip="Scrap" Style="{StaticResource Lbl}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="XXX.XXX.XXX" Style="{StaticResource Val}"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Ausschussrate [Ausschuss/Zurückg.]:" ToolTipService.ToolTip="Scrap Rate" Style="{StaticResource Lbl}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="XXX" Style="{StaticResource Val}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="2" Text="%" Style="{StaticResource Pfx}"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Anzahl beanst. Schichten [QS]:" ToolTipService.ToolTip="Number of Complained Shifts (QS)" Style="{StaticResource Lbl}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="XXX.XXX.XXX" Style="{StaticResource Val}"/>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Anzahl beanst. Schichten [Werker]:" ToolTipService.ToolTip="Number of Complained Shifts (Worker)" Style="{StaticResource Lbl}"/>
+                            <TextBlock Grid.Row="5" Grid.Column="1" Text="XXX.XXX.XXX" Style="{StaticResource Val}"/>
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Anzahl beanst. Schichten [QS/Werker]:" ToolTipService.ToolTip="Number of Complained Shifts (QS/Worker)" Style="{StaticResource Lbl}"/>
+                            <TextBlock Grid.Row="6" Grid.Column="1" Text="XXX / XXX" Style="{StaticResource Val}"/>
+                            <TextBlock Grid.Row="6" Grid.Column="2" Text="%" Style="{StaticResource Pfx}"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+            </Grid>
+        </Viewbox>
+
+        <!-- =======================================================
+             FOOTER BUTTONS
+             ======================================================= -->
+        <Viewbox x:Name="FooterViewbox"
+                 Grid.Row="1" Stretch="Uniform" Height="Auto" VerticalAlignment="Top">
+            <Grid x:Name="FooterContainer"
+                  Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+                  Background="#ECECEC" Padding="20,12"
+                  ColumnSpacing="12" RowSpacing="5">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1"
+                        Style="{StaticResource FooterButtonPrimary}"
+                        ToolTipService.ToolTip="Alternative Workplace"
+                        Click="OnAlternativeArbeitsplatzClicked"
+                        Content="Alternative Arb.Pl." />
+
+                <Button Grid.Column="3"
+                        Style="{StaticResource FooterButtonSecondary}"
+                        ToolTipService.ToolTip="TBK Warehouse"
+                        Click="OnTbkLagerClicked"
+                        Content="TBK Lager" />
+            </Grid>
+        </Viewbox>
     </Grid>
 </UserControl>
