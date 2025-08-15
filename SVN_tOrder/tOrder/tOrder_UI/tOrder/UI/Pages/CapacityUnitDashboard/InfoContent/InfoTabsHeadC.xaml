@@ -11,10 +11,10 @@
 
     mc:Ignorable="d"
     d:DesignWidth="1024"
-    d:DesignHeight="40"
+    d:DesignHeight="60"
 
     Width="Auto"
-    Height="40"
+    Height="60"
     Background="Transparent"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Top"
@@ -24,64 +24,78 @@
     common:DesignProperties.GroupTag="TabRoot"
     common:DesignProperties.GroupSubTag="TabSelector"
     common:DesignProperties.DesignWidth="1024"
-    common:DesignProperties.DesignHeight="40">
+    common:DesignProperties.DesignHeight="60">
 
-	<Grid x:Name="TabRoot" Height="40">
+	<UserControl.Resources>
+		<SolidColorBrush x:Key="TabInactiveTextBrush" Color="#555555"/>
+		<SolidColorBrush x:Key="TabActiveBrush" Color="#154A84"/>
+		<SolidColorBrush x:Key="TabIndicatorActiveBrush" Color="#154A84"/>
+		<SolidColorBrush x:Key="TabIndicatorInactiveBrush" Color="Transparent"/>
+
+		<x:Double x:Key="TabButtonHeight">32</x:Double>
+		<x:Double x:Key="TabButtonFontSize">14</x:Double>
+		<x:Double x:Key="TabIndicatorHeight">2</x:Double>
+		<x:Double x:Key="TabSpacing">8</x:Double>
+
+		<FontWeight x:Key="TabFontBold">Bold</FontWeight>
+		<FontWeight x:Key="TabFontNormal">Normal</FontWeight>
+
+		<Style x:Key="TabButtonStyle" TargetType="Button">
+			<Setter Property="Height" Value="{StaticResource TabButtonHeight}"/>
+			<Setter Property="FontSize" Value="{StaticResource TabButtonFontSize}"/>
+			<Setter Property="FontWeight" Value="{StaticResource TabFontBold}"/>
+			<Setter Property="Foreground" Value="{StaticResource TabInactiveTextBrush}"/>
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Padding" Value="4,0"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="ContentTemplate">
+				<Setter.Value>
+					<DataTemplate>
+						<TextBlock Text="{Binding}" TextAlignment="Center" VerticalAlignment="Center"/>
+					</DataTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</UserControl.Resources>
+
+	<Grid x:Name="TabRoot" Height="60">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="12"/>
+			<ColumnDefinition Width="8"/>
 			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="12"/>
+			<ColumnDefinition Width="8"/>
 			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="12"/>
+			<ColumnDefinition Width="8"/>
 			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="12"/>
+			<ColumnDefinition Width="8"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 
-		<!-- Tab 0 -->
 		<StackPanel Grid.Column="0" Orientation="Vertical">
-			<Button x:Name="TabButton_0"
-                    Content="Production Order"
-                    Tag="ProductionOrder"
-                    Click="OnTabClick"/>
-			<Border x:Name="Indicator_0" Height="2" Background="Transparent"/>
+			<Button x:Name="TabButton_0" Content="Production Order" Tag="ProductionOrder" Click="OnTabClick" Style="{StaticResource TabButtonStyle}"/>
+			<Border x:Name="Indicator_0" Height="{StaticResource TabIndicatorHeight}" Background="{StaticResource TabIndicatorInactiveBrush}"/>
 		</StackPanel>
 
-		<!-- Tab 1 -->
 		<StackPanel Grid.Column="2" Orientation="Vertical">
-			<Button x:Name="TabButton_1"
-                    Content="Shift"
-                    Tag="Shift"
-                    Click="OnTabClick"/>
-			<Border x:Name="Indicator_1" Height="2" Background="Transparent"/>
+			<Button x:Name="TabButton_1" Content="Shift" Tag="Shift" Click="OnTabClick" Style="{StaticResource TabButtonStyle}"/>
+			<Border x:Name="Indicator_1" Height="{StaticResource TabIndicatorHeight}" Background="{StaticResource TabIndicatorInactiveBrush}"/>
 		</StackPanel>
 
-		<!-- Tab 2 -->
 		<StackPanel Grid.Column="4" Orientation="Vertical">
-			<Button x:Name="TabButton_2"
-                    Content="Inbound Containers"
-                    Tag="InboundContainers"
-                    Click="OnTabClick"/>
-			<Border x:Name="Indicator_2" Height="2" Background="Transparent"/>
+			<Button x:Name="TabButton_2" Content="Inbound Containers" Tag="InboundContainers" Click="OnTabClick" Style="{StaticResource TabButtonStyle}"/>
+			<Border x:Name="Indicator_2" Height="{StaticResource TabIndicatorHeight}" Background="{StaticResource TabIndicatorInactiveBrush}"/>
 		</StackPanel>
 
-		<!-- Tab 3 -->
 		<StackPanel Grid.Column="6" Orientation="Vertical">
-			<Button x:Name="TabButton_3"
-                    Content="Outbound Containers"
-                    Tag="OutboundContainers"
-                    Click="OnTabClick"/>
-			<Border x:Name="Indicator_3" Height="2" Background="Transparent"/>
+			<Button x:Name="TabButton_3" Content="Outbound Containers" Tag="OutboundContainers" Click="OnTabClick" Style="{StaticResource TabButtonStyle}"/>
+			<Border x:Name="Indicator_3" Height="{StaticResource TabIndicatorHeight}" Background="{StaticResource TabIndicatorInactiveBrush}"/>
 		</StackPanel>
 
-		<!-- Tab 4 -->
 		<StackPanel Grid.Column="8" Orientation="Vertical">
-			<Button x:Name="TabButton_4"
-                    Content="Containers for Processing"
-                    Tag="ContainersForProcessing"
-                    Click="OnTabClick"/>
-			<Border x:Name="Indicator_4" Height="2" Background="Transparent"/>
+			<Button x:Name="TabButton_4" Content="Containers for Processing" Tag="ContainersForProcessing" Click="OnTabClick" Style="{StaticResource TabButtonStyle}"/>
+			<Border x:Name="Indicator_4" Height="{StaticResource TabIndicatorHeight}" Background="{StaticResource TabIndicatorInactiveBrush}"/>
 		</StackPanel>
 	</Grid>
 </UserControl>

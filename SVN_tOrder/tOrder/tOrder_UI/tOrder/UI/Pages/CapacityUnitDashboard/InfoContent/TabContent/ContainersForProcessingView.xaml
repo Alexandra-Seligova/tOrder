@@ -1,4 +1,5 @@
-﻿<UserControl
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl
     x:Class="tOrder.UI.ContainersForProcessingView"
     x:Name="ContainersForProcessingViewControl"
 
@@ -32,18 +33,9 @@
                              Data="{x:Bind LayoutConfig, Mode=OneWay}" />
     </UserControl.Resources>
 
-    <Grid Padding="8">
-        <Grid x:Name="TabRoot"
-              Height="40"
-              common:DesignProperties.DesignHeight="40"
-              common:DesignProperties.GroupTag="TabRoot"
-              common:DesignProperties.GroupSubTag="TabSelector">
-            <!-- Tab buttons or selector UI goes here -->
-        </Grid>
+    <Viewbox Stretch="Uniform">
+        <Grid Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}">
 
-        <TextBlock Text="ContainersForProcessingView"
-                   FontSize="18"
-                   FontWeight="SemiBold"
-                   Margin="0,50,0,0"/>
-    </Grid>
+        </Grid>
+    </Viewbox>
 </UserControl>

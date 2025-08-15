@@ -89,7 +89,7 @@
     <!--===========================================================
         Main layout: two rows – tab header and content
     =============================================================-->
-    <Grid Padding="8" RowDefinitions="Auto,*" RowSpacing="8">
+    <Grid Padding="8" RowDefinitions="Auto,*" RowSpacing="0">
 
         <!--=======================================================
             🔘 Tab Header (Buttons + Indicators)
@@ -100,6 +100,7 @@
               common:DesignProperties.DesignHeight="40"
               common:DesignProperties.GroupTag="TabRoot"
               common:DesignProperties.GroupSubTag="TabSelector">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="12"/>

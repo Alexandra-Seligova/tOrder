@@ -26,24 +26,207 @@
     common:DesignProperties.DesignWidth="1024"
     common:DesignProperties.DesignHeight="768">
 
-    <UserControl.Resources>
-        <common:BindingProxy x:Key="LayoutConfigProxy"
+	<UserControl.Resources>
+		<common:BindingProxy x:Key="LayoutConfigProxy"
                              x:Name="LayoutConfigProxy"
                              Data="{x:Bind LayoutConfig, Mode=OneWay}" />
-    </UserControl.Resources>
 
-    <Grid Padding="8">
-        <Grid x:Name="TabRoot"
-              Height="40"
-              common:DesignProperties.DesignHeight="40"
-              common:DesignProperties.GroupTag="TabRoot"
-              common:DesignProperties.GroupSubTag="TabSelector">
-            <!-- Tab selector UI here -->
-        </Grid>
+		<Style x:Key="TextBlockStyleNormal" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="16"/>
+			<Setter Property="FontWeight" Value="Normal"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
 
-        <TextBlock Text="ProductionOrderView"
-                   FontSize="18"
-                   FontWeight="SemiBold"
-                   Margin="0,50,0,0"/>
-    </Grid>
+		<Style x:Key="TextBlockStyleBold" TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyleNormal}">
+			<Setter Property="FontWeight" Value="Bold"/>
+		</Style>
+
+		<Style x:Key="TextBlockStyleSemiBold" TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyleNormal}">
+			<Setter Property="FontWeight" Value="SemiBold"/>
+		</Style>
+	</UserControl.Resources>
+
+	<Grid Padding="20" Background="#F6F6F6">
+		<Viewbox x:Name="ProductionOrderViewViewbox"
+                 Stretch="Uniform"
+                 VerticalAlignment="Top">
+			<Grid Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+				  Padding="20">
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="30"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+
+				<!-- Artikel & Beschreibung -->
+				<Grid Grid.Row="0" RowSpacing="10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="40"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+
+					<TextBlock Grid.Row="0" Grid.Column="0" Text="Artikel:" Style="{StaticResource TextBlockStyleNormal}"/>
+					<TextBlock Grid.Row="0" Grid.Column="2" Text="{x:Bind Artikel}" Style="{StaticResource TextBlockStyleBold}"/>
+
+					<TextBlock Grid.Row="1" Grid.Column="0" Text="Beschreibung:" Style="{StaticResource TextBlockStyleNormal}"/>
+					<TextBlock Grid.Row="1" Grid.Column="2" Text="{x:Bind Beschreibung}" TextWrapping="Wrap" Style="{StaticResource TextBlockStyleNormal}"/>
+				</Grid>
+
+				<!-- Detail layout -->
+				<Grid Grid.Row="2" Width="Auto"  >
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="20"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="40"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="40"/>
+					</Grid.ColumnDefinitions>
+
+					<!-- Levý blok -->
+					<Grid Grid.Column="0" RowSpacing="10">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="20"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+
+						<TextBlock Grid.Row="0" Grid.Column="0" Text="Index:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="0" Grid.Column="2" Text="{x:Bind Index}" Style="{StaticResource TextBlockStyleBold}"/>
+
+						<TextBlock Grid.Row="1" Grid.Column="0" Text="Rückmelde-Nr.:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="1" Grid.Column="2" Text="{x:Bind RueckmeldeNr}" Style="{StaticResource TextBlockStyleBold}"/>
+
+						<TextBlock Grid.Row="2" Grid.Column="0" Text="Arb.plan:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="2" Grid.Column="2" Text="{x:Bind Arbeitsplan}" Style="{StaticResource TextBlockStyleBold}"/>
+
+						<TextBlock Grid.Row="3" Grid.Column="0" Text="AFO:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="3" Grid.Column="2" Text="{x:Bind AFO}" Style="{StaticResource TextBlockStyleBold}"/>
+
+						<TextBlock Grid.Row="4" Grid.Column="0" Text="TZ von:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="4" Grid.Column="2" Text="{x:Bind TZVon}" Style="{StaticResource TextBlockStyleBold}"/>
+
+						<TextBlock Grid.Row="5" Grid.Column="0" Text="TZ bis:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="5" Grid.Column="2" Text="{x:Bind TZBis}" Style="{StaticResource TextBlockStyleBold}"/>
+
+						<TextBlock Grid.Row="6" Grid.Column="0" Text="Meister:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="6" Grid.Column="2" Text="{x:Bind Meister}" Style="{StaticResource TextBlockStyleBold}"/>
+
+						<TextBlock Grid.Row="7" Grid.Column="0" Text="TBK Lager:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="7" Grid.Column="2" Text="{x:Bind TBKLager}" Style="{StaticResource TextBlockStyleBold}"/>
+
+						<TextBlock Grid.Row="8" Grid.Column="0" Text="Stückzeit:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="8" Grid.Column="2" Text="{x:Bind Stueckzeit}" Style="{StaticResource TextBlockStyleBold}"/>
+					</Grid>
+
+					<!-- 📊 Střední blok -->
+					<Grid Grid.Column="2" RowSpacing="10">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="120"/>
+							<ColumnDefinition Width="20"/>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="10"/>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+
+						<!-- Jednoduché řádky -->
+						<TextBlock Grid.Row="0" Grid.Column="0" Text="Auftragsmenge:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="0" Grid.Column="2" Text="{x:Bind Auftragsmenge}" Style="{StaticResource TextBlockStyleBold}"/>
+						<TextBlock Grid.Row="0" Grid.Column="4" Text="stk" Style="{StaticResource TextBlockStyleSemiBold}"/>
+
+						<TextBlock Grid.Row="1" Grid.Column="0" Text="Fertigmenge:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="1" Grid.Column="2" Text="{x:Bind Fertigmenge}" Style="{StaticResource TextBlockStyleBold}"/>
+						<TextBlock Grid.Row="1" Grid.Column="4" Text="stk" Style="{StaticResource TextBlockStyleSemiBold}"/>
+
+						<TextBlock Grid.Row="2" Grid.Column="0" Text="Schwebend:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="2" Grid.Column="2" Text="{x:Bind Schwebend}" Style="{StaticResource TextBlockStyleBold}"/>
+						<TextBlock Grid.Row="2" Grid.Column="4" Text="stk" Style="{StaticResource TextBlockStyleSemiBold}"/>
+
+						<TextBlock Grid.Row="3" Grid.Column="0" Text="Beanstandet:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="3" Grid.Column="2" Text="{x:Bind Beanstandet}" Style="{StaticResource TextBlockStyleBold}"/>
+						<TextBlock Grid.Row="3" Grid.Column="4" Text="stk" Style="{StaticResource TextBlockStyleSemiBold}"/>
+
+						<TextBlock Grid.Row="4" Grid.Column="0" Text="Gesamtmenge:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="4" Grid.Column="2" Text="{x:Bind Gesamtmenge}" Style="{StaticResource TextBlockStyleBold}"/>
+						<TextBlock Grid.Row="4" Grid.Column="4" Text="stk" Style="{StaticResource TextBlockStyleSemiBold}"/>
+
+						<TextBlock Grid.Row="5" Grid.Column="0" Text="Schwebend(BEH):" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="5" Grid.Column="2" Text="{x:Bind SchwebendBEH}" Style="{StaticResource TextBlockStyleBold}"/>
+						<TextBlock Grid.Row="5" Grid.Column="4" Text="stk" Style="{StaticResource TextBlockStyleSemiBold}"/>
+
+						<!-- Řádky se dvěma hodnotami -->
+						<TextBlock Grid.Row="6" Grid.Column="0" Text="G+S kumm:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="6" Grid.Column="2" Text="{x:Bind GSKummLink}" Style="{StaticResource TextBlockStyleBold}"/>
+						<TextBlock Grid.Row="6" Grid.Column="3" Text="/" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="6" Grid.Column="4" Text="{x:Bind GSKummRechts}" Style="{StaticResource TextBlockStyleBold}"/>
+						<TextBlock Grid.Row="6" Grid.Column="5" Text="stk" Style="{StaticResource TextBlockStyleSemiBold}"/>
+
+						<TextBlock Grid.Row="7" Grid.Column="0" Text="P kumm:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="7" Grid.Column="2" Text="{x:Bind PKummLink}" Style="{StaticResource TextBlockStyleBold}"/>
+						<TextBlock Grid.Row="7" Grid.Column="3" Text="/" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="7" Grid.Column="4" Text="{x:Bind PKummRechts}" Style="{StaticResource TextBlockStyleBold}"/>
+						<TextBlock Grid.Row="7" Grid.Column="5" Text="stk" Style="{StaticResource TextBlockStyleSemiBold}"/>
+
+						<TextBlock Grid.Row="8" Grid.Column="0" Text="Ausschuss:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="8" Grid.Column="2" Text="{x:Bind AusschussLink}" Style="{StaticResource TextBlockStyleBold}"/>
+						<TextBlock Grid.Row="8" Grid.Column="3" Text="/" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="8" Grid.Column="4" Text="{x:Bind AusschussRechts}" Style="{StaticResource TextBlockStyleBold}"/>
+						<TextBlock Grid.Row="8" Grid.Column="5" Text="stk" Style="{StaticResource TextBlockStyleSemiBold}"/>
+
+						<TextBlock Grid.Row="9" Grid.Column="0" Text="Einstellteile:" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="9" Grid.Column="2" Text="{x:Bind EinstellteileLink}" Style="{StaticResource TextBlockStyleBold}"/>
+						<TextBlock Grid.Row="9" Grid.Column="3" Text="/" Style="{StaticResource TextBlockStyleNormal}"/>
+						<TextBlock Grid.Row="9" Grid.Column="4" Text="{x:Bind EinstellteileRechts}" Style="{StaticResource TextBlockStyleBold}"/>
+						<TextBlock Grid.Row="9" Grid.Column="5" Text="stk" Style="{StaticResource TextBlockStyleSemiBold}"/>
+					</Grid>
+
+
+					<!-- CheckBoxy -->
+					<Grid Grid.Column="4" VerticalAlignment="Top" >
+						<StackPanel Padding="0"  Spacing="6">
+							<CheckBox Content="QS-Prüfung" IsChecked="{x:Bind IsQSPruefung}"/>
+							<CheckBox Content="QSF-Prüfung" IsChecked="{x:Bind IsQSFPruefung}"/>
+							<CheckBox Content="HS Pflicht" IsChecked="{x:Bind IsHSPflicht}"/>
+							<CheckBox Content="HS Machine" IsChecked="{x:Bind IsHSMachine}"/>
+							<CheckBox Content="HS Schleifscheibe" IsChecked="{x:Bind IsHSScheibe}"/>
+						</StackPanel>
+					</Grid>
+				</Grid>
+			</Grid>
+		</Viewbox>
+	</Grid>
 </UserControl>
