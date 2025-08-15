@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<UserControl
+﻿<UserControl
     x:Class="tOrder.UI.ContainersForProcessingView"
     x:Name="ContainersForProcessingViewControl"
 
@@ -9,6 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:common="using:tOrder.Common"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 
     mc:Ignorable="d"
     d:DesignWidth="1024"
@@ -31,11 +31,72 @@
         <common:BindingProxy x:Key="LayoutConfigProxy"
                              x:Name="LayoutConfigProxy"
                              Data="{x:Bind LayoutConfig, Mode=OneWay}" />
+
+        <!-- Table header style -->
+        <Style x:Key="SectionTitle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,12,0,4"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
     </UserControl.Resources>
 
-    <Viewbox Stretch="Uniform">
-        <Grid Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}">
+    <Viewbox Stretch="Uniform" VerticalAlignment="Top">
+        <Grid Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+              Background="#F5F7FA"
+              Padding="12"
+              RowSpacing="20">
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- First table -->
+            <toolkit:DataGrid Grid.Row="0"
+                              AutoGenerateColumns="False"
+                              HeadersVisibility="Column"
+                              GridLinesVisibility="All"
+                              IsReadOnly="True"
+                              RowHeight="32"
+                              SelectionMode="Single"
+                              BorderThickness="1"
+                              BorderBrush="#CCCCCC"
+                              ItemsSource="{x:Bind Operations}">
+                <toolkit:DataGrid.Columns>
+                    <toolkit:DataGridTextColumn Header="Datum" Binding="{Binding Datum}" Width="150"/>
+                    <toolkit:DataGridTextColumn Header="Beh. Nr." Binding="{Binding BehNr}" Width="100"/>
+                    <toolkit:DataGridTextColumn Header="Rückm.Nr." Binding="{Binding RueckmNr}" Width="100"/>
+                    <toolkit:DataGridTextColumn Header="Schicht" Binding="{Binding Schicht}" Width="150"/>
+                    <toolkit:DataGridTextColumn Header="Bediener" Binding="{Binding Bediener}" Width="150"/>
+                    <toolkit:DataGridTextColumn Header="Prod.Aktivität" Binding="{Binding ProdAktivitaet}" Width="200"/>
+                    <toolkit:DataGridTextColumn Header="Kap.stelle" Binding="{Binding KapStelle}" Width="100"/>
+                    <toolkit:DataGridTextColumn Header="TZ" Binding="{Binding Tz}" Width="60"/>
+                    <toolkit:DataGridTextColumn Header="Arb.plan" Binding="{Binding ArbPlan}" Width="150"/>
+                    <toolkit:DataGridTextColumn Header="Gesamt (Stk)" Binding="{Binding GesamtStk}" Width="120"/>
+                </toolkit:DataGrid.Columns>
+            </toolkit:DataGrid>
+
+            <!-- Second table -->
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="Aktuelle Inhalte:" Style="{StaticResource SectionTitle}"/>
+                <toolkit:DataGrid AutoGenerateColumns="False"
+                                  HeadersVisibility="Column"
+                                  GridLinesVisibility="All"
+                                  IsReadOnly="True"
+                                  RowHeight="32"
+                                  SelectionMode="Single"
+                                  BorderThickness="1"
+                                  BorderBrush="#CCCCCC"
+                                  ItemsSource="{x:Bind CurrentContents}">
+                    <toolkit:DataGrid.Columns>
+                        <toolkit:DataGridTextColumn Header="Datum" Binding="{Binding Datum}" Width="150"/>
+                        <toolkit:DataGridTextColumn Header="Schicht" Binding="{Binding Schicht}" Width="150"/>
+                        <toolkit:DataGridTextColumn Header="Bediener" Binding="{Binding Bediener}" Width="200"/>
+                        <toolkit:DataGridTextColumn Header="Zuwachs" Binding="{Binding Zuwachs}" Width="150"/>
+                        <toolkit:DataGridTextColumn Header="Gesamtmenge" Binding="{Binding Gesamtmenge}" Width="150"/>
+                    </toolkit:DataGrid.Columns>
+                </toolkit:DataGrid>
+            </StackPanel>
         </Grid>
     </Viewbox>
 </UserControl>

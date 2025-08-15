@@ -8,6 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:common="using:tOrder.Common"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 
     mc:Ignorable="d"
     d:DesignWidth="1024"
@@ -26,24 +27,123 @@
     common:DesignProperties.DesignWidth="1024"
     common:DesignProperties.DesignHeight="768">
 
-    <UserControl.Resources>
-        <common:BindingProxy x:Key="LayoutConfigProxy"
+	<!-- Resources -->
+	<UserControl.Resources>
+		<common:BindingProxy x:Key="LayoutConfigProxy"
                              x:Name="LayoutConfigProxy"
                              Data="{x:Bind LayoutConfig, Mode=OneWay}" />
-    </UserControl.Resources>
 
-    <Grid Padding="8">
-        <Grid x:Name="TabRoot"
-              Height="40"
-              common:DesignProperties.DesignHeight="40"
-              common:DesignProperties.GroupTag="TabRoot"
-              common:DesignProperties.GroupSubTag="TabSelector">
-            <!-- Tab selector UI here -->
-        </Grid>
+		<!-- Text styles -->
+		<Style x:Key="TitleText" TargetType="TextBlock">
+			<Setter Property="FontWeight" Value="Normal"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+		<Style x:Key="ValueText" TargetType="TextBlock">
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+	</UserControl.Resources>
 
-        <TextBlock Text="OutboundContainersView"
-                   FontSize="18"
-                   FontWeight="SemiBold"
-                   Margin="0,50,0,0"/>
-    </Grid>
+	<!-- Root layout -->
+	<Grid Background="#F5F7FA" Padding="0" RowSpacing="12">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<!-- Header -->
+			<RowDefinition Height="*"/>
+			<!-- Content -->
+		</Grid.RowDefinitions>
+
+		<!-- HEADER -->
+		<Viewbox Grid.Row="0" Stretch="Uniform" Height="Auto" VerticalAlignment="Top">
+			<Grid Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+                  Background="#F6F6F6" Padding="12" RowSpacing="12">
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<!-- Top row: Behälter auswahl -->
+				<StackPanel Orientation="Horizontal" Spacing="8" Grid.Row="0">
+					<TextBlock Text="Behälterauswahl:" Style="{StaticResource TitleText}"/>
+					<ComboBox Width="260" SelectedIndex="0">
+						<ComboBoxItem>Ausgang 1 - Behälter 4444</ComboBoxItem>
+						<ComboBoxItem>Ausgang 2 - Behälter XYZ</ComboBoxItem>
+					</ComboBox>
+				</StackPanel>
+
+				<!-- Info grid -->
+				<Grid Grid.Row="1" ColumnSpacing="20" RowSpacing="6">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="20"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="20"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+
+					<!-- Row 0 -->
+					<TextBlock Grid.Row="0" Grid.Column="0" Text="Behälterart:" Style="{StaticResource TitleText}"/>
+					<TextBlock Grid.Row="0" Grid.Column="1" Text="Schäferkasten" Style="{StaticResource ValueText}"/>
+
+					<TextBlock Grid.Row="0" Grid.Column="3" Text="Zusatztara 1:" Style="{StaticResource TitleText}"/>
+					<TextBlock Grid.Row="0" Grid.Column="4" Text="Schäferkasten" Style="{StaticResource ValueText}"/>
+
+					<TextBlock Grid.Row="0" Grid.Column="6" Text="Anzahl Tara 1:" Style="{StaticResource TitleText}"/>
+					<TextBlock Grid.Row="0" Grid.Column="7" Text="4" Style="{StaticResource ValueText}"/>
+
+					<!-- Row 1 -->
+					<TextBlock Grid.Row="1" Grid.Column="0" Text="TBK Lager:" Style="{StaticResource TitleText}"/>
+					<TextBlock Grid.Row="1" Grid.Column="1" Text="- 1 - QS" Style="{StaticResource ValueText}"/>
+
+					<TextBlock Grid.Row="1" Grid.Column="3" Text="Zusatztara 2:" Style="{StaticResource TitleText}"/>
+					<TextBlock Grid.Row="1" Grid.Column="4" Text="CPAL012 / Clipspalette Polkern 00201" Style="{StaticResource ValueText}"/>
+
+					<TextBlock Grid.Row="1" Grid.Column="6" Text="Anzahl Tara 2:" Style="{StaticResource TitleText}"/>
+					<TextBlock Grid.Row="1" Grid.Column="7" Text="0" Style="{StaticResource ValueText}"/>
+				</Grid>
+			</Grid>
+		</Viewbox>
+
+		<!-- CONTENT -->
+		<Viewbox Grid.Row="1" Stretch="Uniform" Height="Auto" VerticalAlignment="Top">
+			<Grid Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+                  Background="#FFFFFF" Padding="12" RowSpacing="20">
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<!-- Aktuelle Inhalte -->
+				<StackPanel Grid.Row="0">
+					<TextBlock Text="Aktuelle Inhalte:" FontWeight="Bold" Margin="0,0,0,4"/>
+					<toolkit:DataGrid AutoGenerateColumns="False"
+                                      HeadersVisibility="Column"
+                                      GridLinesVisibility="All"
+                                      IsReadOnly="True"
+                                      RowHeight="32"
+                                      SelectionMode="Single"
+                                      BorderThickness="1"
+                                      BorderBrush="#CCCCCC"
+                                      Height="160"
+                                      ItemsSource="{x:Bind CurrentContents}">
+						<toolkit:DataGrid.Columns>
+							<toolkit:DataGridTextColumn Header="Datum" Binding="{Binding Datum}" Width="150"/>
+							<toolkit:DataGridTextColumn Header="Schicht" Binding="{Binding Schicht}" Width="150"/>
+							<toolkit:DataGridTextColumn Header="Bediener" Binding="{Binding Bediener}" Width="200"/>
+							<toolkit:DataGridTextColumn Header="Zuwachs" Binding="{Binding Zuwachs}" Width="150"/>
+							<toolkit:DataGridTextColumn Header="Gesamtmenge" Binding="{Binding Gesamtmenge}" Width="150"/>
+						</toolkit:DataGrid.Columns>
+					</toolkit:DataGrid>
+				</StackPanel>
+			</Grid>
+		</Viewbox>
+	</Grid>
 </UserControl>

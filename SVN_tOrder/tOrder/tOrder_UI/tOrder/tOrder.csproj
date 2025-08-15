@@ -145,6 +145,9 @@
 		<Folder Include="UI\Pages\OverviewByIPC\CardFooter\" />
 	</ItemGroup>
 	<ItemGroup>
+		<Content Update="Assets\Docs\tOrder dokumentace návrhu.pdf">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		<Content Update="Assets\Docs\torder.dwg">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
