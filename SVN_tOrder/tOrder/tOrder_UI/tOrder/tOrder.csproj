@@ -62,6 +62,12 @@
 
 
 	<ItemGroup>
+		<Content Include="Assets\Docs\Systemarchitektur von tOrder 2.pdf">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Docs\tOrder_UI_Project_Overview.pdf">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		<Content Include="Assets\SplashScreen.scale-200.png" />
 		<Content Include="Assets\LockScreenLogo.scale-200.png" />
 		<Content Include="Assets\Square150x150Logo.scale-200.png" />
@@ -113,6 +119,8 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="Assets\DashboardMachine.png" />
+		<None Remove="Assets\Docs\Systemarchitektur von tOrder 2.pdf" />
+		<None Remove="Assets\Docs\tOrder_UI_Project_Overview.pdf" />
 		<None Remove="Common\Services\Data\MockData.xml" />
 		<None Remove="Common_UI\Controls\ReadOnlyGridView.xaml" />
 		<None Remove="Common_UI\PdfViewerPage.xaml" />
@@ -137,7 +145,6 @@
 		<None Remove="UI\Pages\OverviewByIPC\CardContent\CardContentSwitcherC.xaml" />
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Assets\Docs\" />
 		<Folder Include="Common\Services\Implementations\" />
 		<Folder Include="Common\Services\Interfaces\" />
 		<Folder Include="Common_UI\Factories\" />
