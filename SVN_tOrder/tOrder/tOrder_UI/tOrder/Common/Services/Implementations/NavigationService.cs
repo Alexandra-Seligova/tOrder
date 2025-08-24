@@ -48,14 +48,14 @@ public class NavigationService : INavigationService
         //{ "CapacityUnitDashboard", typeof(CapacityUnitDashboardPage) },
 
         // Float menu placeholder pages
-        { "Einstellteile", typeof(DummyPage) },
+       /* { "Einstellteile", typeof(DummyPage) },
         { "Muster", typeof(DummyPage) },
         { "ETF", typeof(DummyPage) },
         { "WZ-BlattWechsel", typeof(DummyPage) },
         { "WZ-Wechsel", typeof(DummyPage) },
         { "WZ-Historie", typeof(DummyPage) },
         { "Auftrags-verwaltung", typeof(DummyPage) },
-        { "Sample", typeof(DummyPage) }
+        { "Sample", typeof(DummyPage) }*/
     };
 
     #endregion //Fields

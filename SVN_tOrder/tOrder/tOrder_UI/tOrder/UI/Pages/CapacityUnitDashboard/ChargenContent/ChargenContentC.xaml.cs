@@ -11,6 +11,8 @@ namespace tOrder.UI
         public ObservableCollection<string> AusgangLabels { get; set; }
         public ObservableCollection<int> AusgangNumbers { get; set; }
 
+        public LayoutConfigVM LayoutConfig => App.GetService<LayoutConfigVM>();
+
         public ChargenContentC()
         {
             this.InitializeComponent();

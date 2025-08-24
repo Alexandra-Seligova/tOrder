@@ -1,28 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
 <UserControl
     x:Class="tOrder.UI.DashboardContentPortC"
+    x:Name="RootControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:tOrder.UI"
+    xmlns:common="using:tOrder.Common"
+    xmlns:conv="using:tOrder.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
- Width="240" MinHeight="280">
+    >
 
     <UserControl.Resources>
-        <Style x:Key="PortBoxStyle" TargetType="Border">
-            <Setter Property="Background" Value="#CCCCCC"/>
-            <Setter Property="CornerRadius" Value="4"/>
-            <Setter Property="Padding" Value="0,2"/>
-        </Style>
-        <Style x:Key="PortValueStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="22"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-        </Style>
-        <Style x:Key="TabButtonStyle" TargetType="Button">
-            <Setter Property="FontSize" Value="16"/>
+        <common:BindingProxy x:Key="LayoutConfigProxy"
+                x:Name="LayoutConfigProxy"
+                Data="{x:Bind LayoutConfig, Mode=OneWay}" />
+
+
+
+
+        <!-- 🎨 Barvy -->
+        <SolidColorBrush x:Key="TabButtonSelectedForegroundBrush" Color="#154A84"/>
+        <SolidColorBrush x:Key="TabButtonUnselectedForegroundBrush" Color="#444444"/>
+        <SolidColorBrush x:Key="TabButtonIndicatorBrush" Color="#154A84"/>
+
+        <!-- 📏 Styl základního tlačítka -->
+        <Style x:Key="TabButtonBaseStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -30,80 +34,315 @@
             <Setter Property="Width" Value="36"/>
             <Setter Property="Height" Value="32"/>
         </Style>
-        <Style x:Key="TabButtonSelectedStyle" TargetType="Button" BasedOn="{StaticResource TabButtonStyle}">
-            <Setter Property="Foreground" Value="#154A84"/>
-            <Setter Property="BorderBrush" Value="#154A84"/>
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#2196F3"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="MinWidth" Value="140"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource DisabledBackgroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="LightGray"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Barva pozadí pro neaktivní stav -->
+        <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#888888"/>
+        <!-- 🔷 Aktivní tab -->
+        <Style x:Key="TabButtonSelectedStyle"
+       TargetType="Button"
+       BasedOn="{StaticResource TabButtonBaseStyle}">
+            <Setter Property="Foreground" Value="{StaticResource TabButtonSelectedForegroundBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TabButtonIndicatorBrush}"/>
             <Setter Property="BorderThickness" Value="0,0,0,4"/>
         </Style>
-        <Style x:Key="TabButtonUnselectedStyle" TargetType="Button" BasedOn="{StaticResource TabButtonStyle}">
-            <Setter Property="Foreground" Value="#444"/>
+
+        <!-- ⚪ Neaktivní tab -->
+        <Style x:Key="TabButtonUnselectedStyle"
+       TargetType="Button"
+       BasedOn="{StaticResource TabButtonBaseStyle}">
+            <Setter Property="Foreground" Value="{StaticResource TabButtonUnselectedForegroundBrush}"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
+
+
+
+
+        <!-- Box pro hodnoty -->
+        <Style x:Key="PortHeaderBoxStyle" TargetType="Border">
+            <Setter Property="Background" Value="#BDBDBD"/>
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="Padding" Value="2,2"/>
+            <Setter Property="Margin" Value="8,0,0,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+
+        <!-- Hodnoty uvnitř boxů -->
+        <Style x:Key="PortHeaderValueStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Popisky -->
+        <Style x:Key="PortHeaderLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Popisky menší (pro Menge nebo přípony) -->
+        <Style x:Key="PortHeaderSubLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Hodnota menší (pro množství) -->
+        <Style x:Key="PortHeaderSubValueStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+
+        <Style x:Key="PortBoxStyle" TargetType="Border">
+            <Setter Property="Background" Value="#CCCCCC"/>
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="Padding" Value="4,2,4,2"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="MinWidth" Value="40"/>
+        </Style>
+        <Style x:Key="PortValueStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+        <Style x:Key="TabButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Width" Value="36"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+
+
+        <!-- Popisek (label) -->
+        <Style x:Key="LabelTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
+        <!-- Hodnota (value) -->
+        <Style x:Key="ValueTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
+        <!-- Přípona (např. Stk.) -->
+        <Style x:Key="UnitTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+
+        <conv:TabButtonStyleConverter x:Key="TabButtonStyleConverter"
+                                      SelectedStyle="{StaticResource TabButtonSelectedStyle}"
+                                      UnselectedStyle="{StaticResource TabButtonUnselectedStyle}" />
+        <conv:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+
     </UserControl.Resources>
 
-    <Border BorderBrush="#B5B5B5" BorderThickness="1" CornerRadius="4" Background="#F7F7F7" Padding="0">
-        <StackPanel>
-            <!-- Tab buttons přes celou šířku -->
-            <Grid Background="#F7F7F7" Margin="0" Height="32">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button Content="1" Grid.Column="0" Style="{StaticResource TabButtonSelectedStyle}"/>
-                <Button Content="2" Grid.Column="1" Style="{StaticResource TabButtonUnselectedStyle}"/>
-                <Button Content="3" Grid.Column="2" Style="{StaticResource TabButtonUnselectedStyle}"/>
-                <Button Content="4" Grid.Column="3" Style="{StaticResource TabButtonUnselectedStyle}"/>
-                <Button Content="5" Grid.Column="4" Style="{StaticResource TabButtonUnselectedStyle}"/>
+
+    <Grid  x:Name="MainGrid"  Background="#F5F5F5" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Horní část (Viewbox s obsahem) -->
+            <RowDefinition Height="*"/>
+            <!-- Volné místo -->
+            <RowDefinition Height="Auto"/>
+            <!-- Spodní tlačítko -->
+        </Grid.RowDefinitions>
+
+        <!-- 🔲 Horní část s Viewboxem -->
+        <Viewbox Grid.Row="0" x:Name="PortTopViewbox" Stretch="Uniform" Height="Auto">
+            <Grid x:Name="PortTopContainer" Width="259">
+
+
+                <StackPanel Orientation="Vertical">
+                    <!-- 🔷 Nadpis portu -->
+                    <Grid Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{x:Bind HeaderText, Mode=OneWay}"
+                               Grid.ColumnSpan="2"
+                               FontWeight="Bold"
+                               FontSize="18"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                    </Grid>
+
+                    <!-- 🧾 Obsah -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- 🏷️ Taby -->
+                        <Grid  x:Name="TabGrid"  Grid.Row="0" Height="40">
+                            <ItemsRepeater x:Name="TabRepeater" ItemsSource="{x:Bind PortContainers, Mode=OneWay}">
+                                <ItemsRepeater.Layout>
+                                    <StackLayout Orientation="Horizontal"/>
+                                </ItemsRepeater.Layout>
+                                <ItemsRepeater.ItemTemplate>
+                                    <DataTemplate x:DataType="common:PortContainerM">
+                                        <Button Click="TabButton_Click"
+                                            Tag="{x:Bind ContainerId}"
+                                            Height="auto"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            Width="{Binding ElementName=RootControl, Path=TabWidth}"
+                                            Loaded="TabButton_Loaded">
+                                            <TextBlock x:Name="TabLabel"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold"/>
+                                            <Button.Style>
+                                                <Binding Converter="{StaticResource TabButtonStyleConverter}"
+                                                     Path="ContainerId"
+                                                     ConverterParameter="{Binding ElementName=RootControl, Path=SelectedContainerId}"/>
+                                            </Button.Style>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsRepeater.ItemTemplate>
+                            </ItemsRepeater>
+                        </Grid>
+
+                        <!-- 🧾 Obsah -->
+                        <Grid Grid.Row="1" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind OutputText}" Style="{StaticResource LabelTextStyle}" Margin="4,4,6,5"/>
+
+
+                            <TextBox Grid.Row="1" Grid.Column="2" Margin="0,4,0,4" CornerRadius="0"   
+                                    Text="1234567"
+                                     TextAlignment="Right"
+                                     FontSize="18"
+                                        FontWeight="SemiBold"
+                                     common:ViewOnlyBehavior.IsViewOnly="True"
+                            />
+
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="Typ:" Style="{StaticResource LabelTextStyle}" Visibility="{x:Bind IsRightPort, Converter={StaticResource BoolToVisibilityConverter}}" Margin="4,4,6,5"/>
+
+                            <TextBox Grid.Row="2" Grid.Column="2"  Margin="0,4,0,4" CornerRadius="0"   
+                    Text="{x:Bind OutputTypeText, Mode=OneWay}" Visibility="{x:Bind IsRightPort, Converter={StaticResource BoolToVisibilityConverter}}"
+                     TextAlignment="Right"
+                     FontSize="16"
+                        FontWeight="SemiBold"
+                     common:ViewOnlyBehavior.IsViewOnly="True"
+            />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="Menge:" Style="{StaticResource LabelTextStyle}" Margin="4,4,6,5"/>
+
+
+                            <TextBox Grid.Row="3" Grid.Column="2"  Margin="0,4,0,4" CornerRadius="0"   
+                     Text="{x:Bind ContainerModel.PieceCount, Mode=OneWay}"
+                     TextAlignment="Right"
+                     FontSize="18"
+                        FontWeight="SemiBold"
+                     common:ViewOnlyBehavior.IsViewOnly="True"
+            />
+
+
+
+
+                            <TextBlock Grid.Row="3" Grid.Column="3" Text="Stk." Style="{StaticResource UnitTextStyle}" Margin="6,4,4,5"/>
+                        </Grid>
+                    </Grid>
+                </StackPanel>
             </Grid>
+        </Viewbox>
 
-
-            <!-- Main content -->
-            <StackPanel Margin="8,0,8,8" Spacing="8">
-                <!-- Header -->
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="4" Margin="0,6,0,0">
-                    <TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="20" Foreground="#2196F3" Margin="0,0,3,0"/>
-                    <TextBlock Text="Eingang Behälter" FontWeight="Bold" FontSize="18"/>
-                </StackPanel>
-
-                <!-- Ausgang -->
-                <StackPanel Orientation="Horizontal" Margin="0,8,0,0" VerticalAlignment="Center">
-                    <TextBlock Text="Ausgang 1." FontSize="16"/>
-                    <Border Style="{StaticResource PortBoxStyle}" Margin="16,0,0,0" MinWidth="40" HorizontalAlignment="Right">
-                        <TextBlock Text="8" Style="{StaticResource PortValueStyle}" FontStyle="Italic"/>
-                    </Border>
-                </StackPanel>
-
-                <!-- Hlavní počet kusů -->
-                <StackPanel Orientation="Horizontal" Margin="0,8,0,0" VerticalAlignment="Center">
-                    <Border Style="{StaticResource PortBoxStyle}" MinWidth="120">
-                        <TextBlock Text="6.540" Style="{StaticResource PortValueStyle}"/>
-                    </Border>
-                    <TextBlock Text="Stk." FontSize="18" Margin="8,0,0,0" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <!-- Tlačítko -->
-                <Button
-    Background="#2196F3"
-    Foreground="White"
-    FontWeight="SemiBold"
-    Margin="0,20,0,0"
-    HorizontalAlignment="Center"
-    Padding="10,6"
-    BorderThickness="0"
-    CornerRadius="4"
-    MinWidth="140">
-                    <TextBlock TextAlignment="Center">
-        Behälter öffnen zur
-        <LineBreak/>
-        Bearbeitung
-                    </TextBlock>
+        <!-- 🟦 Tlačítko ve Viewboxu -->
+        <Viewbox Grid.Row="2" x:Name="PortBottomViewbox" Stretch="Uniform" Height="Auto">
+            <Grid x:Name="PortBottomContainer" Width="259">
+                <Button Background="#2196F3"
+                    Foreground="White"
+                    FontWeight="SemiBold"
+                    Margin="0,8,0,8"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Padding="10,6"
+                    BorderThickness="0"
+                    CornerRadius="4"
+                    MinWidth="140"
+                       
+                    IsEnabled="{x:Bind IsActionEnabled, Mode=OneWay}"
+                    Click="{x:Bind OnCloseContainer}">
+                    <TextBlock Text="{x:Bind ButtonText, Mode=OneWay}" TextAlignment="Center" TextWrapping="Wrap"/>
                 </Button>
+            </Grid>
+        </Viewbox>
+    </Grid>
 
-            </StackPanel>
-        </StackPanel>
-    </Border>
 </UserControl>

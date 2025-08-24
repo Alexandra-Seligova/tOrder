@@ -7,6 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     HorizontalAlignment="Stretch"
+    
+    xmlns:common="using:tOrder.Common"
    >
 
     <UserControl.Resources>
@@ -19,7 +21,8 @@
             <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Foreground" Value="Black"/>
         </Style>
-        <Style x:Key="HeaderTextBoldStyle" TargetType="TextBlock" BasedOn="{StaticResource HeaderTextStyle}">
+        <Style x:Key="HeaderTextBoldStyle" TargetType="TextBlock"
+               BasedOn="{StaticResource HeaderTextStyle}">
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
 
@@ -67,38 +70,61 @@
     </UserControl.Resources>
 
 
-    <Grid HorizontalAlignment="Stretch" Height="80">
+    <Grid HorizontalAlignment="Stretch"
+      Height="76"
+      common:DesignProperties.DesignHeight="76"
+      common:DesignProperties.GroupTag="Layout"
+      common:DesignProperties.GroupSubTag="Header">
+
         <!-- Header Section -->
-        <Grid Margin="0,0,0,8" Background="{StaticResource UnitGreenBrush}" HorizontalAlignment="Stretch" Height="80">
+        <Grid Margin="0,0,0,8" Background="{StaticResource UnitGreenBrush}"
+          common:DesignProperties.DesignHeight="76"
+          common:DesignProperties.GroupTag="Layout"
+          common:DesignProperties.GroupSubTag="HeaderSection">
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <!-- Left info -->
                 <ColumnDefinition Width="*"/>
+                <!-- Prod info -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Status icon -->
             </Grid.ColumnDefinitions>
 
-            <!-- Capacity Unit (Column 0) -->
-            <Grid Grid.Column="0" Margin="0,0,16,0" Padding="4">
+            <!-- Capacity Unit Info (Column 0) -->
+            <Grid Grid.Column="0" Margin="0,0,16,0" Padding="4"
+              common:DesignProperties.DesignHeight="76"
+              common:DesignProperties.GroupSubTag="HeaderLeft">
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
+
                 <!-- Left Info -->
-                <StackPanel Orientation="Vertical" Grid.Column="0" Margin="0,0,12,0">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Column="0" Margin="0,0,12,0">
                     <TextBlock Text="Kap.Einheit:" Style="{StaticResource SubTextStyle}"/>
                     <TextBlock Text="MST-01A" Style="{StaticResource HeaderTextBoldStyle}"/>
                     <TextBlock Text="MA-178-037-0014" Style="{StaticResource SubTextStyle}"/>
                 </StackPanel>
-                <!-- Right Seite -->
-                <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Top">
-                    <TextBlock Text="Seite" Style="{StaticResource HeaderTextStyle}"/>
-                    <TextBlock Text="1" Style="{StaticResource HeaderTextBoldStyle}"/>
+
+                <!-- Seite -->
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Column="1">
+                    <TextBlock Text="Seite" Style="{StaticResource SubTextStyle}"/>
+                    <TextBlock Text="1" Style="{StaticResource HeaderTextBoldStyle}" HorizontalAlignment="Center"/>
+                    <TextBlock Text="" />
                 </StackPanel>
             </Grid>
 
-            <!-- Production info (Column 1) -->
-            <Grid Grid.Column="1" Background="{StaticResource HeaderBlueBrush}" Padding="18,8">
+            <!-- Production Info (Column 1) -->
+            <Grid Grid.Column="1" Background="{StaticResource HeaderBlueBrush}" Padding="18,8"
+              common:DesignProperties.DesignHeight="76"
+                  
+              common:DesignProperties.GroupSubTag="HeaderCenter">
+
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" MinHeight="32"/>
-                    <RowDefinition Height="*" MinHeight="28"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -107,36 +133,50 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Row 0 -->
-                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Padding="0,2">
-                    <TextBlock Text="Prod.Auftrag:" Style="{StaticResource ProdInfoLabelStyle}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="38252" Style="{StaticResource ProdInfoValueStyle}" VerticalAlignment="Center"/>
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Padding="0,2">
+                    <TextBlock Text="Prod.Auftrag:" Style="{StaticResource ProdInfoLabelStyle}" Margin="0,0,8,0" />
+                    <TextBlock Text="38252" Style="{StaticResource ProdInfoValueStyle}" />
                 </StackPanel>
-                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Padding="0,2">
-                    <TextBlock Text="Artikel:" Style="{StaticResource ProdInfoLabelStyle}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="F 00V H28 032/AW" Style="{StaticResource ProdInfoValueStyle}" VerticalAlignment="Center"/>
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Padding="0,2">
+                    <TextBlock Text="Artikel:" Style="{StaticResource ProdInfoLabelStyle}" Margin="0,0,8,0" />
+                    <TextBlock Text="F 00V H28 032/AW" Style="{StaticResource ProdInfoValueStyle}" />
                 </StackPanel>
-                <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Padding="0,2">
-                    <TextBlock Text="Stückzähler:" Style="{StaticResource ProdInfoLabelStyle}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="10.654" Style="{StaticResource ProdInfoValueStyle}" VerticalAlignment="Center"/>
+                <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" Padding="0,2">
+                    <TextBlock Text="Stückzähler:" Style="{StaticResource ProdInfoLabelStyle}" Margin="0,0,8,0" />
+                    <TextBlock Text="10.654" Style="{StaticResource ProdInfoValueStyle}" />
                 </StackPanel>
 
                 <!-- Row 1 -->
-                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Padding="0,2">
-                    <TextBlock Text="Läuft" Style="{StaticResource ProdInfoGreenStyle}" Margin="0,0,12,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="Folgeauftrag" Style="{StaticResource ProdInfoSubLabelStyle}" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Padding="0,2">
+                    <TextBlock Text="Läuft" Style="{StaticResource ProdInfoGreenStyle}" Margin="0,0,12,0" />
+                    <TextBlock Text="Folgeauftrag" Style="{StaticResource ProdInfoSubLabelStyle}" Margin="12,0,0,0" />
                 </StackPanel>
-                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Padding="0,2">
-                    <TextBlock Text="Material Charge:" Style="{StaticResource ProdInfoSubLabelStyle}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="563335" Style="{StaticResource ProdInfoSubValueStyle}" VerticalAlignment="Center"/>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Padding="0,2">
+                    <TextBlock Text="Material Charge:" Style="{StaticResource ProdInfoSubLabelStyle}" Margin="0,0,8,0" />
+                    <TextBlock Text="563335" Style="{StaticResource ProdInfoSubValueStyle}" />
                 </StackPanel>
-                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Padding="0,2">
-                    <TextBlock Text="Häringcharge:" Style="{StaticResource ProdInfoSubLabelStyle}" Margin="0,0,8,0" VerticalAlignment="Center"/>
-                    <TextBlock Text="H0001/A0001" Style="{StaticResource ProdInfoSubValueStyle}" VerticalAlignment="Center"/>
+                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" Padding="0,2">
+                    <TextBlock Text="Häringcharge:" Style="{StaticResource ProdInfoSubLabelStyle}" Margin="0,0,8,0" />
+                    <TextBlock Text="H0001/A0001" Style="{StaticResource ProdInfoSubValueStyle}" />
                 </StackPanel>
-                <!-- Column 3 - empty space for margin/alignment -->
             </Grid>
 
+            <!-- Status Icon (Column 2) -->
+            <Grid Grid.Column="2" Width="120" Background="LimeGreen" CornerRadius="4"
+     
+      Tapped="StatusIcon_Tapped"
+      x:Name="StatusGrid"
+      common:DesignProperties.DesignHeight="76"
+      common:DesignProperties.DesignWidth="120"            
+      common:DesignProperties.GroupSubTag="HeaderStatus">
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <FontIcon x:Name="StatusGlyph" Glyph="▶" FontSize="24" Foreground="White" HorizontalAlignment="Center" />
+                    <TextBlock x:Name="StatusText" Text="Läuft" FontSize="20" Foreground="White" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Grid>
 
         </Grid>
     </Grid>
+
 </UserControl>

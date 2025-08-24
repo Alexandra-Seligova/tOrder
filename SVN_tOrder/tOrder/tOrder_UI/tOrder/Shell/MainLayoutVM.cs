@@ -1,8 +1,8 @@
 //===================================================================
 // $Workfile:: MainLayoutVM.cs                                     $
-// $Author:: Alexandra_Seligova                                     $
-// $Revision:: 4                                                   $
-// $Date:: 2025-06-11 15:44:33 +0200 (st, 11 čvn 2025)            $
+// $Author:: Alexandra_Seligova                                    $
+// $Revision:: 5                                                   $
+// $Date:: 2025-07-24 23:32:00 +0200 (čt, 24 čvc 2025)             $
 //===================================================================
 // Description: SPC - tOrder
 //     ViewModel for the Layout control – heading, navigation, breadcrumbs
@@ -26,14 +26,14 @@ namespace tOrder.Shell
     using tOrder.Common;
     using tOrder.UI;
 
-    #endregion //Using directives
+    #endregion // Using directives
 
     //===================================================================
     // class NavigationItemModel
     //===================================================================
 
     /// <summary>
-    /// Model reprezentující jednu položku navigace.
+    /// Represents a single item in the main navigation menu.
     /// </summary>
     public class NavigationItemModel
     {
@@ -56,7 +56,8 @@ namespace tOrder.Shell
     //===================================================================
 
     /// <summary>
-    /// ViewModel pro hlavní layout – spravuje titulek, navigaci a breadcrumbs.
+    /// ViewModel for the main layout control – responsible for managing
+    /// current header, navigation menu items, and breadcrumb path.
     /// </summary>
     public partial class MainLayoutVM : BaseVM
     {
@@ -67,7 +68,7 @@ namespace tOrder.Shell
         private readonly IDataService _dataService;
         private readonly TopBarVM _topBarViewModel;
 
-        #endregion //Fields
+        #endregion // Fields
 
         //-----------------------------------------------------------
         #region Observable Properties
@@ -85,7 +86,7 @@ namespace tOrder.Shell
         [ObservableProperty]
         private ObservableCollection<string> breadcrumbItems = [];
 
-        #endregion //Observable Properties
+        #endregion // Observable Properties
 
         //-----------------------------------------------------------
         #region Constructor
@@ -103,12 +104,16 @@ namespace tOrder.Shell
             _topBarViewModel = topBarViewModel;
         }
 
-        #endregion //Constructor
+        #endregion // Constructor
 
         //-----------------------------------------------------------
         #region Initialization
         //-----------------------------------------------------------
 
+        /// <summary>
+        /// Called during application startup or reactivation.
+        /// Loads initial navigation menu.
+        /// </summary>
         public override async Task InitializeAsync()
         {
             await LoadNavigationItemsAsync();
@@ -127,26 +132,29 @@ namespace tOrder.Shell
             catch (Exception ex)
             {
 #if DEBUG
-                Debug.WriteLine($"[DEBUG] Výjimka při načítání navigace: {ex}");
+                Debug.WriteLine($"[DEBUG] Exception while loading navigation: {ex}");
                 Debugger.Break();
 #endif
                 MenuItems = [];
             }
         }
 
-        #endregion //Initialization
+        #endregion // Initialization
 
         //-----------------------------------------------------------
         #region Commands
         //-----------------------------------------------------------
 
+        /// <summary>
+        /// Sets the current heading label and updates TopBar VM.
+        /// </summary>
         [RelayCommand]
         private void SetHeader(string header)
         {
             if (string.IsNullOrWhiteSpace(header))
             {
 #if DEBUG
-                Debug.WriteLine("[DEBUG] Pokus o nastavení prázdného titulku.");
+                Debug.WriteLine("[DEBUG] Attempted to set an empty header.");
                 Debugger.Break();
 #endif
                 return;
@@ -156,13 +164,16 @@ namespace tOrder.Shell
             _topBarViewModel.Heading = header;
         }
 
+        /// <summary>
+        /// Adds an item to the breadcrumb navigation list.
+        /// </summary>
         [RelayCommand]
         private void AddBreadcrumbItem(string item)
         {
             if (string.IsNullOrWhiteSpace(item))
             {
 #if DEBUG
-                Debug.WriteLine("[DEBUG] Pokus o přidání prázdné breadcrumb položky.");
+                Debug.WriteLine("[DEBUG] Attempted to add an empty breadcrumb item.");
                 Debugger.Break();
 #endif
                 return;
@@ -171,44 +182,81 @@ namespace tOrder.Shell
             BreadcrumbItems.Add(item);
         }
 
-        #endregion //Commands
+        #endregion // Commands
+
+        //-----------------------------------------------------------
+        #region Layout Configuration (🧪 DEMO)
+        //-----------------------------------------------------------
+
+        /// <summary>
+        /// Clears the current header and breadcrumb list.
+        /// Useful when resetting layout state on logout or navigation reset.
+        /// </summary>
+        [RelayCommand]
+        private void ResetLayout()
+        {
+            CurrentHeader = string.Empty;
+            BreadcrumbItems.Clear();
+            SelectedPageTag = null;
+        }
+
+        /// <summary>
+        /// Sets both the selected navigation tag and updates the header.
+        /// Used when synchronizing view state from external events.
+        /// </summary>
+        [RelayCommand]
+        private void UpdateLayoutContext((string pageTag, string header) context)
+        {
+            SelectedPageTag = context.pageTag;
+            SetHeader(context.header);
+        }
+
+        /// <summary>
+        /// Sets predefined breadcrumb structure (e.g. after deep navigation).
+        /// </summary>
+        [RelayCommand]
+        private void SetBreadcrumbs(string[] segments)
+        {
+            BreadcrumbItems.Clear();
+            foreach (var segment in segments.Where(s => !string.IsNullOrWhiteSpace(s)))
+            {
+                BreadcrumbItems.Add(segment);
+            }
+        }
+
+        #endregion // Layout Configuration (🧪 DEMO)
+
     }
 
     //===================================================================
 }
-
 /*
-=========================================================================
-📘 LayoutViewModel – přehled funkcionality
-=========================================================================
+===============================================================================
+🧱 MainLayout – Visual Layout Shell (Navigation + Header + Content)
+===============================================================================
 
-Tento ViewModel obsluhuje hlavní layout aplikace, který kombinuje:
-- horní záhlaví (např. aktuální sekce, název stránky),
-- navigační menu s výběrem stránek (Sidebar),
-- správu aktivní stránky (SelectedPageTag).
+MainLayout represents the structural container for all core UI components
+within the tOrder application. It defines the persistent layout and includes:
 
-Zajišťuje:
-✔️ Dynamické načítání položek menu (`MenuItems`) ze `IDataService` (mock nebo budoucí API),
-✔️ Aktualizaci záhlaví pomocí `CurrentHeader` a příkazu `SetHeaderCommand`,
-✔️ Spolupráci s `TopBarViewModel` (např. pro zobrazení zpětné navigace, přihlášeného uživatele),
-✔️ Dynamické sestavování breadcrumb cesty (`BreadcrumbItems`), která se zobrazuje v horní liště,
-✔️ Respektování MVVM architektury – žádná UI logika, čisté datové řízení.
+- 🔹 Left navigation panel (NavigationView)
+- 🔹 Top header bar (TopBar)
+- 🔹 Central content frame (Frame) used for dynamic page injection
+- 🔹 Optional alert/notification areas
 
-Třída `NavigationItemModel` je součástí tohoto ViewModelu a používá se výhradně pro účely layout navigace.
+This layout is state-driven via MainLayoutVM, which handles:
+
+- Current header text (shown in TopBar)
+- Selected navigation item (Tag-based navigation)
+- Breadcrumb trail (observable list of string segments)
+- Initial population of menu items (from IDataService)
+
+The ViewModel integrates with shared services like navigation, notifications,
+and user context to provide reactive state for all layout-aware components.
+
+MainLayout does **not** contain business logic; it is solely responsible for
+presentation-level consistency and shell hosting.
+
+===============================================================================
 */
 
-/*
-=========================================================================
-⚠ Omezení LayoutViewModel – s čím záměrně nepočítáme
-=========================================================================
 
-✘ Nepodporuje víceúrovňové menu nebo dynamické submenu – pouze jednoduchý seznam.
-✘ Nespouští navigaci automaticky – pouze nastavuje vybrané tagy a záhlaví.
-✘ Nepodporuje persistenci stavu (např. zapamatování poslední stránky).
-✘ Nepodporuje úpravu nebo přidávání položek menu za běhu.
-✘ Třída `NavigationItemModel` je lokální – není určena pro sdílení mezi ViewModely nebo službami.
-✘ Zatím žádná podpora oprávnění/rolí – všechny položky menu jsou vždy viditelné.
-✘ Neřeší zobrazování ikon – to je úkolem View (např. přes `FontIcon.Glyph`).
-
-V případě potřeby bude v budoucnu vytvořen LayoutController nebo NavigationService pro složitější scénáře.
-*/

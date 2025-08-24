@@ -1,0 +1,121 @@
+<UserControl
+    x:Class="tOrder.UI.DokumentenContentC"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:tOrder.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:common="using:tOrder.Common"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+
+    mc:Ignorable="d"
+    d:DesignWidth="1024"
+    d:DesignHeight="768"
+
+    Width="Auto"
+    Height="Auto"
+    Background="Transparent"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+
+    common:DesignProperties.Control="DashboardContentViewControl"
+    common:DesignProperties.Position="Top"
+    common:DesignProperties.GroupTag="Layout"
+    common:DesignProperties.GroupSubTag="DashboardContent"
+    common:DesignProperties.DesignWidth="1024"
+    common:DesignProperties.DesignHeight="768">
+
+    <UserControl.Resources>
+        <common:BindingProxy x:Key="LayoutConfigProxy"
+                             x:Name="LayoutConfigProxy"
+                             Data="{x:Bind LayoutConfig, Mode=OneWay}" />
+    </UserControl.Resources>
+
+    <Grid Background="#F5F7FA" Padding="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Viewbox Grid.Row="0" x:Name="DashboardContentHeaderViewbox" Stretch="Uniform" Height="Auto" VerticalAlignment="Top">
+            <Grid x:Name="DashboardContentHeaderContainer"
+                  Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+                  Background="#F6F6F6">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,12,0">
+                    <!--    <Button Content="🗖" Width="32" Height="32" Margin="4,0"/>
+                    <Button Content="✖" Width="32" Height="32" Margin="4,0"/>-->
+                </StackPanel>
+
+                <!-- Levý sloupec – Seznam PDF souborů -->
+                <Grid Grid.Row="1" Grid.Column="0" Padding="0,16" MinHeight="400">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0"/>
+                    </Grid.RowDefinitions>
+                    <!-- Toolbar s ikonami a přepínači -->
+                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="0,8">
+                        <Button Content="📂 Local" Margin="4,0" />
+                        <Button Content="🌐 Server" Margin="4,0" Background="#CCC" />
+                    </StackPanel>
+
+                    <Border Grid.Row="1" Grid.Column="1" Background="White" CornerRadius="6" Padding="12">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ItemsControl x:Name="PdfList">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding}"
+                                                HorizontalAlignment="Stretch"
+                                                Margin="4"
+                                                Click="PdfButton_Click" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+
+                <!-- Pravý sloupec – PDF Viewer -->
+                <Grid Grid.Row="1" Grid.Column="1" Padding="0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="1" Grid.Column="1" Background="Gray" CornerRadius="6" Padding="16">
+                        <controls:WebView2 x:Name="PdfViewerControl"
+                                           HorizontalAlignment="Stretch"
+                                           VerticalAlignment="Stretch"
+                                           DefaultBackgroundColor="White"/>
+                    </Border>
+                </Grid>
+
+            </Grid>
+        </Viewbox>
+    </Grid>
+</UserControl>

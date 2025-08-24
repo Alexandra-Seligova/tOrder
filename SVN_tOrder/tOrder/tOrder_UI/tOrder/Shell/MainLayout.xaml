@@ -1,62 +1,132 @@
+<!--===================================================================
+    MainLayout (tOrder.Shell)
+
+    Primary application layout containing:
+    ┌────────────────────────────────────────────────────────────┐
+    │ 1. NavigationView (left-side, minimized)                   │
+    │ 2. TopBar (header section, scaled via Viewbox)             │
+    │ 3. ContentFrame (dynamic page content)                     │
+    └────────────────────────────────────────────────────────────┘
+    All visual parts are wrapped in scalable containers.
+====================================================================-->
 <UserControl
     x:Class="tOrder.Shell.MainLayout"
+    x:Name="MainLayoutControl"
+
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:tOrder.Shell"
+    xmlns:common="using:tOrder.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    d:DesignHeight="800"
-    d:DesignWidth="1200">
 
-    <Grid>
-        <!-- 🧭 Navigační menu (levý panel) -->
+    mc:Ignorable="d"
+    d:DesignWidth="1024"
+    d:DesignHeight="768"
+    d:DataContext="{d:DesignInstance Type=local:MainLayoutVM, IsDesignTimeCreatable=True}"
+
+    x:DataType="local:MainLayoutVM"
+
+    Width="Auto"
+    Height="Auto"
+    
+    Background="Transparent"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+
+    common:DesignProperties.Control="MainLayoutControl"
+    common:DesignProperties.Position="Top"
+    common:DesignProperties.GroupTag="Layout"
+    common:DesignProperties.GroupSubTag="Shell"
+    common:DesignProperties.DesignWidth="1024"
+    common:DesignProperties.DesignHeight="768">
+
+    <!--===========================================================
+        Resources: Layout binding proxy for scale and width config
+    =============================================================-->
+    <UserControl.Resources>
+        <common:BindingProxy x:Key="LayoutConfigProxy"
+                             x:Name="LayoutConfigProxy"
+                             Data="{x:Bind LayoutConfig, Mode=OneWay}" />
+    </UserControl.Resources>
+
+    <!--===========================================================
+        Main Grid: Wraps NavigationView with internal layout
+    =============================================================-->
+    <Grid x:Name="MainLayoutRoot">
+
+        <!--=======================================================
+            🧭 NavigationView (left minimal menu)
+        =========================================================-->
         <NavigationView
             x:Name="NavView"
-            IsTabStop="True"
             PaneDisplayMode="LeftMinimal"
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False"
             IsPaneOpen="False"
+            IsPaneToggleButtonVisible="False"
+            IsTabStop="True"
             SelectionChanged="NavigationView_SelectionChanged">
 
-            <!-- 📋 Položky hlavního menu -->
+            <!-- 📋 Main navigation menu items -->
             <NavigationView.MenuItems>
-                <NavigationViewItem IsSelected="True"
+                <NavigationViewItem x:Name="NavItem_OverviewByIPC"
+                                    IsSelected="True"
                                     Margin="0,12,0,0"
                                     Icon="Setting"
                                     Content="Übersicht per IPC"
                                     Tag="OverviewByIPC" />
-                <NavigationViewItem 
-                        Content="CapacityUnitDashboard"
-                        Tag="CapacityUnitDashboard" />
-
-
-                <NavigationViewItem Icon="Contact"
+                <NavigationViewItem x:Name="NavItem_CapacityUnitDashboard"
+                                    Content="CapacityUnitDashboard"
+                                    Tag="CapacityUnitDashboard" />
+                <NavigationViewItem x:Name="NavItem_OverviewByBetreiber"
+                                    Icon="Contact"
                                     Content="Übersicht per Betreiber"
                                     Tag="OverviewByBetreiber" />
-                <NavigationViewItem Icon="Switch"
+                <NavigationViewItem x:Name="NavItem_SchichtAnfang"
+                                    Icon="Switch"
                                     Content="Schicht Anfang"
                                     Tag="SchichtAnfang" />
-                <NavigationViewItem Icon="Cancel"
+                <NavigationViewItem x:Name="NavItem_SchichtEnde"
+                                    Icon="Cancel"
                                     Content="Schicht Ende"
                                     Tag="SchichtEnde" />
-                <NavigationViewItem Icon="Repair"
+                <NavigationViewItem x:Name="NavItem_Rusten"
+                                    Icon="Repair"
                                     Content="Rüsten"
                                     Tag="Rusten" />
             </NavigationView.MenuItems>
 
-            <!-- 📦 Hlavní vizuální část (TopBar + Page) -->
-            <Grid Background="{StaticResource BackgroundColor}">
+            <!--=======================================================
+                📦 Main content area – TopBar and dynamic Page content
+            =========================================================-->
+            <Grid x:Name="NavContentGrid"
+                  Background="{StaticResource BackgroundColor}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
+                    <!-- 🔝 TopBar section row -->
+                    <RowDefinition Height="Auto" x:Name="TopBarRow" />
+                    <!-- 📄 ContentFrame section row -->
+                    <RowDefinition Height="*" x:Name="ContentFrameRow" />
                 </Grid.RowDefinitions>
 
-                <!-- 🔝 Horní panel s titulkem, zvonečkem atd. -->
-                <local:TopBar Grid.Row="0" />
+                <!-- 🔝 TopBar section (scalable via Viewbox) -->
+                <Viewbox x:Name="TopBarViewbox"
+                         Stretch="Uniform"
+                         Height="Auto"
+                         Grid.Row="0"
+                         >
+                    <Grid x:Name="TopBarContainer"
+                          Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}">
+                        <Grid.RenderTransform>
+                            <ScaleTransform x:Name="TopBarScaleTransform"
+                                            ScaleX="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.LayoutScale}"
+                                            ScaleY="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.LayoutScale}" />
+                        </Grid.RenderTransform>
+                        <local:TopBar x:Name="TopBarControl" />
+                    </Grid>
+                </Viewbox>
 
-                <!-- 🧱 Obsahová oblast pro stránky (Page) -->
+                <!-- 📄 Dynamic page content (navigated Frame) -->
                 <Frame x:Name="ContentFrame"
                        Grid.Row="1"
                        HorizontalAlignment="Stretch"
@@ -65,3 +135,89 @@
         </NavigationView>
     </Grid>
 </UserControl>
+
+<!--
+=====================================================================
+📐 MainLayout.xaml – Visual Structure Overview
+=====================================================================
+
+This file defines the root layout structure of the tOrder application.
+It hosts the navigation shell and page content area and scales its top
+bar according to centralized layout configuration.
+
+🧩 Root Structure:
+────────────────────────────────────────────
+UserControl (MainLayout)
+└── Grid (MainLayoutRoot)
+    └── NavigationView (NavView)
+        └── Grid (content layout)
+            ├── Viewbox (TopBarViewbox)
+            │   └── Grid (TopBarContainer)
+            │       └── TopBar (UserControl)
+            └── Frame (ContentFrame)
+
+────────────────────────────────────────────
+
+📘 UI Element Breakdown:
+────────────────────────────────────────────
+
+1️⃣ Grid: MainLayoutRoot
+    - Root layout container for the entire shell.
+    - Hosts the NavigationView (left menu and content).
+
+2️⃣ NavigationView: NavView
+    - Left-hand menu (collapsed to minimal by default).
+    - MenuItems include major app navigation routes.
+    - Collapsible panel with icons and labels.
+
+3️⃣ Grid (inside NavView)
+    - Defines the layout of the visual area with 2 rows:
+        Row 0 → TopBarViewbox
+        Row 1 → ContentFrame
+
+4️⃣ Viewbox: TopBarViewbox
+    - Wraps and scales the top bar according to layout scale.
+    - Uses Stretch="Uniform" for proportional scaling.
+
+5️⃣ Grid: TopBarContainer
+    - Fixed-width container for TopBar UserControl.
+    - Width is bound to LayoutConfig.DesignWidth.
+    - RenderTransform.ScaleTransform is bound to LayoutConfig.LayoutScale.
+
+6️⃣ TopBar (UserControl)
+    - Displays heading, breadcrumbs, user session and actions.
+
+7️⃣ Frame: ContentFrame
+    - The main content area.
+    - Displays pages based on navigation selection.
+    - Stretch-aligned to always fill remaining space.
+
+────────────────────────────────────────────
+
+🧩 Data Binding:
+────────────────────────────────────────────
+
+- 🔄 `LayoutConfigProxy` is a `BindingProxy` resource providing access
+  to the `LayoutConfigVM` instance.
+
+- `TopBarContainer.Width` is bound to:
+      → `LayoutConfig.DesignWidth`
+
+- `TopBarContainer.ScaleTransform` is bound to:
+      → `LayoutConfig.LayoutScale`
+
+This allows global layout configuration to control sizing and scaling
+of the TopBar and any future components added similarly.
+
+────────────────────────────────────────────
+
+✅ Summary
+────────────────────────────────────────────
+
+This layout is fully modular and adaptive, utilizing centralized layout
+configuration (`LayoutConfigVM`) for width and scale. It separates shell
+logic (navigation and top bar) from content and allows per-page content
+to be loaded dynamically via `ContentFrame`.
+
+Designed for production-grade scaling and responsive layout behavior.
+-->

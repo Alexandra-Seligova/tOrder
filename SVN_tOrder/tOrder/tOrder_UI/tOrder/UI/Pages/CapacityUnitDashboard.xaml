@@ -1,30 +1,119 @@
+﻿<!--===================================================================
+    CapacityUnitDashboard Page (tOrder.UI)
+
+    Main dashboard page for Capacity Unit.
+    ┌────────────────────────────────────────────────────────────┐
+    │ 1. Header section (DashboardHeadC)                         │
+    │ 2. Tab navigation (TabSelectorView)                        │
+    │ 3. Content presenter (dynamic tab content)                 │
+    └────────────────────────────────────────────────────────────┘
+    All key UI parts are wrapped in Viewbox for scaling.
+====================================================================-->
+
 <Page
     x:Class="tOrder.UI.CapacityUnitDashboard"
+    x:Name="CapacityUnitDashboardPage"
+
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:tOrder.UI"
-    xmlns:content="using:tOrder.UI"
+    xmlns:common="using:tOrder.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
 
+    mc:Ignorable="d"
+    d:DesignWidth="1024"
+    d:DesignHeight="768"
+
+    Width="Auto"
+    Height="Auto"
+    Background="{ThemeResource BackgroundColor}"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+
+    common:DesignProperties.Control="CapacityUnitDashboardPage"
+    common:DesignProperties.Position="Top"
+    common:DesignProperties.GroupTag="Layout"
+    common:DesignProperties.GroupSubTag="Page"
+    common:DesignProperties.DesignWidth="1024"
+    common:DesignProperties.DesignHeight="768">
+
+    <!--===========================================================
+        Resources: Global color brushes for header + accents
+    =============================================================-->
     <Page.Resources>
+        <common:BindingProxy x:Key="LayoutConfigProxy"
+                       x:Name="LayoutConfigProxy"
+                       Data="{x:Bind LayoutConfig, Mode=OneWay}" />
+
         <SolidColorBrush x:Key="UnitGreenBrush" Color="#7FBE92"/>
         <SolidColorBrush x:Key="HeaderBlueBrush" Color="#708CB4"/>
     </Page.Resources>
 
-    <Grid Background="#F5F7FA">
+    <!--===========================================================
+        Main Grid: Two rows – header and content
+    =============================================================-->
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
             <!-- Header -->
-            <RowDefinition Height="Auto"/>
-            <!-- Tab Selector -->
-            <RowDefinition Height="*"/>
-            <!-- Main content -->
+            <RowDefinition Height="*"    />
+            <!-- Content -->
         </Grid.RowDefinitions>
 
-        <local:DashboardHeadC Grid.Row="0" />
-        <local:TabSelectorView x:Name="TabSelectorView" Grid.Row="1"/>
-        <ContentPresenter x:Name="DashboardContentPresenter" Grid.Row="2"/>
+        <!--=======================================================
+            🔝 Header Section: Dashboard summary / production info
+            Component: DashboardHeadC inside scalable container
+        =========================================================-->
+        <Viewbox x:Name="DashboardHeadViewbox"
+                 Stretch="Uniform"
+                 Height="Auto">
+            <Grid x:Name="DashboardHeadContainer"
+                   Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+                Height="68">
+                <Grid.RenderTransform>
+                    <ScaleTransform x:Name="DashboardHeadScaleTransform"
+                           ScaleX="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.LayoutScale}"
+                           ScaleY="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.LayoutScale}" />
+                </Grid.RenderTransform>
+                <local:DashboardHeadC />
+            </Grid>
+        </Viewbox>
+
+        <!--=======================================================
+            📊 Tab Navigation + Tab Content
+            Grid with two rows: tab bar and tab content
+        =========================================================-->
+        <Border Grid.Row="1" Padding="8">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <!-- Tab Selector -->
+                    <RowDefinition Height="*"    />
+                    <!-- Tab Content -->
+                </Grid.RowDefinitions>
+
+                <!-- 🔘 Tab Navigation Bar -->
+                <Viewbox x:Name="TabSelectorViewbox"
+                         Stretch="Uniform"
+                         Height="Auto">
+                    <Grid x:Name="TabSelectorContainer"
+                            Width="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.DesignWidth}"
+                            >
+                        <Grid.RenderTransform>
+                            <ScaleTransform x:Name="TabSelectorViewTransform"
+    ScaleX="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.LayoutScale}"
+    ScaleY="{Binding Source={StaticResource LayoutConfigProxy}, Path=Data.LayoutScale}" />
+
+                        </Grid.RenderTransform>
+                        <local:TabSelectorView x:Name="TabSelectorView" />
+                    </Grid>
+                </Viewbox>
+
+                <!-- 📥 Tab Content Presenter -->
+                <ContentPresenter x:Name="DashboardContentPresenter"
+                                  Grid.Row="1" />
+            </Grid>
+        </Border>
     </Grid>
 </Page>

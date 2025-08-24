@@ -10,9 +10,36 @@
     <None Update="App.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="Common_UI\PdfViewerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Pages\CapacityUnitDashboard\OeeContent\OeeContentC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Pages\CapacityUnitDashboard\InfoContent\InfoContentC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Pages\CapacityUnitDashboard\DokumentenContent\DokumentenContentC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Pages\CapacityUnitDashboard\ArbeitsplanContent\ArbeitsplanContentC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Pages\CapacityUnitDashboard\QualitatContent\QualitatContentC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Common_UI\Controls\ReadOnlyGridView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <None Update="Package.appxmanifest">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="ResolutionControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ResolutionWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UI\Pages\CapacityUnitDashboard\WerkzeugeContent\WerkzeugeContentC.xaml">
       <SubType>Designer</SubType>
     </Page>
