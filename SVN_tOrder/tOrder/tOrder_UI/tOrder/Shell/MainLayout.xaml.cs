@@ -4,7 +4,7 @@
 // $Revision:: 1                                                   $
 // $Date:: 2025-07-24 23:55:00 +0200 (čt, 24 čvc 2025)             $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     Code-behind for the MainLayout control. Hosts the NavigationView,
 //     manages page navigation, and updates UI shell state.
 //===================================================================

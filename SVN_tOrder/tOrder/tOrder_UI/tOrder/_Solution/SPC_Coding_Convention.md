@@ -1,7 +1,7 @@
-# ✨ SPC / tOrder – Kodovací konvence
+# ✨  / tOrder – Kodovací konvence
 
-> 🧭 Dokument pro sjednocení vývoje, čitelnosti a kvality architektury v rámci projektu SPC `tOrder`  
-> 📅 Verze: 1.0 | 📂 Kontext: `SPC2.Tools`, `tOrder`, `MVVM`, `WinUI3`
+> 🧭 Dokument pro sjednocení vývoje, čitelnosti a kvality architektury v rámci projektu  `tOrder`  
+> 📅 Verze: 1.0 | 📂 Kontext: `2.Tools`, `tOrder`, `MVVM`, `WinUI3`
 
 ---
 
@@ -71,7 +71,7 @@ Pro členění používej `#region` sekce:
 - 📚 `using` direktivy jsou ve 3 skupinách:
   1. `System.*`
   2. `Microsoft.*`
-  3. Projektové (`SPC2.*`)
+  3. Projektové (`2.*`)
   - uvnitř abecedně
 
 ---
@@ -263,7 +263,7 @@ Upravit
 public static int AsInt(this XElement el, string attr) =>
     (int?)el.Attribute(attr) ?? 0;
 Takhle budeš psát idiomaticky LINQ to XML v moderním stylu, přesně jak radí Scott Gu a Hanselman.
-📎 Dokument slouží jako referenční i výukový rámec pro tým vývoje SPC/tOrder. V případě nejasností nebo návrhů na rozšíření kontaktujte správce architektury projektu.
+📎 Dokument slouží jako referenční i výukový rámec pro tým vývoje /tOrder. V případě nejasností nebo návrhů na rozšíření kontaktujte správce architektury projektu.
 Shrnutí pravidel:
 Vždy používej (string), (int?), (DateTime?) na atribut/element, ne .Value, pokud nechceš řešit NRE.
 

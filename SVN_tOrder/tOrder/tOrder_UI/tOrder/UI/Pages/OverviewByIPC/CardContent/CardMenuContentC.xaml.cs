@@ -3,7 +3,7 @@
  *
  * tOrder Application
  *
- * Company      : SPC solutions s.r.o.
+ * Company      :  solutions s.r.o.
  * Author       : Alexandra Seligová
  *
  * Description  :

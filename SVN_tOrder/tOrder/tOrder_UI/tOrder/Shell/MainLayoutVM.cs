@@ -4,7 +4,7 @@
 // $Revision:: 5                                                   $
 // $Date:: 2025-07-24 23:32:00 +0200 (čt, 24 čvc 2025)             $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     ViewModel for the Layout control – heading, navigation, breadcrumbs
 //===================================================================
 

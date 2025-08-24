@@ -4,7 +4,7 @@
 // $Revision:: 1                                                    $
 // $Date:: 2025-07-25 01:50:00 +0200 (pá, 25 èvc 2025)              $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     Code-behind for ResolutionControl (layout preview, DPI testing)
 //===================================================================
 
@@ -42,7 +42,7 @@ public sealed partial class ResolutionControl : UserControl
     //-----------------------------------------------------------
 
     private const int MinDesignWidth = 600;
-    private const int MaxDesignWidth = 1400;
+    private const int MaxDesignWidth = 2600;
     private const int DefaultDesignWidth = 1024;
     private const int ZoomStep = 50;
 

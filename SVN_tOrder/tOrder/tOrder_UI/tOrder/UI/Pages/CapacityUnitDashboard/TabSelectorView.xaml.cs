@@ -4,7 +4,7 @@
 // $Revision:: 1                                                    $
 // $Date:: 2025-06-19 18:09:00 +0200 (èt, 19 èvn 2025)              $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     TabSelectorView – UI control for tab selection in CapacityUnitDashboard.
 //     Provides tab highlighting, switching, and event notification.
 //===================================================================

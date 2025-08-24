@@ -4,7 +4,7 @@
 // $Revision:: 1                                                    $
 // $Date:: 2025-08-16                                               $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     View for tab "Shift" in InfoContentC.
 //     Displays shift-level production statistics and internal defects
 //     in a two-column grid layout, with footer action buttons.

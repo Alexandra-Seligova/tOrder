@@ -16,7 +16,7 @@
 
 	<Properties>
 		<DisplayName>tOrder</DisplayName>
-		<PublisherDisplayName>SPC s.r.o</PublisherDisplayName>
+		<PublisherDisplayName> s.r.o</PublisherDisplayName>
 		<Logo>Assets\StoreLogo.png</Logo>
 	</Properties>
 

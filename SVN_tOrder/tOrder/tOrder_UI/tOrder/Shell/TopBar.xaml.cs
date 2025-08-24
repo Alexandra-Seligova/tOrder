@@ -4,7 +4,7 @@
 // $Revision:: 1                                                    $
 // $Date:: 2025-07-25 00:15:00 +0200 (pá, 25 čvc 2025)              $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     Code-behind for the TopBar control.
 //     Displays header, breadcrumbs, user info and notifications.
 //===================================================================

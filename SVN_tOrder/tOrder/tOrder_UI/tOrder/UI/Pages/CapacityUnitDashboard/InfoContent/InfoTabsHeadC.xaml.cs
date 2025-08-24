@@ -4,7 +4,7 @@
 // $Revision:: 2                                                    $
 // $Date:: 2025-08-15                                               $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     InfoTabsHeadC – UI control for sub-tab selection in InfoContentC.
 //     Provides tab highlighting, switching, and event notification.
 //===================================================================

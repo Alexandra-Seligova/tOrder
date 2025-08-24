@@ -59,7 +59,7 @@
                 </StackPanel>
 
                 <!-- Levý sloupec – Seznam PDF souborů -->
-                <Grid Grid.Row="1" Grid.Column="0" Padding="0,16" MinHeight="400">
+                <Grid Grid.Row="1" Grid.Column="0" Padding="0,16" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30"/>
                         <ColumnDefinition Width="*" />
@@ -94,7 +94,7 @@
                 </Grid>
 
                 <!-- Pravý sloupec – PDF Viewer -->
-                <Grid Grid.Row="1" Grid.Column="1" Padding="0,16">
+                <Grid Grid.Row="1" Grid.Column="1" Padding="0,16" MinHeight="660">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30"/>
                         <ColumnDefinition Width="*" />

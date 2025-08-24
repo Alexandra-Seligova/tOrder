@@ -4,7 +4,7 @@
 // $Revision:: 1                                                    $
 // $Date:: 2025-08-15 22:25:00 +0200 (èt, 15 srp 2025)              $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     InfoContentC – tab control for Info section in CapacityUnitDashboard.
 //     Hosts tab buttons (header) and content switching via SelectedTab.
 //===================================================================

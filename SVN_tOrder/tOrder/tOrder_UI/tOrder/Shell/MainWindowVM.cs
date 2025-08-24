@@ -4,7 +4,7 @@
 // $Revision:: 5                                                   $
 // $Date:: 2025-07-24 23:22:00 +0200 (čt, 24 čvc 2025)             $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     ViewModel for MainWindow – breadcrumb handling & UI commands
 //===================================================================
 

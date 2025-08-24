@@ -4,7 +4,7 @@
 // $Revision:: 1                                                    $
 // $Date:: 2025-07-25 01:10:00 +0200 (pá, 25 čvc 2025)              $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     Console utility class for debug output, font control,
 //     service dumping and interactive toolbar.
 //===================================================================

@@ -4,7 +4,7 @@
 // $Revision:: 1                                                    $
 // $Date:: 2025-06-19 18:25:00 +0200 (èt, 19 èvn 2025)              $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     CapacityUnitDashboard – main dashboard for capacity unit.
 //     Handles tab selection, loads tab content dynamically using
 //     TabSelectorView and ContentPresenter.

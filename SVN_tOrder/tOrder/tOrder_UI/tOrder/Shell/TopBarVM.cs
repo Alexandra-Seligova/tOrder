@@ -4,7 +4,7 @@
 // $Revision:: 6                                                   $
 // $Date:: 2025-07-25 00:44:00 +0200 (pá, 25 čvc 2025)             $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     ViewModel for TopBar – header, clock, notifications, alerts
 //===================================================================
 

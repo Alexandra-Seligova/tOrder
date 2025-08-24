@@ -4,7 +4,7 @@
 // $Revision:: 3                                                   $
 // $Date:: 2025-07-25 01:25:00 +0200 (pá, 25 čvc 2025)             $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     ViewModel and data model for layout configuration (window size,
 //     scale, DPI info, design resolution) with live validation.
 //===================================================================

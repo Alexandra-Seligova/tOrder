@@ -4,7 +4,7 @@
 // $Revision:: 5                                                    $
 // $Date:: 2025-07-25 02:10:00 +0200 (pá, 25 čvc 2025)              $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     Application Entry Point: WinUI 3 + Dependency Injection
 //===================================================================
 

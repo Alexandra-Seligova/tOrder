@@ -4,7 +4,7 @@
 // $Revision:: 7                                                   $
 // $Date:: 2025-07-24 23:05:00 +0200 (čt, 24 čvc 2025)             $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     Main application window shell. Hosts the MainLayout and 
 //     integrates LayoutConfigVM for responsive size handling.
 //===================================================================

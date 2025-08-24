@@ -4,7 +4,7 @@
 // $Revision:: 1                                                    $
 // $Date:: 2025-08-15 22:17:00 +0200 (čt, 15 srp 2025)              $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     Converts selected tab name to Visibility for conditional UI.
 //===================================================================
 

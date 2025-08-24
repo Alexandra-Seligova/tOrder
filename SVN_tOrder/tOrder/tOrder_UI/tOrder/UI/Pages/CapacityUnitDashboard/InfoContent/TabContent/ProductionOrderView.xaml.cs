@@ -4,7 +4,7 @@
 // $Revision:: 1                                                    $
 // $Date:: 2025-08-15 23:50:00 +0200 (čt, 15 srp 2025)              $
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     View for tab "Production Order" in InfoContentC.
 //     Displays core production order details with checkbox flags.
 //===================================================================

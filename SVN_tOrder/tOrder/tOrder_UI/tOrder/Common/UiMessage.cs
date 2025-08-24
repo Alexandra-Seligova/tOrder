@@ -4,7 +4,7 @@
 // $Revision:: 1
 // $Date:: 2025-06-05
 //===================================================================
-// Description: SPC - tOrder
+// Description:  - tOrder
 //     Generic UI Message for ViewModel-to-View communication
 //===================================================================
 
